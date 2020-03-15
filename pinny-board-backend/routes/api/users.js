@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const config = require("config");
 const jwt = require("jsonwebtoken");
+const auth = require("../../middleware/auth");
 
 //User Model
 var User = require("../../model/User");
@@ -10,7 +11,7 @@ var User = require("../../model/User");
 // @route GET api/users
 // @desc Register new user
 // @access Public
-router.post("/", (req, res) => {
+router.post("/", auth, (req, res) => {
   const { name, email, password } = req.body;
 
   //Validation

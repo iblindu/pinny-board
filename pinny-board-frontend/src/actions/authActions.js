@@ -37,7 +37,7 @@ export const loadUser = () => (dispatch, getState) => {
 
 //Register User
 //destructure the object right here
-export const register = ({ name, email, password }) => dispatch => {
+export const register = ({ name, email, password }) => (dispatch, getState) => {
   const config = {
     headers: {
       "Content-Type": "application/json"
@@ -48,7 +48,7 @@ export const register = ({ name, email, password }) => dispatch => {
   const body = JSON.stringify({ name, email, password });
 
   axios
-    .post("http://localhost:4000/api/users", body, config)
+    .post("http://localhost:4000/api/users", body, tokenConfig(getState))
     .then(res =>
       dispatch({
         type: REGISTER_SUCCESS,

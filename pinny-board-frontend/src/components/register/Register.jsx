@@ -12,14 +12,14 @@ class RegisterPage extends Component {
     name: "",
     email: "",
     password: "",
-    msg: null,
-    added: null
+    msg: null
   };
 
   static propTypes = {
     isAdded: PropTypes.bool,
     error: PropTypes.object.isRequired,
-    register: PropTypes.func.isRequired
+    register: PropTypes.func.isRequired,
+    clearErrors: PropTypes.func.isRequired
   };
 
   componentDidUpdate(prevProps) {
