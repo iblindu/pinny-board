@@ -1,4 +1,4 @@
 {
   "mongoURI": "mongodb+srv://iuliadb:pinnyboard@cluster1-ry4sc.mongodb.net/pinny-board?retryWrites=true&w=majority",
-  "jwtSecret": "sl_myJwt"
+  "jwtSecret": "pb_myJwt"
 }

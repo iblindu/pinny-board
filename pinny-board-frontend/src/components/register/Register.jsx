@@ -1,26 +1,29 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { Redirect } from "react-router";
 import { register } from "../../actions/authActions";
 import { clearErrors } from "../../actions/errorActions";
 import { Alert } from "reactstrap";
+import Navbar from "../Navbar";
 
 class RegisterPage extends Component {
   state = {
     name: "",
     email: "",
     password: "",
-    msg: null
+    msg: null,
+    added: null
   };
 
   static propTypes = {
-    isAuthenticated: PropTypes.bool,
+    isAdded: PropTypes.bool,
     error: PropTypes.object.isRequired,
     register: PropTypes.func.isRequired
   };
 
   componentDidUpdate(prevProps) {
-    const { error, isAuthenticated } = this.props;
+    const { error, isAdded } = this.props;
     if (error !== prevProps.error) {
       //Check for register error
       if (error.id === "REGISTER_FAIL") {
@@ -30,9 +33,8 @@ class RegisterPage extends Component {
       }
     }
 
-    //IfAuthenticated
-    if (isAuthenticated) {
-      console.log("It worked");
+    if (isAdded) {
+      console.log("IEEEI");
     }
   }
 
@@ -77,6 +79,7 @@ class RegisterPage extends Component {
       width: "50%",
       margin: "auto"
     };
+
     return (
       <div
         style={{
@@ -84,9 +87,7 @@ class RegisterPage extends Component {
           width: "100%"
         }}
       >
-        <div className="container" style={titleDivStyle}>
-          <h1 style={titleStyle}>microsera</h1>
-        </div>
+        <Navbar />
 
         <div className="container" style={formDivStyle}>
           <div className="col-md-auto">
@@ -143,8 +144,10 @@ class RegisterPage extends Component {
 }
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated,
+  isAdded: state.auth.isAdded,
   error: state.error
 });
 
-export default connect(mapStateToProps, { register })(RegisterPage);
+export default connect(mapStateToProps, { register, clearErrors })(
+  RegisterPage
+);

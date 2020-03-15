@@ -1,19 +1,42 @@
 import React, { Component } from "react";
-import axios from "axios";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { Redirect } from "react-router";
 import { login } from "../../actions/authActions";
+import { clearErrors } from "../../actions/errorActions";
+import { Alert } from "reactstrap";
+import Navbar from "../Navbar";
 
 class LoginPage extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    email: "",
+    password: "",
+    msg: null
+  };
 
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+  static propTypes = {
+    isAuthenticated: PropTypes.bool,
+    error: PropTypes.object.isRequired,
+    login: PropTypes.func.isRequired,
+    clearErrors: PropTypes.func.isRequired
+  };
 
-    this.state = {
-      username: "",
-      password: ""
-    };
+  componentDidUpdate(prevProps) {
+    const { error, isAuthenticated } = this.props;
+    if (error !== prevProps.error) {
+      //Check for register error
+      if (error.id === "LOGIN_FAIL") {
+        this.setState({ msg: error.msg.msg });
+      } else {
+        this.setState({ msg: null });
+      }
+    }
+
+    if (isAuthenticated) {
+      console.log("isAuthenticated");
+    }
   }
+
   onChange(e) {
     this.setState({
       [e.target.name]: e.target.value
@@ -23,12 +46,14 @@ class LoginPage extends Component {
   onSubmit(e) {
     e.preventDefault();
 
-    axios
-      .post("/auth/getToken", {
-        username: this.state.username,
-        password: this.state.password
-      })
-      .then(res => localStorage.setItem("cool-jwt", res.data));
+    const { email, password } = this.state;
+    const user = {
+      email,
+      password
+    };
+
+    //Attempt to login
+    this.props.login(user);
   }
 
   render() {
@@ -67,11 +92,12 @@ class LoginPage extends Component {
             <form name="form" onSubmit={e => this.onSubmit(e)}>
               <div className="form-group">
                 <input
-                  type="text"
+                  type="email"
                   className="form-control"
-                  name="username"
-                  placeholder="username"
-                  value={this.state.username}
+                  name="email"
+                  placeholder="email"
+                  id="email"
+                  value={this.state.email}
                   onChange={e => this.onChange(e)}
                 />
               </div>
@@ -81,6 +107,7 @@ class LoginPage extends Component {
                   className="form-control"
                   name="password"
                   placeholder="password"
+                  id="password"
                   value={this.state.password}
                   onChange={e => this.onChange(e)}
                 />
@@ -88,11 +115,14 @@ class LoginPage extends Component {
               <div className="form-group">
                 <input
                   type="submit"
-                  value="login"
+                  value="Login"
                   className="btn btn-outline-success"
                 />
               </div>
             </form>
+            {this.state.msg ? (
+              <Alert color="danger">{this.state.msg}</Alert>
+            ) : null}
           </div>
         </div>
       </div>
@@ -100,4 +130,9 @@ class LoginPage extends Component {
   }
 }
 
-export default LoginPage;
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated,
+  error: state.error
+});
+
+export default connect(mapStateToProps, { login, clearErrors })(LoginPage);
