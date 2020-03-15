@@ -1,27 +1,34 @@
-﻿require("rootpath")();
+require("rootpath")();
 const express = require("express");
+const mongoose = require("mongoose");
+const config = require("config");
 const app = express();
 const cors = require("cors");
-const bodyParser = require("body-parser");
-const jwt = require("_helpers/jwt");
-const errorHandler = require("_helpers/error-handler");
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 app.use(cors());
 
-// use JWT auth to secure the api
-app.use(jwt());
+//Bodyparser Middleware
+app.use(express.json());
 
-// api routes
-app.use("/users", require("./users/users.controller"));
+//DB Config
+const db = config.get("mongoURI");
 
-// global error handler
-app.use(errorHandler);
+//Connect to Mongo
+mongoose
+  .connect(db, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true
+  }) // Adding new mongo url parser
+  .then(() => console.log("MongoDB Connected..."))
+  .catch(err => console.log(err));
 
+//Use Routes
+app.use("/api/users", require("./routes/api/user"));
+app.use("/api/auth", require("./routes/api/auth"));
 // start server
 const port =
-  process.env.NODE_ENV === "production" ? process.env.PORT || 80 : 4000;
+  process.env.NODE_ENV === "production" ? process.env.PORT || 80 : 5000;
 const server = app.listen(port, function() {
   console.log("Server listening on port " + port);
 });
