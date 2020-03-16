@@ -5,7 +5,6 @@ import { Redirect } from "react-router";
 import { login } from "../../actions/authActions";
 import { clearErrors } from "../../actions/errorActions";
 import { Alert } from "reactstrap";
-import Navbar from "../Navbar";
 
 class LoginPage extends Component {
   state = {
@@ -31,10 +30,6 @@ class LoginPage extends Component {
         this.setState({ msg: null });
       }
     }
-
-    if (isAuthenticated) {
-      console.log("isAuthenticated");
-    }
   }
 
   onChange(e) {
@@ -57,6 +52,7 @@ class LoginPage extends Component {
   }
 
   render() {
+    //##########STYLE############//
     const titleDivStyle = {
       backgroundColor: "white",
       height: "50vh",
@@ -76,6 +72,8 @@ class LoginPage extends Component {
       width: "50%",
       margin: "auto"
     };
+
+    //#########COMPONENT##########//
     return (
       <div
         style={{

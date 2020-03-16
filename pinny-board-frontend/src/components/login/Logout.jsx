@@ -8,6 +8,7 @@ export class Logout extends Component {
   static propTypes = {
     logout: PropTypes.func.isRequired
   };
+
   render() {
     return (
       <Fragment>

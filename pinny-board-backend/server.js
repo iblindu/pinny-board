@@ -19,7 +19,7 @@ mongoose
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true
-  }) // Adding new mongo url parser
+  })
   .then(() => console.log("MongoDB Connected..."))
   .catch(err => console.log(err));
 

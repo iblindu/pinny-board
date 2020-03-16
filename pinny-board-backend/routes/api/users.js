@@ -10,7 +10,7 @@ var User = require("../../model/User");
 
 // @route GET api/users
 // @desc Register new user
-// @access Public
+// @access Private
 router.post("/", auth, (req, res) => {
   const { name, email, password } = req.body;
 

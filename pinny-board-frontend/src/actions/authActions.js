@@ -17,8 +17,7 @@ export const loadUser = () => (dispatch, getState) => {
   //this is gonna call the auth reducer case for USER_LOADING
   dispatch({ type: USER_LOADING });
 
-  //axios returns a promise
-  //we use axios to send the token to a certain endpoint
+  //axios returns a promise; we use axios to send the token to a certain endpoint
   axios
     .get("http://localhost:4000/api/auth/user", tokenConfig(getState))
     .then(res =>
@@ -69,12 +68,12 @@ export const register = ({ name, email, password }) => (dispatch, getState) => {
 export const tokenConfig = getState => {
   const token = getState().auth.token;
 
-  //we need to add the token to the headers. With axios we add an object and add a headers object inside of that.
   const config = {
     headers: {
       "Content-type": "application/json"
     }
   };
+
   //If token exists, add it to header 'x-auth-token' property
   if (token) {
     config.headers["x-auth-token"] = token;
@@ -83,7 +82,7 @@ export const tokenConfig = getState => {
   return config;
 };
 
-//logout action
+//Logout action
 export const logout = () => {
   return {
     type: LOGOUT_SUCCESS
@@ -113,7 +112,7 @@ export const login = ({ email, password }) => dispatch => {
       })
     )
     .catch(err => {
-      //have to import returnErrors above.  it takes in parameters of a message, a status and a apossible id (which we need to check for in RegisterModal before submitting).
+      //Have to import returnErrors above.  it takes in parameters of a message, a status and a apossible id (which we need to check for in RegisterModal before submitting).
       dispatch(
         returnErrors(err.response.data, err.response.status, "LOGIN_FAIL")
       );

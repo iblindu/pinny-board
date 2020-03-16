@@ -10,6 +10,7 @@ import Register from "./components/register/Register";
 
 import store from "./store";
 import { loadUser } from "./actions/authActions";
+import authReducer from "./reducers/authReducer";
 
 class App extends Component {
   componentDidMount() {
@@ -23,8 +24,8 @@ class App extends Component {
           <BrowserRouter>
             <Switch>
               <Route path="/" exact component={Login} />
-              <Route path="/home" exact component={Home} />
-              <Route path="/register" exact component={Register} />
+              <Route path="/home" component={Home} />
+              <Route path="/register" component={Register} />
             </Switch>
           </BrowserRouter>
         </div>

@@ -32,10 +32,6 @@ class RegisterPage extends Component {
         this.setState({ msg: null });
       }
     }
-
-    if (isAdded) {
-      console.log("IEEEI");
-    }
   }
 
   onChange(e) {
@@ -60,6 +56,7 @@ class RegisterPage extends Component {
   }
 
   render() {
+    //##########STYLE############//
     const titleDivStyle = {
       backgroundColor: "white",
       height: "50vh",
@@ -80,6 +77,7 @@ class RegisterPage extends Component {
       margin: "auto"
     };
 
+    //#########COMPONENT##########//
     return (
       <div
         style={{
@@ -87,55 +85,56 @@ class RegisterPage extends Component {
           width: "100%"
         }}
       >
-        <Navbar />
-
-        <div className="container" style={formDivStyle}>
-          <div className="col-md-auto">
-            <form name="form" onSubmit={e => this.onSubmit(e)}>
-              <div className="form-group">
-                <input
-                  type="text"
-                  className="form-control"
-                  name="name"
-                  placeholder="name"
-                  id="name"
-                  value={this.state.username}
-                  onChange={e => this.onChange(e)}
-                />
-              </div>
-              <div className="form-group">
-                <input
-                  type="email"
-                  className="form-control"
-                  name="email"
-                  placeholder="email"
-                  id="email"
-                  value={this.state.email}
-                  onChange={e => this.onChange(e)}
-                />
-              </div>
-              <div className="form-group">
-                <input
-                  type="password"
-                  className="form-control"
-                  name="password"
-                  placeholder="password"
-                  id="password"
-                  value={this.state.password}
-                  onChange={e => this.onChange(e)}
-                />
-              </div>
-              <div className="form-group">
-                <input
-                  type="submit"
-                  value="Register"
-                  className="btn btn-outline-success"
-                />
-              </div>
-            </form>
-            {this.state.msg ? (
-              <Alert color="danger">{this.state.msg}</Alert>
-            ) : null}
+        <div>
+          <Navbar />
+          <div className="container" style={formDivStyle}>
+            <div className="col-md-auto">
+              <form name="form" onSubmit={e => this.onSubmit(e)}>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="name"
+                    placeholder="name"
+                    id="name"
+                    value={this.state.username}
+                    onChange={e => this.onChange(e)}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="email"
+                    className="form-control"
+                    name="email"
+                    placeholder="email"
+                    id="email"
+                    value={this.state.email}
+                    onChange={e => this.onChange(e)}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="password"
+                    className="form-control"
+                    name="password"
+                    placeholder="password"
+                    id="password"
+                    value={this.state.password}
+                    onChange={e => this.onChange(e)}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="submit"
+                    value="Register"
+                    className="btn btn-outline-success"
+                  />
+                </div>
+              </form>
+              {this.state.msg ? (
+                <Alert color="danger">{this.state.msg}</Alert>
+              ) : null}
+            </div>
           </div>
         </div>
       </div>
