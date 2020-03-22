@@ -5,7 +5,7 @@ import { Redirect } from "react-router";
 import { register } from "../../actions/authActions";
 import { clearErrors } from "../../actions/errorActions";
 import { Alert } from "reactstrap";
-import Navbar from "../Navbar";
+import Navbar from "../bars/Navbar";
 
 class RegisterPage extends Component {
   state = {

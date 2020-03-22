@@ -1,29 +1,35 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+
 import { Redirect } from "react-router";
-import Navbar from "../Navbar";
 import { connect } from "react-redux";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
 import PropTypes from "prop-types";
+
+import Navbar from "../bars/Navbar";
+import Sidebar from "../bars/Sidebar";
+import Dashboard from "../dashboard/Dashboard";
+import Reports from "../reports/Reports";
 
 class HomePage extends Component {
   static propTypes = {
     isAuthenticated: PropTypes.bool
   };
-
   render() {
     if (!this.props.isAuthenticated) {
       return <Redirect to="/" />;
     } else
       return (
-        <div>
-          <Navbar />
-          <h1>Hi!</h1>
-          <p>You're logged in with React!!</p>
-
-          <p>
-            <Link to="/login">Logout</Link>
-          </p>
-        </div>
+        <React.Fragment>
+          <Router>
+            <Navbar />
+            <Sidebar />
+            <Switch>
+              <Route exact path="/dashboard" component={Dashboard} />
+              <Route path="/reports" component={Reports} />
+            </Switch>
+          </Router>
+        </React.Fragment>
       );
   }
 }
