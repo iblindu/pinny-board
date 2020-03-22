@@ -72,59 +72,62 @@ class LoginPage extends Component {
       width: "50%",
       margin: "auto"
     };
-
     //#########COMPONENT##########//
-    return (
-      <div
-        style={{
-          height: "100%",
-          width: "100%"
-        }}
-      >
-        <div className="container" style={titleDivStyle}>
-          <h1 style={titleStyle}>microsera</h1>
-        </div>
+    // {this.props.isAuthenticated ?
+    if (this.props.isAuthenticated) {
+      return <Redirect to="/home" />;
+    } else
+      return (
+        <div
+          style={{
+            height: "100%",
+            width: "100%"
+          }}
+        >
+          <div className="container" style={titleDivStyle}>
+            <h1 style={titleStyle}>microsera</h1>
+          </div>
 
-        <div className="container" style={formDivStyle}>
-          <div className="col-md-auto">
-            <form name="form" onSubmit={e => this.onSubmit(e)}>
-              <div className="form-group">
-                <input
-                  type="email"
-                  className="form-control"
-                  name="email"
-                  placeholder="email"
-                  id="email"
-                  value={this.state.email}
-                  onChange={e => this.onChange(e)}
-                />
-              </div>
-              <div className="form-group">
-                <input
-                  type="password"
-                  className="form-control"
-                  name="password"
-                  placeholder="password"
-                  id="password"
-                  value={this.state.password}
-                  onChange={e => this.onChange(e)}
-                />
-              </div>
-              <div className="form-group">
-                <input
-                  type="submit"
-                  value="Login"
-                  className="btn btn-outline-success"
-                />
-              </div>
-            </form>
-            {this.state.msg ? (
-              <Alert color="danger">{this.state.msg}</Alert>
-            ) : null}
+          <div className="container" style={formDivStyle}>
+            <div className="col-md-auto">
+              <form name="form" onSubmit={e => this.onSubmit(e)}>
+                <div className="form-group">
+                  <input
+                    type="email"
+                    className="form-control"
+                    name="email"
+                    placeholder="email"
+                    id="email"
+                    value={this.state.email}
+                    onChange={e => this.onChange(e)}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="password"
+                    className="form-control"
+                    name="password"
+                    placeholder="password"
+                    id="password"
+                    value={this.state.password}
+                    onChange={e => this.onChange(e)}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="submit"
+                    value="Login"
+                    className="btn btn-outline-success"
+                  />
+                </div>
+              </form>
+              {this.state.msg ? (
+                <Alert color="danger">{this.state.msg}</Alert>
+              ) : null}
+            </div>
           </div>
         </div>
-      </div>
-    );
+      );
   }
 }
 

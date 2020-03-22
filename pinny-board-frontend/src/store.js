@@ -1,12 +1,33 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import rootReducer from "./reducers";
+import { persistStore } from "redux-persist";
+// function saveToLocalStorage(state) {
+//   try {
+//     const serializedstate = JSON.stringify(state);
+//     localStorage.setItem("state", serializedstate);
+//   } catch (e) {
+//     console.log(e);
+//   }
+// }
 
-const initialState = {};
+// function loadFromLocalStorage() {
+//   try {
+//     const serializedstate = localStorage.getItems("state");
+//     if (serializedstate === null) return undefined;
+//     return JSON.parse(serializedstate);
+//   } catch (e) {
+//     console.log(e);
+//     return undefined;
+//   }
+// }
 
 const middleware = [thunk];
 
-const store = createStore(
+const initialState = {};
+// const persistedState = loadFromLocalStorage();
+
+export const store = createStore(
   rootReducer,
   initialState,
   compose(
@@ -15,4 +36,8 @@ const store = createStore(
   )
 );
 
-export default store;
+// store.subscribe(() => saveToLocalStorage(store.getState()));
+
+export const persistor = persistStore(store);
+
+export default { store, persistor };

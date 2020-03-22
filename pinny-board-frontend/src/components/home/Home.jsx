@@ -1,21 +1,37 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { Redirect } from "react-router";
 import Navbar from "../Navbar";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 class HomePage extends Component {
-  render() {
-    return (
-      <div className="col-md-6 col-md-offset-3">
-        <Navbar />
-        <h1>Hi!</h1>
-        <p>You're logged in with React!!</p>
+  static propTypes = {
+    isAuthenticated: PropTypes.bool
+  };
 
-        <p>
-          <Link to="/login">Logout</Link>
-        </p>
-      </div>
-    );
+  render() {
+    if (!this.props.isAuthenticated) {
+      return <Redirect to="/" />;
+    } else
+      return (
+        <div>
+          <Navbar />
+          <h1>Hi!</h1>
+          <p>You're logged in with React!!</p>
+
+          <p>
+            <Link to="/login">Logout</Link>
+          </p>
+        </div>
+      );
   }
 }
 
-export default HomePage;
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+// prettier-ignore
+//connect allows us to get state from redux into a react component, when we use connect we have to export default connect(mapStateToProps, {any actions we wanna use})(Original Class)
+export default connect(mapStateToProps)(HomePage);
