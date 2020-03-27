@@ -62,7 +62,7 @@ class LoginPage extends Component {
     };
 
     const titleStyle = {
-      color: "green",
+      color: "#1F6023",
       fontSize: "10vw",
       textAlign: "center"
     };

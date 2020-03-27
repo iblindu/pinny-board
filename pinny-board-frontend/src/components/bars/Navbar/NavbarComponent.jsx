@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { NavItem } from "reactstrap";
-import Logout from "../login/Logout";
+import Logout from "../../login/Logout";
 
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -14,16 +13,13 @@ class Navbar extends Component {
   };
 
   render() {
-    const { isAuthenticated, user } = this.props.auth;
+    const { user } = this.props.auth;
 
     return (
       <nav
         className="navbar navbar-expand-lg navbar-light bg-light"
         role="navigation"
       >
-        <a className="navbar-brand" href="/home">
-          Microsera
-        </a>
         <button
           className="navbar-toggler"
           type="button"
