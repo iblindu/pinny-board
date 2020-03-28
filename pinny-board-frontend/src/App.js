@@ -3,8 +3,7 @@ import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import Login from "./components/login/Login";
-import Home from "./components/home/Home";
-import Register from "./components/register/Register";
+import Main from "./components/main/Main";
 
 // import { loadUser } from "./actions/authActions";
 // import authReducer from "./reducers/authReducer";
@@ -16,8 +15,7 @@ class App extends Component {
         <BrowserRouter>
           <Switch>
             <Route path="/" exact component={Login} />
-            <Route path="/home" component={Home} />
-            <Route path="/register" component={Register} />
+            <Route path="/microsera" component={Main} />
           </Switch>
         </BrowserRouter>
       </div>

@@ -66,7 +66,7 @@ class SidebarComponent extends React.Component {
 
   onItemClicked = item => {
     this.setState({ expanded: false });
-    //return this.props.onChange(item);
+    return this.props.onChange(item);
   };
 
   isMobile = () => window.innerWidth <= 768;
@@ -103,27 +103,12 @@ class SidebarComponent extends React.Component {
           >
             <LogoComponent />
             <Column className={css(styles.menuItemList)}>
-              <MenuItemComponent
-                title="Home"
-                onClick={() => this.onItemClicked("Home")}
-                active={this.props.selectedItem === "Home"}
-                href="/home"
-              />
-              <MenuItemComponent
-                title="Dashboard"
-                onClick={() => this.onItemClicked("Dashboard")}
-                active={this.props.selectedItem === "Dashboard"}
-              />
-              <MenuItemComponent
-                title="Reports"
-                onClick={() => this.onItemClicked("Reports")}
-                active={this.props.selectedItem === "Reports"}
-              />
-              <MenuItemComponent
-                title="Contact"
-                onClick={() => this.onItemClicked("Contact")}
-                active={this.props.selectedItem === "Contact"}
-              />
+              <a href="/microsera" style={{ textDecoration: "none" }}>
+                <MenuItemComponent title="Dashboard" />
+              </a>
+              <a href="/microsera/reports" style={{ textDecoration: "none" }}>
+                <MenuItemComponent title="Reports" />
+              </a>
             </Column>
           </Column>
           {isMobile && expanded && (

@@ -7,13 +7,16 @@ import { StyleSheet, css } from "aphrodite";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import PropTypes from "prop-types";
-
-import Navbar from "../bars/Navbar/NavbarComponent";
+import NavbarComponent from "../bars/Navbar/NavbarComponent";
 import SidebarComponent from "../bars/Sidebar/SidebarComponent";
 import Dashboard from "../dashboard/Dashboard";
 import Reports from "../reports/Reports";
+import Register from "../users/Register";
+import ListOfUsers from "../users/ListOfUsers";
 
-class HomePage extends Component {
+class Main extends Component {
+  state = { selectedItem: "Dashboard" };
+
   static propTypes = {
     isAuthenticated: PropTypes.bool
   };
@@ -39,9 +42,9 @@ class HomePage extends Component {
       },
       mainBlock: {
         backgroundColor: "#F8FAF7",
-        paddingLeft: 60,
-        paddingRight: 30,
-        paddingTop: 15,
+        paddingLeft: 50,
+        paddingRight: 10,
+        paddingTop: 10,
         paddingBottom: 30
       }
     });
@@ -50,15 +53,22 @@ class HomePage extends Component {
       return <Redirect to="/" />;
     } else
       return (
-        <Row className={css(styles.container)}>
-          <SidebarComponent />
-          <Column flexGrow={1} className={css(styles.mainBlock)}>
-            <Navbar />
-            <div className={css(styles.content)}>
-              <span>Content</span>
-            </div>
-          </Column>
-        </Row>
+        <Router>
+          <Row className={css(styles.container)}>
+            <SidebarComponent />
+            <Column flexGrow={1} className={css(styles.mainBlock)}>
+              <NavbarComponent />
+              <div>
+                <Route path="/microsera" exact component={Dashboard} />
+                {/* <Route path="/edit/:id" exact component={EditExercise} /> */}
+                <Route path="/microsera/reports" exact component={Reports} />
+                <Route path="/microsera/users" exact component={ListOfUsers} />
+                <Route path="/microsera/users/new" exact component={Register} />
+                {/* <Route path="/user" exact component={CreateUser} /> */}
+              </div>
+            </Column>
+          </Row>
+        </Router>
       );
   }
 }
@@ -69,4 +79,4 @@ const mapStateToProps = state => ({
 
 // prettier-ignore
 //connect allows us to get state from redux into a react component, when we use connect we have to export default connect(mapStateToProps, {any actions we wanna use})(Original Class)
-export default connect(mapStateToProps)(HomePage);
+export default connect(mapStateToProps)(Main);

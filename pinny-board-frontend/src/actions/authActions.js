@@ -64,24 +64,6 @@ export const register = ({ name, email, password }) => (dispatch, getState) => {
     });
 };
 
-//Setup config/headers and token. Now anyttime we want to sent the token to a certain endpoint we simply send tokenConfig(getState)
-export const tokenConfig = getState => {
-  const token = getState().auth.token;
-
-  const config = {
-    headers: {
-      "Content-type": "application/json"
-    }
-  };
-
-  //If token exists, add it to header 'x-auth-token' property
-  if (token) {
-    config.headers["x-auth-token"] = token;
-  }
-
-  return config;
-};
-
 //Logout action
 export const logout = () => {
   return {
@@ -120,4 +102,22 @@ export const login = ({ email, password }) => dispatch => {
         type: LOGIN_FAIL
       });
     });
+};
+
+//Setup config/headers and token. Now anyttime we want to sent the token to a certain endpoint we simply send tokenConfig(getState)
+export const tokenConfig = getState => {
+  const token = getState().auth.token;
+
+  const config = {
+    headers: {
+      "Content-type": "application/json"
+    }
+  };
+
+  //If token exists, add it to header 'x-auth-token' property
+  if (token) {
+    config.headers["x-auth-token"] = token;
+  }
+
+  return config;
 };

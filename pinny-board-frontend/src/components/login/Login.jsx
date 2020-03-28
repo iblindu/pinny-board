@@ -73,9 +73,9 @@ class LoginPage extends Component {
       margin: "auto"
     };
     //#########COMPONENT##########//
-    // {this.props.isAuthenticated ?
+
     if (this.props.isAuthenticated) {
-      return <Redirect to="/home" />;
+      return <Redirect to="/microsera" />;
     } else
       return (
         <div

@@ -21,13 +21,12 @@ const styles = StyleSheet.create({
     height: 56,
     cursor: "pointer",
     ":hover": {
-      backgroundColor: "rgba(221,226,255, 0.08)"
+      backgroundColor: "#F8FAF7"
     },
     paddingLeft: 32,
     paddingRight: 32
   },
   title: {
-    fontFamily: "Muli",
     fontSize: 16,
     lineHeight: "20px",
     letterSpacing: "0.2px",
