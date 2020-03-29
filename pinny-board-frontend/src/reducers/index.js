@@ -4,16 +4,18 @@ import storage from "redux-persist/lib/storage";
 
 import errorReducer from "./errorReducer";
 import authReducer from "./authReducer";
+import microReducer from "./microReducer";
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["error", "auth"]
+  whitelist: ["error", "auth", "micro"]
 };
 
 const rootReducer = combineReducers({
   error: errorReducer,
-  auth: authReducer
+  auth: authReducer,
+  micro: microReducer
 });
 
 export default persistReducer(persistConfig, rootReducer);

@@ -26,6 +26,8 @@ mongoose
 //Use Routes
 app.use("/api/users", require("./routes/api/users"));
 app.use("/api/auth", require("./routes/api/auth"));
+app.use("/api/microsere", require("./routes/api/microsere"));
+
 // start server
 const port =
   process.env.NODE_ENV === "production" ? process.env.PORT || 80 : 4000;

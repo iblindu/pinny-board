@@ -62,7 +62,7 @@ class LoginPage extends Component {
     };
 
     const titleStyle = {
-      color: "green",
+      color: "#1F6023",
       fontSize: "10vw",
       textAlign: "center"
     };
@@ -73,9 +73,9 @@ class LoginPage extends Component {
       margin: "auto"
     };
     //#########COMPONENT##########//
-    // {this.props.isAuthenticated ?
+
     if (this.props.isAuthenticated) {
-      return <Redirect to="/home" />;
+      return <Redirect to="/microsera" />;
     } else
       return (
         <div

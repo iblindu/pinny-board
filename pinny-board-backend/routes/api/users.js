@@ -8,12 +8,11 @@ const auth = require("../../middleware/auth");
 //User Model
 var User = require("../../model/User");
 
-// @route GET api/users
+// @route POST api/users/add
 // @desc Register new user
 // @access Private
 router.post("/", auth, (req, res) => {
   const { name, email, password } = req.body;
-
   //Validation
   if (!name || !email || !password) {
     return res.status(400).json({ msg: "Please enter all fields" });
@@ -61,4 +60,12 @@ router.post("/", auth, (req, res) => {
   });
 });
 
+// @route GET api/users/all
+// @desc Register new user
+// @access Private
+router.route("/all").get((req, res) => {
+  User.find()
+    .then(users => res.json(users))
+    .catch(err => res.status(400).ljson("Error:" + err));
+});
 module.exports = router;
