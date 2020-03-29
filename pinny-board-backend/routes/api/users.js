@@ -13,7 +13,6 @@ var User = require("../../model/User");
 // @access Private
 router.post("/", auth, (req, res) => {
   const { name, email, password } = req.body;
-
   //Validation
   if (!name || !email || !password) {
     return res.status(400).json({ msg: "Please enter all fields" });
