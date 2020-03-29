@@ -1,5 +1,4 @@
 const express = require("express");
-const config = require("config");
 const router = express.Router();
 
 //use this for private routes
@@ -11,7 +10,7 @@ var Microsera = require("../../model/Microsere");
 // @route POST api/microsere/add
 // @desc Add New Microsera
 // @access Private
-router.post("/add", auth, (req, res) => {
+router.route("/add").post((req, res) => {
   const code = req.body.code;
   const type = req.body.type;
   const city = req.body.city;
@@ -21,7 +20,7 @@ router.post("/add", auth, (req, res) => {
 
   //Validation
   if (!code || !type || !city || !street || !number || !facility) {
-    return res;
+    return res.status(400).json({ msg: "Please enter all fields" });
   }
 
   //Check for existing microsera

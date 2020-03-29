@@ -57,7 +57,6 @@ class AddMicrosera extends Component {
     };
 
     //Atempt to add Micosera
-
     this.props.addMicrosera(newMicrosera);
   }
 
