@@ -71,7 +71,7 @@ class NavbarComponent extends Component {
                 Users
               </a>
               <div className="dropdown-divider"></div>
-              <a className="dropdown-item" href="#">
+              <a className="dropdown-item" href="/microsera">
                 Microsere
               </a>
             </div>

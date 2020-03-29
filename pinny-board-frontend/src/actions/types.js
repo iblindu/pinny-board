@@ -8,3 +8,5 @@ export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const REGISTER_FAIL = "REGISTER_FAIL";
 export const GET_ERRORS = "GET_ERRORS";
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
+export const MADDED_SUCCESS = "MADDED_SUCCESS";
+export const MADDED_FAIL = "MADDED_FAIL";

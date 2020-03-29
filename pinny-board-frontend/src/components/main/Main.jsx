@@ -13,6 +13,8 @@ import Dashboard from "../dashboard/Dashboard";
 import Reports from "../reports/Reports";
 import Register from "../users/Register";
 import ListOfUsers from "../users/ListOfUsers";
+import ListOfMicrosere from "../microsere/ListOfMicrosere";
+import AddMicrosera from "../microsere/AddMicrosera";
 
 class Main extends Component {
   state = { selectedItem: "Dashboard" };
@@ -59,8 +61,14 @@ class Main extends Component {
             <Column flexGrow={1} className={css(styles.mainBlock)}>
               <NavbarComponent />
               <div>
-                <Route path="/microsera" exact component={Dashboard} />
+                <Route path="/microsera" exact component={ListOfMicrosere} />
+                <Route path="/microsera/new" exact component={AddMicrosera} />
                 {/* <Route path="/edit/:id" exact component={EditExercise} /> */}
+                <Route
+                  path="/microsera/dashboard"
+                  exact
+                  component={Dashboard}
+                />
                 <Route path="/microsera/reports" exact component={Reports} />
                 <Route path="/microsera/users" exact component={ListOfUsers} />
                 <Route path="/microsera/users/new" exact component={Register} />

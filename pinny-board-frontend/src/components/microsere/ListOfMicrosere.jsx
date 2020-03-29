@@ -2,12 +2,16 @@ import React, { Component } from "react";
 import { StyleSheet, css } from "aphrodite/no-important";
 import axios from "axios";
 
-const Users = props => (
+const Microsere = props => (
   <div>
     <div class="card w-75">
       <div class="card-body">
-        <h5 class="card-title">{props.users.name}</h5>
-        <p class="card-text">{props.users.email}</p>
+        <h5 class="card-title">{props.microsere.address.facility}</h5>
+        <p class="card-text">
+          {props.microsere.address.street}, {props.microsere.address.number},{" "}
+          {props.microsere.address.city},{" "}
+        </p>
+        <p class="card-text">{props.microsere.type}</p>
         <a href="#" className="btn btn-outline-dark btn-sm">
           Edit
         </a>
@@ -17,29 +21,29 @@ const Users = props => (
   </div>
 );
 
-class ListOfUsers extends Component {
+class ListOfMicrosere extends Component {
   constructor(props) {
     super(props);
 
     // this.deleteUsers = this.deleteUsers.bind(this);
 
-    this.state = { users: [] };
+    this.state = { microsere: [] };
   }
 
   componentDidMount() {
     axios
-      .get("http://localhost:4000/api/users/all")
+      .get("http://localhost:4000/api/microsere/all")
       .then(response => {
-        this.setState({ users: response.data });
+        this.setState({ microsere: response.data });
       })
       .catch(error => {
         console.log(error);
       });
   }
 
-  usersList() {
-    return this.state.users.map(currentUser => {
-      return <Users users={currentUser} key={currentUser._id} />;
+  microsereList() {
+    return this.state.microsere.map(currentMicro => {
+      return <Microsere microsere={currentMicro} key={currentMicro._id} />;
     });
   }
   render() {
@@ -67,15 +71,15 @@ class ListOfUsers extends Component {
 
     return (
       <div className={css(styles.userDiv)}>
-        <div className={css(styles.title)}> Users </div>
+        <div className={css(styles.title)}> Microsere </div>
 
-        {this.usersList()}
+        {this.microsereList()}
 
-        <a href="/microsera/users/new" className="btn btn-outline-dark">
-          Add New User
+        <a href="/microsera/new" className="btn btn-outline-dark">
+          Add New Microsera
         </a>
       </div>
     );
   }
 }
-export default ListOfUsers;
+export default ListOfMicrosere;

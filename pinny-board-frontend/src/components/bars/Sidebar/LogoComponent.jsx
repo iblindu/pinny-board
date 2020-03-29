@@ -24,9 +24,7 @@ class LogoComponent extends Component {
         horizontal="center"
         vertical="center"
       >
-        <span className={css(styles.title)} href="/home">
-          microsera
-        </span>
+        <span className={css(styles.title)}>microsera</span>
       </Row>
     );
   }

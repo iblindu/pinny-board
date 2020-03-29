@@ -101,9 +101,12 @@ class SidebarComponent extends React.Component {
               )
             }}
           >
-            <LogoComponent />
+            <a href="/microsera" style={{ textDecoration: "none" }}>
+              <LogoComponent />
+            </a>
+
             <Column className={css(styles.menuItemList)}>
-              <a href="/microsera" style={{ textDecoration: "none" }}>
+              <a href="/microsera/dashboard" style={{ textDecoration: "none" }}>
                 <MenuItemComponent title="Dashboard" />
               </a>
               <a href="/microsera/reports" style={{ textDecoration: "none" }}>
