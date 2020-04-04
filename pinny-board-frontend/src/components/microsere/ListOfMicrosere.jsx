@@ -1,25 +1,22 @@
 import React, { Component } from "react";
 import { StyleSheet, css } from "aphrodite/no-important";
 import axios from "axios";
-
-const Microsere = props => (
-  <div>
-    <div class="card w-75">
-      <div class="card-body">
-        <h5 class="card-title">{props.microsere.address.facility}</h5>
-        <p class="card-text">
-          {props.microsere.address.street}, {props.microsere.address.number},{" "}
-          {props.microsere.address.city},{" "}
-        </p>
-        <p class="card-text">{props.microsere.type}</p>
-        <a href="#" className="btn btn-outline-dark btn-sm">
-          Edit
-        </a>
-      </div>
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { selectMicrosera } from "../../actions/microActions";
+import IconArrow from "../../assets/icon-arrow";
+export function Microsere(props) {
+  return (
+    <div>
+      <h5 className="card-title">{props.microsere.address.facility}</h5>
+      <p className="card-text">
+        {props.microsere.address.street}, {props.microsere.address.number},{" "}
+        {props.microsere.address.city},{" "}
+      </p>
+      <p className="card-text">{props.microsere.type}</p>
     </div>
-    <br />
-  </div>
-);
+  );
+}
 
 class ListOfMicrosere extends Component {
   constructor(props) {
@@ -29,6 +26,13 @@ class ListOfMicrosere extends Component {
 
     this.state = { microsere: [] };
   }
+
+  static propTypes = {
+    selectedMicrosera: PropTypes.bool,
+    error: PropTypes.object.isRequired,
+    selectMicrosera: PropTypes.func.isRequired,
+    clearErrors: PropTypes.func.isRequired
+  };
 
   componentDidMount() {
     axios
@@ -41,11 +45,35 @@ class ListOfMicrosere extends Component {
       });
   }
 
+  select(e) {
+    this.props.selectMicrosera(e.target.name);
+  }
   microsereList() {
     return this.state.microsere.map(currentMicro => {
-      return <Microsere microsere={currentMicro} key={currentMicro._id} />;
+      return (
+        <div class="col-sm-6">
+          <div className="card mb-4">
+            <div className="card-body">
+              <Microsere microsere={currentMicro} key={currentMicro._id} />
+              <a href="#" className="btn btn-outline-dark btn-sm">
+                Edit
+              </a>
+              {"   "}
+              <a
+                href="/microsera"
+                name={currentMicro.code}
+                className="btn btn-outline-dark btn-sm"
+                onClick={e => this.select(e)}
+              >
+                Go to dashboard {"  "} <IconArrow />
+              </a>
+            </div>
+          </div>
+        </div>
+      );
     });
   }
+
   render() {
     const styles = StyleSheet.create({
       userDiv: {
@@ -71,15 +99,18 @@ class ListOfMicrosere extends Component {
 
     return (
       <div className={css(styles.userDiv)}>
-        <div className={css(styles.title)}> Microsere </div>
-
-        {this.microsereList()}
-
-        <a href="/microsera/new" className="btn btn-outline-dark">
+        <h1 class="display-4">Microsere</h1>
+        <div className="row">{this.microsereList()}</div>
+        <a href="/home/new" className="btn btn-outline-dark">
           Add New Microsera
         </a>
       </div>
     );
   }
 }
-export default ListOfMicrosere;
+const mapStateToProps = state => ({
+  selectedMicrosera: state.micro.selectedMicrosera,
+  error: state.error
+});
+
+export default connect(mapStateToProps, { selectMicrosera })(ListOfMicrosere);

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { returnErrors } from "./errorActions";
 
-import { MADDED_SUCCESS, MADDED_FAIL } from "./types";
+import { MADDED_SUCCESS, MADDED_FAIL, MICRO_SELECTED } from "./types";
 
 //AddMicrosera
 //destructure the object right here
@@ -44,6 +44,19 @@ export const addMicrosera = ({
         type: MADDED_FAIL
       });
     });
+};
+
+//select Microsera
+
+export const selectMicrosera = code => dispatch => {
+  // Request body
+
+  console.log("CEVA");
+  console.log(code);
+  dispatch({
+    type: MICRO_SELECTED,
+    payload: code
+  });
 };
 
 export const tokenConfig = getState => {

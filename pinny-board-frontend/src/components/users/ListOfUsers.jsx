@@ -3,8 +3,8 @@ import { StyleSheet, css } from "aphrodite/no-important";
 import axios from "axios";
 
 const Users = props => (
-  <div>
-    <div class="card w-75">
+  <div class="col-sm-6">
+    <div className="card mb-4">
       <div class="card-body">
         <h5 class="card-title">{props.users.name}</h5>
         <p class="card-text">{props.users.email}</p>
@@ -13,7 +13,6 @@ const Users = props => (
         </a>
       </div>
     </div>
-    <br />
   </div>
 );
 
@@ -67,11 +66,9 @@ class ListOfUsers extends Component {
 
     return (
       <div className={css(styles.userDiv)}>
-        <div className={css(styles.title)}> Users </div>
-
-        {this.usersList()}
-
-        <a href="/microsera/users/new" className="btn btn-outline-dark">
+        <h1 class="display-4">Users</h1>
+        <div className="row">{this.usersList()}</div>
+        <a href="/home/users/new" className="btn btn-outline-dark">
           Add New User
         </a>
       </div>

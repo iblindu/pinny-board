@@ -10,3 +10,4 @@ export const GET_ERRORS = "GET_ERRORS";
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
 export const MADDED_SUCCESS = "MADDED_SUCCESS";
 export const MADDED_FAIL = "MADDED_FAIL";
+export const MICRO_SELECTED = "MICRO_SELECTED";

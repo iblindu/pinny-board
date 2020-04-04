@@ -4,21 +4,19 @@ import { Redirect } from "react-router";
 import { connect } from "react-redux";
 import { Column, Row } from "simple-flexbox";
 import { StyleSheet, css } from "aphrodite";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 
 import PropTypes from "prop-types";
 import NavbarComponent from "../bars/Navbar/NavbarComponent";
 import SidebarComponent from "../bars/Sidebar/SidebarComponent";
 import Dashboard from "../dashboard/Dashboard";
 import Reports from "../reports/Reports";
-import Register from "../users/Register";
-import ListOfUsers from "../users/ListOfUsers";
-import ListOfMicrosere from "../microsere/ListOfMicrosere";
-import AddMicrosera from "../microsere/AddMicrosera";
+// import Register from "../users/Register";
+// import ListOfUsers from "../users/ListOfUsers";
+// import ListOfMicrosere from "../microsere/ListOfMicrosere";
+// import AddMicrosera from "../microsere/AddMicrosera";
 
 class Main extends Component {
-  state = { selectedItem: "Dashboard" };
-
   static propTypes = {
     isAuthenticated: PropTypes.bool
   };
@@ -46,7 +44,7 @@ class Main extends Component {
         backgroundColor: "#F8FAF7",
         paddingLeft: 50,
         paddingRight: 10,
-        paddingTop: 10,
+        paddingTop: 0,
         paddingBottom: 30
       }
     });
@@ -55,28 +53,23 @@ class Main extends Component {
       return <Redirect to="/" />;
     } else
       return (
-        <Router>
+        <BrowserRouter>
           <Row className={css(styles.container)}>
             <SidebarComponent />
             <Column flexGrow={1} className={css(styles.mainBlock)}>
               <NavbarComponent />
               <div>
-                <Route path="/microsera" exact component={ListOfMicrosere} />
-                <Route path="/microsera/new" exact component={AddMicrosera} />
+                <Route path="/microsera" exact component={Dashboard} />
+
                 {/* <Route path="/edit/:id" exact component={EditExercise} /> */}
-                <Route
-                  path="/microsera/dashboard"
-                  exact
-                  component={Dashboard}
-                />
+
                 <Route path="/microsera/reports" exact component={Reports} />
-                <Route path="/microsera/users" exact component={ListOfUsers} />
-                <Route path="/microsera/users/new" exact component={Register} />
+
                 {/* <Route path="/user" exact component={CreateUser} /> */}
               </div>
             </Column>
           </Row>
-        </Router>
+        </BrowserRouter>
       );
   }
 }

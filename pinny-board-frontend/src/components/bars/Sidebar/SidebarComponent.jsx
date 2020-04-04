@@ -10,12 +10,12 @@ const styles = StyleSheet.create({
     cursor: "pointer",
     position: "absolute",
     left: 24,
-    top: 34
+    top: 10
   },
   container: {
     backgroundColor: "#ffffff",
     width: 255,
-    paddingTop: 32,
+    paddingTop: 30,
     height: "calc(100% - 32px)"
   },
   containerMobile: {
@@ -101,12 +101,12 @@ class SidebarComponent extends React.Component {
               )
             }}
           >
-            <a href="/microsera" style={{ textDecoration: "none" }}>
+            <a href="/home" style={{ textDecoration: "none" }}>
               <LogoComponent />
             </a>
 
             <Column className={css(styles.menuItemList)}>
-              <a href="/microsera/dashboard" style={{ textDecoration: "none" }}>
+              <a href="/microsera" style={{ textDecoration: "none" }}>
                 <MenuItemComponent title="Dashboard" />
               </a>
               <a href="/microsera/reports" style={{ textDecoration: "none" }}>

@@ -82,7 +82,7 @@ class RegisterPage extends Component {
       <div>
         <div className={css(styles.formDivStyle)}>
           <div className="col-md-auto">
-            <div className={css(styles.title)}> Add New User </div>
+            <h1 class="display-4">Add New User</h1>
 
             <form name="form" onSubmit={e => this.onSubmit(e)}>
               <div className="form-group">

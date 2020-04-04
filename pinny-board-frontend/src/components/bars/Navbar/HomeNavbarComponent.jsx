@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import IconBell from "../../../assets/icon-bell";
 import IconSettings from "../../../assets/icon-settings";
 
-class NavbarComponent extends Component {
+class HomeNavbarComponent extends Component {
   state = {};
 
   static propTypes = {
@@ -19,6 +19,9 @@ class NavbarComponent extends Component {
 
     return (
       <nav className="navbar navbar-expand-lg navbar-light" role="navigation">
+        <a class="navbar-brand" href="/home">
+          microsera
+        </a>
         <ul className="nav ml-auto">
           <li className="nav-item dropdown">
             <a
@@ -86,4 +89,4 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, null)(NavbarComponent);
+export default connect(mapStateToProps, null)(HomeNavbarComponent);

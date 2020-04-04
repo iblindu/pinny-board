@@ -1,3 +1,9 @@
 .a {
   color: green !important;
 }
+
+.navbar-brand {
+  color: green !important;
+  font-weight: bold;
+  font-size: 1.5em !important;
+}

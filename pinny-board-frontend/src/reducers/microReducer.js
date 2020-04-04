@@ -1,7 +1,8 @@
-import { MADDED_SUCCESS, MADDED_FAIL } from "../actions/types";
+import { MADDED_SUCCESS, MADDED_FAIL, MICRO_SELECTED } from "../actions/types";
 
 const initialState = {
-  isMicroAdded: null
+  isMicroAdded: null,
+  selectedMicro: null
 };
 
 export default function(state = initialState, action) {
@@ -15,6 +16,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         isMicroAdded: false
+      };
+    case MICRO_SELECTED:
+      return {
+        ...state,
+        selectedMicro: action.payload
       };
     default:
       return state;
