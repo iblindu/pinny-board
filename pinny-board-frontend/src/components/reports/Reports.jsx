@@ -1,21 +1,26 @@
 import React, { Component } from "react";
-import styled from "styled-components";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 class Reports extends Component {
   state = {};
+
+  static propTypes = {
+    micro: PropTypes.object.isRequired
+  };
   render() {
+    const { selectedMicro } = this.props.micro;
     return (
       <div>
-        <h2>About Page</h2>
-        <p>
-          State at ceiling lay on arms while you're using the keyboard so this
-          human feeds me.
-        </p>
-        <p>I am a kitty cat, sup, feed me, no cares in the world</p>
-        <p>Meow meow, I tell my human purr for no reason but to chase after</p>
+        <p>This is a paragraph and I am writing on the Reports</p>
+        <p>Avem selectata microsera {selectedMicro} </p>
       </div>
     );
   }
 }
+const mapStateToProps = state => ({
+  micro: state.micro,
+  error: state.error
+});
 
-export default Reports;
+export default connect(mapStateToProps)(Reports);

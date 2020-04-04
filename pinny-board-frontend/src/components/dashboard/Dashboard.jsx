@@ -1,16 +1,26 @@
 import React, { Component } from "react";
-import styled from "styled-components";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 class Dashboard extends Component {
   state = {};
+
+  static propTypes = {
+    micro: PropTypes.object.isRequired
+  };
   render() {
+    const { selectedMicro } = this.props.micro;
     return (
       <div>
-        <p>This is a paragraph and I am writing on the home page</p>
-        <p>This is another paragraph, hi hey hello whatsup yo</p>
+        <p>This is a paragraph and I am writing on the Dashboard</p>
+        <p>Avem selectata microsera {selectedMicro} </p>
       </div>
     );
   }
 }
+const mapStateToProps = state => ({
+  micro: state.micro,
+  error: state.error
+});
 
-export default Dashboard;
+export default connect(mapStateToProps)(Dashboard);
