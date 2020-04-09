@@ -8,12 +8,11 @@ import { BrowserRouter, Route } from "react-router-dom";
 
 import PropTypes from "prop-types";
 import HomeNavbarComponent from "../bars/Navbar/HomeNavbarComponent";
-import Dashboard from "../dashboard/Dashboard";
 import Register from "../users/Register";
 import ListOfUsers from "../users/ListOfUsers";
 import ListOfMicrosere from "../microsere/ListOfMicrosere";
 import AddMicrosera from "../microsere/AddMicrosera";
-import Main from "./Microsera";
+
 class Microsere extends Component {
   static propTypes = {
     isAuthenticated: PropTypes.bool

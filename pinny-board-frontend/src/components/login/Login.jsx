@@ -6,6 +6,8 @@ import { login } from "../../actions/authActions";
 import { clearErrors } from "../../actions/errorActions";
 import { Alert } from "reactstrap";
 
+import { Form } from "semantic-ui-react";
+
 class LoginPage extends Component {
   state = {
     email: "",
@@ -32,15 +34,9 @@ class LoginPage extends Component {
     }
   }
 
-  onChange(e) {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  }
+  handleChange = (e, { name, value }) => this.setState({ [name]: value });
 
-  onSubmit(e) {
-    e.preventDefault();
-
+  handleSubmit = () => {
     const { email, password } = this.state;
     const user = {
       email,
@@ -49,7 +45,7 @@ class LoginPage extends Component {
 
     //Attempt to login
     this.props.login(user);
-  }
+  };
 
   render() {
     //##########STYLE############//
@@ -73,7 +69,7 @@ class LoginPage extends Component {
       margin: "auto"
     };
     //#########COMPONENT##########//
-
+    const { email, password } = this.state;
     if (this.props.isAuthenticated) {
       return <Redirect to="/home" />;
     } else
@@ -90,37 +86,22 @@ class LoginPage extends Component {
 
           <div className="container" style={formDivStyle}>
             <div className="col-md-auto">
-              <form name="form" onSubmit={e => this.onSubmit(e)}>
-                <div className="form-group">
-                  <input
-                    type="email"
-                    className="form-control"
-                    name="email"
-                    placeholder="email"
-                    id="email"
-                    value={this.state.email}
-                    onChange={e => this.onChange(e)}
-                  />
-                </div>
-                <div className="form-group">
-                  <input
-                    type="password"
-                    className="form-control"
-                    name="password"
-                    placeholder="password"
-                    id="password"
-                    value={this.state.password}
-                    onChange={e => this.onChange(e)}
-                  />
-                </div>
-                <div className="form-group">
-                  <input
-                    type="submit"
-                    value="Login"
-                    className="btn btn-outline-success"
-                  />
-                </div>
-              </form>
+              <Form onSubmit={this.handleSubmit}>
+                <Form.Input
+                  placeholder="Email"
+                  name="email"
+                  value={email}
+                  onChange={this.handleChange}
+                />
+                <Form.Input
+                  placeholder="Password"
+                  name="password"
+                  type="password"
+                  value={password}
+                  onChange={this.handleChange}
+                />
+                <Form.Button content="Login" />
+              </Form>
               {this.state.msg ? (
                 <Alert color="danger">{this.state.msg}</Alert>
               ) : null}

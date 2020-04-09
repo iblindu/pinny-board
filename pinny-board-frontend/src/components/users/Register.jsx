@@ -1,16 +1,25 @@
 import React, { Component } from "react";
+import axios from "axios";
+import _ from "lodash";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { register } from "../../actions/authActions";
-import { clearErrors } from "../../actions/errorActions";
 import { Alert } from "reactstrap";
 import { StyleSheet, css } from "aphrodite/no-important";
+
+import { Dropdown } from "semantic-ui-react";
+import { Form } from "semantic-ui-react";
+
+import { register } from "../../actions/authActions";
+import { clearErrors } from "../../actions/errorActions";
 
 class RegisterPage extends Component {
   state = {
     name: "",
     email: "",
     password: "",
+    chosenMicrosere: [],
+    microsere: [],
+    role: "",
     msg: null
   };
 
@@ -21,8 +30,17 @@ class RegisterPage extends Component {
     clearErrors: PropTypes.func.isRequired
   };
 
+  componentDidMount() {
+    axios.get("http://localhost:4000/api/microsere/all").then(response => {
+      if (response.data.length > 0) {
+        this.setState({
+          microsere: response.data.map(microsera => microsera.code)
+        });
+      }
+    });
+  }
   componentDidUpdate(prevProps) {
-    const { error, isAdded } = this.props;
+    const { error } = this.props;
     if (error !== prevProps.error) {
       //Check for register error
       if (error.id === "REGISTER_FAIL") {
@@ -33,104 +51,105 @@ class RegisterPage extends Component {
     }
   }
 
-  onChange(e) {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  }
+  handleChange = (e, { name, value }) => this.setState({ [name]: value });
 
-  onSubmit(e) {
-    e.preventDefault();
-    const { name, email, password } = this.state;
-
-    //Create user object
+  handleSubmit = () => {
+    const { name, email, password, chosenMicrosere, role } = this.state;
+    // const microsere = JSON.stringify(chosenMicrosere);
     const newUser = {
       name,
       email,
-      password
+      password,
+      chosenMicrosere,
+      role
     };
-
-    //Atempt to register
     this.props.register(newUser);
-  }
+  };
 
   render() {
     //##########STYLE############//
     const styles = StyleSheet.create({
       formDivStyle: {
         margin: "auto",
-        padding: 30
-      },
-      title: {
-        fontStyle: "normal",
-        fontWeight: "bold",
-        fontSize: 24,
-        color: "#7c7c7d",
-        lineHeight: "30px",
-        letterSpacing: 0.3,
-        "@media (max-width: 768px)": {
-          marginLeft: 36
-        },
-        "@media (max-width: 468px)": {
-          fontSize: 20
-        }
+        padding: 30,
+        maxWidth: "800px"
       }
     });
+    const microDefinitions = this.state.microsere;
+    const microOptions = _.map(microDefinitions, microsera => ({
+      key: microsera,
+      text: microsera,
+      value: microsera
+    }));
+    const roleDefinitions = [
+      "administrator",
+      "client",
+      "urban-gardner",
+      "technical"
+    ];
+    const roleOptions = _.map(roleDefinitions, role => ({
+      key: role,
+      text: role,
+      value: role
+    }));
 
+    const { name, email, password, chosenMicrosere, role } = this.state;
     //#########COMPONENT##########//
     return (
-      <div>
-        <div className={css(styles.formDivStyle)}>
-          <div className="col-md-auto">
-            <h1 class="display-4">Add New User</h1>
+      <div className={css(styles.formDivStyle)}>
+        <h1 class="display-4">Add New User</h1>
+        <Form onSubmit={this.handleSubmit}>
+          <Form.Input
+            placeholder="Name"
+            name="name"
+            value={name}
+            onChange={this.handleChange}
+          />
+          <Form.Input
+            placeholder="Email"
+            name="email"
+            type="email"
+            value={email}
+            onChange={this.handleChange}
+          />
+          <Form.Input
+            placeholder="Password"
+            name="password"
+            type="password"
+            value={password}
+            onChange={this.handleChange}
+          />
 
-            <form name="form" onSubmit={e => this.onSubmit(e)}>
-              <div className="form-group">
-                <input
-                  type="text"
-                  className="form-control"
-                  name="name"
-                  placeholder="name"
-                  id="name"
-                  value={this.state.username}
-                  onChange={e => this.onChange(e)}
-                />
-              </div>
-              <div className="form-group">
-                <input
-                  type="email"
-                  className="form-control"
-                  name="email"
-                  placeholder="email"
-                  id="email"
-                  value={this.state.email}
-                  onChange={e => this.onChange(e)}
-                />
-              </div>
-              <div className="form-group">
-                <input
-                  type="password"
-                  className="form-control"
-                  name="password"
-                  placeholder="password"
-                  id="password"
-                  value={this.state.password}
-                  onChange={e => this.onChange(e)}
-                />
-              </div>
-              <div className="form-group">
-                <input
-                  type="submit"
-                  value="Register"
-                  className="btn btn-outline-success"
-                />
-              </div>
-            </form>
-            {this.state.msg ? (
-              <Alert color="danger">{this.state.msg}</Alert>
-            ) : null}
-          </div>
-        </div>
+          <Dropdown
+            placeholder="Role"
+            search
+            selection
+            name="role"
+            options={roleOptions}
+            value={role}
+            onChange={this.handleChange}
+          />
+
+          {role === "client" || role === "urban-gardner" ? (
+            <div>
+              <br />
+              <Dropdown
+                placeholder="Microsera"
+                fluid
+                multiple
+                selection
+                name="chosenMicrosere"
+                options={microOptions}
+                value={chosenMicrosere}
+                onChange={this.handleChange}
+              />
+            </div>
+          ) : null}
+          <br />
+          <br />
+          <Form.Button content="Submit" />
+        </Form>
+        {this.state.msg ? <Alert color="danger">{this.state.msg}</Alert> : null}
       </div>
     );
   }

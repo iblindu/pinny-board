@@ -51,31 +51,33 @@ class NavbarComponent extends Component {
               <IconBell />
             </a>
           </li>
-          <li className="nav-item dropdown">
-            <a
-              className="nav-link"
-              href="#"
-              id="navbarDropdown"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              <IconSettings />
-            </a>
-            <div
-              className="dropdown-menu dropdown-menu-right"
-              aria-labelledby="navbarDropdown"
-            >
-              <a className="dropdown-item" href="/home/users">
-                Users
+          {user.role === "administrator" ? (
+            <li className="nav-item dropdown">
+              <a
+                className="nav-link"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <IconSettings />
               </a>
-              <div className="dropdown-divider"></div>
-              <a className="dropdown-item" href="/home">
-                Microsere
-              </a>
-            </div>
-          </li>
+              <div
+                className="dropdown-menu dropdown-menu-right"
+                aria-labelledby="navbarDropdown"
+              >
+                <a className="dropdown-item" href="/home/users">
+                  Users
+                </a>
+                <div className="dropdown-divider"></div>
+                <a className="dropdown-item" href="/home">
+                  Microsere
+                </a>
+              </div>
+            </li>
+          ) : null}
         </ul>
       </nav>
     );

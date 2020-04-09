@@ -12,9 +12,9 @@ var User = require("../../model/User");
 // @desc Register new user
 // @access Private
 router.post("/", auth, (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, microsere, role } = req.body;
   //Validation
-  if (!name || !email || !password) {
+  if (!name || !email || !password || !role) {
     return res.status(400).json({ msg: "Please enter all fields" });
   }
 
@@ -27,7 +27,9 @@ router.post("/", auth, (req, res) => {
     const newUser = new User({
       name,
       email,
-      password
+      password,
+      microsere,
+      role
     });
 
     // Create salt & hash
@@ -49,7 +51,9 @@ router.post("/", auth, (req, res) => {
                 user: {
                   id: user.id,
                   name: user.name,
-                  email: user.email
+                  email: user.email,
+                  role: user.role,
+                  microsere: user.microsere
                 }
               });
             }

@@ -5,6 +5,9 @@ import LogoComponent from "./LogoComponent";
 import MenuItemComponent from "./MenuItemComponent";
 import IconBurger from "../../../assets/icon-burger";
 
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+
 const styles = StyleSheet.create({
   burgerIcon: {
     cursor: "pointer",
@@ -64,6 +67,10 @@ const styles = StyleSheet.create({
 class SidebarComponent extends React.Component {
   state = { expanded: false };
 
+  static propTypes = {
+    auth: PropTypes.object.isRequired
+  };
+
   onItemClicked = item => {
     this.setState({ expanded: false });
     return this.props.onChange(item);
@@ -83,6 +90,7 @@ class SidebarComponent extends React.Component {
   };
 
   render() {
+    const { user } = this.props.auth;
     const { expanded } = this.state;
     const isMobile = this.isMobile();
     return (
@@ -109,9 +117,24 @@ class SidebarComponent extends React.Component {
               <a href="/microsera" style={{ textDecoration: "none" }}>
                 <MenuItemComponent title="Dashboard" />
               </a>
-              <a href="/microsera/reports" style={{ textDecoration: "none" }}>
-                <MenuItemComponent title="Reports" />
-              </a>
+              {user.role === "administrator" || user.role === "technical" ? (
+                <a href="/microsera/reports" style={{ textDecoration: "none" }}>
+                  <MenuItemComponent title="Logging Reports" />
+                </a>
+              ) : null}
+              {user.role === "administrator" ||
+              user.role === "urban-gardner" ||
+              user.role === "client" ? (
+                <a href="#" style={{ textDecoration: "none" }}>
+                  <MenuItemComponent title="Sales Reports" />
+                </a>
+              ) : null}
+              {user.role === "administrator" ||
+              user.role === "urban-gardner" ? (
+                <a href="#" style={{ textDecoration: "none" }}>
+                  <MenuItemComponent title="Reporting Tool" />
+                </a>
+              ) : null}
             </Column>
           </Column>
           {isMobile && expanded && (
@@ -126,4 +149,8 @@ class SidebarComponent extends React.Component {
   }
 }
 
-export default SidebarComponent;
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(mapStateToProps, null)(SidebarComponent);

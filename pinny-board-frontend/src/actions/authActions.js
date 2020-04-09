@@ -36,16 +36,30 @@ export const loadUser = () => (dispatch, getState) => {
 
 //Register User
 //destructure the object right here
-export const register = ({ name, email, password }) => (dispatch, getState) => {
+export const register = ({ name, email, password, chosenMicrosere, role }) => (
+  dispatch,
+  getState
+) => {
   const config = {
     headers: {
       "Content-Type": "application/json"
     }
   };
 
+  var body = {
+    name: name,
+    email: email,
+    password: password,
+    microsere: [],
+    role: role
+  };
   // Request body
-  const body = JSON.stringify({ name, email, password });
 
+  for (var i in chosenMicrosere) {
+    var item = chosenMicrosere[i];
+    body.microsere.push(item);
+  }
+  body = JSON.stringify(body);
   axios
     .post("http://localhost:4000/api/users", body, tokenConfig(getState))
     .then(res =>

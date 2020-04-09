@@ -5,7 +5,8 @@ import { addMicrosera } from "../../actions/microActions";
 import { clearErrors } from "../../actions/errorActions";
 import { Alert } from "reactstrap";
 import { StyleSheet, css } from "aphrodite/no-important";
-import axios from "axios";
+import { Form } from "semantic-ui-react";
+
 class AddMicrosera extends Component {
   state = {
     code: "",
@@ -36,14 +37,9 @@ class AddMicrosera extends Component {
     }
   }
 
-  onChange(e) {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  }
+  handleChange = (e, { name, value }) => this.setState({ [name]: value });
 
-  onSubmit(e) {
-    e.preventDefault();
+  handleSubmit = () => {
     const { code, type, city, street, number, facility } = this.state;
 
     //Create user object
@@ -58,118 +54,63 @@ class AddMicrosera extends Component {
 
     //Atempt to add Micosera
     this.props.addMicrosera(newMicrosera);
-  }
+  };
 
   render() {
     //##########STYLE############//
     const styles = StyleSheet.create({
       formDivStyle: {
         margin: "auto",
-        padding: 30
-      },
-      title: {
-        fontStyle: "normal",
-        fontWeight: "bold",
-        fontSize: 24,
-        color: "#7c7c7d",
-        lineHeight: "30px",
-        letterSpacing: 0.3,
-        "@media (max-width: 768px)": {
-          marginLeft: 36
-        },
-        "@media (max-width: 468px)": {
-          fontSize: 20
-        }
+        padding: 30,
+        maxWidth: "800px"
       }
     });
-
+    const { code, type, city, street, number, facility } = this.state;
     //#########COMPONENT##########//
     return (
-      <div>
-        <div className={css(styles.formDivStyle)}>
-          <div className="col-md-auto">
-            <h1 class="display-4">Add New Microsera</h1>
+      <div className={css(styles.formDivStyle)}>
+        <h1 class="display-4">Add New Microsera</h1>
+        <Form onSubmit={this.handleSubmit}>
+          <Form.Input
+            placeholder="Code"
+            name="code"
+            value={code}
+            onChange={this.handleChange}
+          />
+          <Form.Input
+            placeholder="Type"
+            name="type"
+            value={type}
+            onChange={this.handleChange}
+          />
+          <Form.Input
+            placeholder="City"
+            name="city"
+            value={city}
+            onChange={this.handleChange}
+          />
+          <Form.Input
+            placeholder="Street"
+            name="street"
+            value={street}
+            onChange={this.handleChange}
+          />
+          <Form.Input
+            placeholder="Number"
+            name="number"
+            value={number}
+            onChange={this.handleChange}
+          />
+          <Form.Input
+            placeholder="Facility"
+            name="facility"
+            value={facility}
+            onChange={this.handleChange}
+          />
+          <Form.Button content="Add" />
+        </Form>
 
-            <form name="form" onSubmit={e => this.onSubmit(e)}>
-              <div className="form-group">
-                <input
-                  type="text"
-                  className="form-control"
-                  name="code"
-                  placeholder="code"
-                  id="code"
-                  value={this.state.code}
-                  onChange={e => this.onChange(e)}
-                />
-              </div>
-              <div className="form-group">
-                <input
-                  type="text"
-                  className="form-control"
-                  name="type"
-                  placeholder="type"
-                  id="type"
-                  value={this.state.type}
-                  onChange={e => this.onChange(e)}
-                />
-              </div>
-              <div className="form-group">
-                <input
-                  type="text"
-                  className="form-control"
-                  name="city"
-                  placeholder="city"
-                  id="city"
-                  value={this.state.city}
-                  onChange={e => this.onChange(e)}
-                />
-              </div>
-              <div className="form-group">
-                <input
-                  type="text"
-                  className="form-control"
-                  name="street"
-                  placeholder="street"
-                  id="street"
-                  value={this.state.street}
-                  onChange={e => this.onChange(e)}
-                />
-              </div>
-              <div className="form-group">
-                <input
-                  type="text"
-                  className="form-control"
-                  name="number"
-                  placeholder="number"
-                  id="number"
-                  value={this.state.number}
-                  onChange={e => this.onChange(e)}
-                />
-              </div>
-              <div className="form-group">
-                <input
-                  type="text"
-                  className="form-control"
-                  name="facility"
-                  placeholder="facility"
-                  id="facility"
-                  value={this.state.facility}
-                  onChange={e => this.onChange(e)}
-                />
-              </div>
-              <div className="form-group">
-                <input
-                  type="submit"
-                  value="Add"
-                  className="btn btn-outline-success"
-                />
-              </div>
-            </form>
-            {this.state.msg ? (
-              <Alert color="danger">{this.state.msg}</Alert>
-            ) : null}
-          </div>
-        </div>
+        {this.state.msg ? <Alert color="danger">{this.state.msg}</Alert> : null}
       </div>
     );
   }

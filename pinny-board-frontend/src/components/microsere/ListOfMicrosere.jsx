@@ -30,6 +30,7 @@ class ListOfMicrosere extends Component {
 
   static propTypes = {
     selectedMicrosera: PropTypes.bool,
+    auth: PropTypes.object.isRequired,
     error: PropTypes.object.isRequired,
     selectMicrosera: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired
@@ -50,28 +51,63 @@ class ListOfMicrosere extends Component {
     this.props.selectMicrosera(e.target.name);
   }
   microsereList() {
+    const { user } = this.props.auth;
     return this.state.microsere.map(currentMicro => {
-      return (
-        <div class="col-sm-6">
-          <div className="card mb-4">
-            <div className="card-body">
-              <Microsere microsere={currentMicro} key={currentMicro._id} />
-              <a href="#" className="btn btn-outline-dark btn-sm">
-                Edit
-              </a>
-              {"   "}
-              <a
-                href="/microsera"
-                name={currentMicro.code}
-                className="btn btn-outline-dark btn-sm"
-                onClick={e => this.select(e)}
-              >
-                Go to dashboard {"  "} <IconArrow />
-              </a>
+      if (user.role === "administrator" || user.role === "technical")
+        return (
+          <div class="col-sm-6">
+            <div className="card mb-4">
+              <div className="card-body">
+                <Microsere microsere={currentMicro} key={currentMicro._id} />
+                {user.role === "administrator" ? (
+                  <a href="#" className="btn btn-outline-dark btn-sm">
+                    Edit
+                  </a>
+                ) : null}
+
+                {"   "}
+                <a
+                  href="/microsera"
+                  name={currentMicro.code}
+                  className="btn btn-outline-dark btn-sm"
+                  onClick={e => this.select(e)}
+                >
+                  Go to dashboard {"  "} <IconArrow />
+                </a>
+              </div>
             </div>
           </div>
-        </div>
-      );
+        );
+      else {
+        for (var i in user.microsere) {
+          var item = user.microsere[i];
+          if (currentMicro.code === item)
+            return (
+              <div class="col-sm-6">
+                <div className="card mb-4">
+                  <div className="card-body">
+                    <Microsere
+                      microsere={currentMicro}
+                      key={currentMicro._id}
+                    />
+                    <a href="#" className="btn btn-outline-dark btn-sm">
+                      Edit
+                    </a>
+                    {"   "}
+                    <a
+                      href="/microsera"
+                      name={currentMicro.code}
+                      className="btn btn-outline-dark btn-sm"
+                      onClick={e => this.select(e)}
+                    >
+                      Go to dashboard {"  "} <IconArrow />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            );
+        }
+      }
     });
   }
 
@@ -81,36 +117,25 @@ class ListOfMicrosere extends Component {
         margin: "auto",
         padding: 30,
         maxWidth: "900px"
-      },
-      title: {
-        fontStyle: "normal",
-        fontWeight: "bold",
-        fontSize: 24,
-        color: "#7c7c7d",
-        lineHeight: "30px",
-        letterSpacing: 0.3,
-        "@media (max-width: 768px)": {
-          marginLeft: 36
-        },
-        "@media (max-width: 468px)": {
-          fontSize: 20
-        }
       }
     });
-
+    const { user } = this.props.auth;
     return (
       <div className={css(styles.userDiv)}>
         <h1 class="display-4">Microsere</h1>
         <div className="row">{this.microsereList()}</div>
-        <a href="/home/new" className="btn btn-outline-dark">
-          Add New Microsera
-        </a>
+        {user.role === "administrator" ? (
+          <a href="/home/new" className="btn btn-outline-dark">
+            Add New Microsera
+          </a>
+        ) : null}
       </div>
     );
   }
 }
 const mapStateToProps = state => ({
   selectedMicrosera: state.micro.selectedMicrosera,
+  auth: state.auth,
   error: state.error
 });
 

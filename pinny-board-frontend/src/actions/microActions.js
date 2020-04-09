@@ -51,8 +51,6 @@ export const addMicrosera = ({
 export const selectMicrosera = code => dispatch => {
   // Request body
 
-  console.log("CEVA");
-  console.log(code);
   dispatch({
     type: MICRO_SELECTED,
     payload: code
