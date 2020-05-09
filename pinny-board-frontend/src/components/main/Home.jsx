@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { Column, Row } from "simple-flexbox";
 import { StyleSheet, css } from "aphrodite";
 import { BrowserRouter, Route } from "react-router-dom";
-
 import PropTypes from "prop-types";
 import HomeNavbarComponent from "../bars/Navbar/HomeNavbarComponent";
 import Register from "../users/Register";

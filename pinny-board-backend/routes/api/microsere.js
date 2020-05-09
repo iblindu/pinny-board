@@ -43,12 +43,34 @@ router.route("/add").post((req, res) => {
 });
 
 // @route GET api/microsere/all
-// @desc Register new user
-// @access Private
+// @desc Get all microsere
+// @access Public
 router.route("/all").get((req, res) => {
   Microsera.find()
-    .then(users => res.json(users))
+    .then(microsere => res.json(microsere))
     .catch(err => res.status(400).ljson("Error:" + err));
+});
+
+// @route GET api/microsere/find
+// @desc Find details about microsera
+// @access Public
+router.route("/find").post((req, res) => {
+  code = req.body.code;
+  Microsera.findOne({ code })
+    .then(microsera => {
+      console.log(microsera);
+      res.json({
+        selectedMicro: {
+          code: microsera.code,
+          type: microsera.type,
+          city: microsera.address.city,
+          street: microsera.address.street,
+          number: microsera.address.number,
+          facility: microsera.address.facility
+        }
+      });
+    })
+    .catch(err => res.status(400).json("Error:" + err));
 });
 
 module.exports = router;

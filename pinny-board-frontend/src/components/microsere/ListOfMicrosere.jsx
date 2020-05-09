@@ -4,6 +4,7 @@ import axios from "axios";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { selectMicrosera } from "../../actions/microActions";
+import { clearAll } from "../../actions/microActions";
 import IconArrow from "../../assets/icon-arrow";
 
 export function Microsere(props) {
@@ -29,14 +30,16 @@ class ListOfMicrosere extends Component {
   }
 
   static propTypes = {
-    selectedMicrosera: PropTypes.bool,
     auth: PropTypes.object.isRequired,
     error: PropTypes.object.isRequired,
+    micro: PropTypes.object.isRequired,
+    clearAll: PropTypes.func.isRequired,
     selectMicrosera: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired
   };
 
   componentDidMount() {
+    this.props.clearAll();
     axios
       .get("http://localhost:4000/api/microsere/all")
       .then(response => {
@@ -50,6 +53,7 @@ class ListOfMicrosere extends Component {
   select(e) {
     this.props.selectMicrosera(e.target.name);
   }
+
   microsereList() {
     const { user } = this.props.auth;
     return this.state.microsere.map(currentMicro => {
@@ -134,9 +138,11 @@ class ListOfMicrosere extends Component {
   }
 }
 const mapStateToProps = state => ({
-  selectedMicrosera: state.micro.selectedMicrosera,
+  micro: state.micro,
   auth: state.auth,
   error: state.error
 });
 
-export default connect(mapStateToProps, { selectMicrosera })(ListOfMicrosere);
+export default connect(mapStateToProps, { selectMicrosera, clearAll })(
+  ListOfMicrosere
+);

@@ -40,12 +40,6 @@ export const register = ({ name, email, password, chosenMicrosere, role }) => (
   dispatch,
   getState
 ) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json"
-    }
-  };
-
   var body = {
     name: name,
     email: email,
