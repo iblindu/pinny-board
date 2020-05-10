@@ -48,7 +48,7 @@ router.route("/add").post((req, res) => {
 router.route("/all").get((req, res) => {
   Microsera.find()
     .then(microsere => res.json(microsere))
-    .catch(err => res.status(400).ljson("Error:" + err));
+    .catch(err => res.status(400).json("Error:" + err));
 });
 
 // @route GET api/microsere/find

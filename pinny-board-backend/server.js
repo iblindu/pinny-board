@@ -27,6 +27,7 @@ mongoose
 app.use("/api/users", require("./routes/api/users"));
 app.use("/api/auth", require("./routes/api/auth"));
 app.use("/api/microsere", require("./routes/api/microsere"));
+app.use("/api/connect", require("./routes/api/connect"));
 
 // start server
 const port =
