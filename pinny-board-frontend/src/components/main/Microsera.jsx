@@ -18,7 +18,8 @@ import Reports from "../reports/Reports";
 
 class Main extends Component {
   static propTypes = {
-    isAuthenticated: PropTypes.bool
+    isAuthenticated: PropTypes.bool,
+    micro: PropTypes.object.isRequired
   };
 
   componentDidMount() {
@@ -75,6 +76,7 @@ class Main extends Component {
 }
 
 const mapStateToProps = state => ({
+  micro: state.micro,
   isAuthenticated: state.auth.isAuthenticated
 });
 

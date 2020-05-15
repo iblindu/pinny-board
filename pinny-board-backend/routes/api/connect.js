@@ -3,7 +3,7 @@ const router = express.Router();
 var mqtt = require("mqtt");
 
 //------ MQTT broker settings and topics
-// const broker = "broker.shiftr.io";
+// const broker = "mqtt://mqtt-ardu-micro:f4d2cd04d09866df@broker.shiftr.io";
 // const mqttUserName = "mqtt-ardu-micro";
 // const mqttPass = "f4d2cd04d09866df";
 const min = "1000000000";
@@ -39,9 +39,7 @@ router.route("/gettemp").post((req, res) => {
       var temperature = message.toString();
       console.log(temperature);
       res.json({
-        data: {
-          temperature: temperature
-        }
+        temperature: temperature
       });
     }
   });
@@ -69,9 +67,7 @@ router.route("/gethum").post((req, res) => {
       var humidity = message.toString();
       console.log(humidity);
       res.json({
-        data: {
-          humidity: humidity
-        }
+        humidity: humidity
       });
     }
   });

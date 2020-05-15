@@ -51,7 +51,7 @@ router.route("/all").get((req, res) => {
     .catch(err => res.status(400).json("Error:" + err));
 });
 
-// @route GET api/microsere/find
+// @route POST api/microsere/find
 // @desc Find details about microsera
 // @access Public
 router.route("/find").post((req, res) => {
@@ -60,14 +60,12 @@ router.route("/find").post((req, res) => {
     .then(microsera => {
       console.log(microsera);
       res.json({
-        selectedMicro: {
-          code: microsera.code,
-          type: microsera.type,
-          city: microsera.address.city,
-          street: microsera.address.street,
-          number: microsera.address.number,
-          facility: microsera.address.facility
-        }
+        code: microsera.code,
+        type: microsera.type,
+        city: microsera.address.city,
+        street: microsera.address.street,
+        number: microsera.address.number,
+        facility: microsera.address.facility
       });
     })
     .catch(err => res.status(400).json("Error:" + err));

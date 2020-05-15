@@ -24,10 +24,12 @@ export default function(state = initialState, action) {
       };
     case MICRO_SELECTED:
       return {
+        ...state,
         selectedMicro: action.payload
       };
     case CLEAR_MICRO:
       return {
+        ...state,
         selectedMicro: null,
         isMicroAdded: null
       };

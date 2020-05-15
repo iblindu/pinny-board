@@ -53,24 +53,28 @@ export const addMicrosera = ({
 
 //select Microsera
 export const selectMicrosera = code => (dispatch, getState) => {
-  const body = JSON.stringify({ code });
-  axios
-    .post(
-      "http://localhost:4000/api/microsere/find",
-      body,
-      tokenConfig(getState)
-    )
-    .then(res =>
-      dispatch({
-        type: MICRO_SELECTED,
-        payload: res.data
-      })
-    )
-    .catch(err => {
-      //Have to import returnErrors above.  it takes in parameters of a message, a status and a apossible id (which we need to check for in RegisterModal before submitting).
-      dispatch(returnErrors(err.response.data, err.response.status));
-    });
+  dispatch({
+    type: MICRO_SELECTED,
+    payload: code
+  });
 };
+
+// //find Microsera
+// export const findMicrosera = code => getState => {
+//   const body = JSON.stringify({ code });
+//   axios
+//     .post(
+//       "http://localhost:4000/api/microsere/find",
+//       body,
+//       tokenConfig(getState)
+//     )
+//     .then(response => {
+//       console.log(response.data);
+//     })
+//     .catch(error => {
+//       console.log(error);
+//     });
+// };
 
 //Clear state
 export const clearAll = () => {
