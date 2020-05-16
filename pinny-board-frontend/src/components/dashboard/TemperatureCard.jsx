@@ -36,13 +36,16 @@ class TemperatureCard extends Component {
   }
   render() {
     return (
-      <div className="card" style={{ width: "15rem" }}>
+      <div
+        className="card bg-transparent"
+        style={{ width: "15rem", border: "none" }}
+      >
         <img
           src={require("../../assets/temperature.png")}
           className="card-img-top"
           style={{}}
         ></img>
-        <div class="card-body">
+        <div className="card-body d-flex justify-content-center">
           <h1 className="display-3 ">{this.state.temperature}°C</h1>
         </div>
       </div>

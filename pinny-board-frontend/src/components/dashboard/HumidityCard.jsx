@@ -36,13 +36,17 @@ class HumidityCard extends Component {
   }
   render() {
     return (
-      <div className="card" style={{ width: "15rem" }}>
+      // <div className="card bg-transparent" style={{ border: "none" }}>
+      <div
+        className="card bg-transparent"
+        style={{ width: "15rem", border: "none" }}
+      >
         <img
           src={require("../../assets/humidity.png")}
           className="card-img-top"
           style={{}}
         ></img>
-        <div class="card-body">
+        <div className="card-body d-flex justify-content-center">
           <h1 className="display-3 ">{this.state.humidity}%</h1>
         </div>
       </div>
