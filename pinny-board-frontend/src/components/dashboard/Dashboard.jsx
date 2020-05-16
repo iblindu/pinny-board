@@ -5,12 +5,20 @@ import axios from "axios";
 import { Card } from "semantic-ui-react";
 import TemperatureCard from "./TemperatureCard";
 import HumidityCard from "./HumidityCard";
+import SwitchComponent from "./Switch";
 
 class Dashboard extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
-    this.state = { street: "", number: "", city: "", facility: "" };
+    this.state = {
+      street: "",
+      number: "",
+      city: "",
+      facility: "",
+      code: "",
+      type: ""
+    };
   }
 
   static propTypes = {
@@ -34,7 +42,9 @@ class Dashboard extends Component {
           street: response.data.street,
           number: response.data.number,
           city: response.data.city,
-          facility: response.data.facility
+          facility: response.data.facility,
+          code: response.data.code,
+          type: response.data.type
         });
       })
       .catch(error => {
@@ -55,13 +65,14 @@ class Dashboard extends Component {
         <div>
           <div>
             <h1 className="display-4">{this.state.facility}</h1>
-            <p>
-              {this.state.city}, {this.state.street}, {this.state.number}
+            <p className="font-weight-lighter">
+              {this.state.city}, {this.state.street}, {this.state.number},{" "}
+              {this.state.type}
             </p>
           </div>
           <br />
           <br />
-          <div col-sm-6>
+          <div>
             <Card.Group>
               <div class="col-sm-4">
                 <TemperatureCard />
@@ -70,6 +81,14 @@ class Dashboard extends Component {
                 <HumidityCard />
               </div>
             </Card.Group>
+          </div>
+          <br />
+          <br />
+          <div col-sm-6>
+            <SwitchComponent
+              type={this.state.type}
+              code={this.state.code}
+            ></SwitchComponent>
           </div>
         </div>
       );

@@ -26,6 +26,7 @@
     "react-scripts": "^3.4.0",
     "react-sidebar": "^3.0.2",
     "react-strap": "0.0.1",
+    "react-switch": "^5.0.1",
     "react-transition-group": "^4.3.0",
     "reactstrap": "^8.4.1",
     "redux": "^4.0.5",

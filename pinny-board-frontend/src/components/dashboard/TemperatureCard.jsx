@@ -36,22 +36,16 @@ class TemperatureCard extends Component {
   }
   render() {
     return (
-      <Card fluid color="teal">
-        <Card.Content>
-          <div className="row">
-            <div className="col-sm-6">
-              <h1 className="display-3 ">{this.state.temperature}°C</h1>
-            </div>
-            <div className="col-sm-4">
-              <img
-                src={require("../../assets/temperature.png")}
-                height="100vh"
-                widht="100vw"
-              ></img>
-            </div>
-          </div>
-        </Card.Content>
-      </Card>
+      <div className="card" style={{ width: "15rem" }}>
+        <img
+          src={require("../../assets/temperature.png")}
+          className="card-img-top"
+          style={{}}
+        ></img>
+        <div class="card-body">
+          <h1 className="display-3 ">{this.state.temperature}°C</h1>
+        </div>
+      </div>
     );
   }
 }

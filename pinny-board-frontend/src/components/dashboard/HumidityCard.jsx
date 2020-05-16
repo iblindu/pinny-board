@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { connect } from "react-redux";
-import { Card, Grid, Divider } from "semantic-ui-react";
 
 class HumidityCard extends Component {
   constructor(props) {
@@ -37,22 +36,16 @@ class HumidityCard extends Component {
   }
   render() {
     return (
-      <Card fluid color="teal">
-        <Card.Content>
-          <div className="row">
-            <div className="col-sm-6 ">
-              <h1 className="display-3 ">{this.state.humidity}%</h1>
-            </div>
-            <div className="col-sm-4 ">
-              <img
-                src={require("../../assets/humidity.png")}
-                height="100vh"
-                widht="100vw"
-              ></img>
-            </div>
-          </div>
-        </Card.Content>
-      </Card>
+      <div className="card" style={{ width: "15rem" }}>
+        <img
+          src={require("../../assets/humidity.png")}
+          className="card-img-top"
+          style={{}}
+        ></img>
+        <div class="card-body">
+          <h1 className="display-3 ">{this.state.humidity}%</h1>
+        </div>
+      </div>
     );
   }
 }
