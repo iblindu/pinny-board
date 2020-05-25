@@ -36,7 +36,7 @@ class Dashboard extends Component {
     };
     console.log(body);
     axios
-      .post("http://localhost:4000/api/microsere/find", body, config)
+      .post("/api/microsere/find", body, config)
       .then(response => {
         this.setState({
           street: response.data.street,

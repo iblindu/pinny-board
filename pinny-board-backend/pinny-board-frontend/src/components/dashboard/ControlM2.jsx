@@ -28,7 +28,7 @@ class ControlM2 extends Component {
     const body = JSON.stringify({ broker, value });
     console.log(body);
     axios
-      .post("http://localhost:4000/api/connect/power", body, config)
+      .post("/api/connect/power", body, config)
       .then()
       .catch(error => {
         console.log(error);

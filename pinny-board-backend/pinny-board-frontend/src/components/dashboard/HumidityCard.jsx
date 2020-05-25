@@ -24,7 +24,7 @@ class HumidityCard extends Component {
     };
 
     axios
-      .post("http://localhost:4000/api/connect/gethum", body, config)
+      .post("/api/connect/gethum", body, config)
       .then(response => {
         this.setState({
           humidity: response.data.humidity

@@ -41,7 +41,7 @@ class ListOfMicrosere extends Component {
   componentDidMount() {
     this.props.clearAll();
     axios
-      .get("http://localhost:4000/api/microsere/all")
+      .get("/api/microsere/all")
       .then(response => {
         this.setState({ microsere: response.data });
       })

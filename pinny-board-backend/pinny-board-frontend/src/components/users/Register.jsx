@@ -31,7 +31,7 @@ class RegisterPage extends Component {
   };
 
   componentDidMount() {
-    axios.get("http://localhost:4000/api/microsere/all").then(response => {
+    axios.get("/api/microsere/all").then(response => {
       if (response.data.length > 0) {
         this.setState({
           microsere: response.data.map(microsera => microsera.code)

@@ -19,7 +19,7 @@ export const loadUser = () => (dispatch, getState) => {
 
   //axios returns a promise; we use axios to send the token to a certain endpoint
   axios
-    .get("http://localhost:4000/api/auth/user", tokenConfig(getState))
+    .get("/api/auth/user", tokenConfig(getState))
     .then(res =>
       dispatch({
         type: USER_LOADED,
@@ -55,7 +55,7 @@ export const register = ({ name, email, password, chosenMicrosere, role }) => (
   }
   body = JSON.stringify(body);
   axios
-    .post("http://localhost:4000/api/users", body, tokenConfig(getState))
+    .post("/api/users", body, tokenConfig(getState))
     .then(res =>
       dispatch({
         type: REGISTER_SUCCESS,
@@ -94,7 +94,7 @@ export const login = ({ email, password }) => dispatch => {
 
   //Once we have the headers and body, we wanna send an axios request to the relevant endpoint with the header & body we just declared. This will give us a promise back with a repsponse.
   axios
-    .post("http://localhost:4000/api/auth", body, config)
+    .post("/api/auth", body, config)
     .then(res =>
       dispatch({
         type: LOGIN_SUCCESS,

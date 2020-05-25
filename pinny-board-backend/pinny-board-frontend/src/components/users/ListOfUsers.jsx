@@ -28,7 +28,7 @@ class ListOfUsers extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:4000/api/users/all")
+      .get("/api/users/all")
       .then(response => {
         this.setState({ users: response.data });
       })

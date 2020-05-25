@@ -30,11 +30,7 @@ export const addMicrosera = ({
   });
 
   axios
-    .post(
-      "http://localhost:4000/api/microsere/add",
-      body,
-      tokenConfig(getState)
-    )
+    .post("/api/microsere/add", body, tokenConfig(getState))
     .then(res =>
       dispatch({
         type: MADDED_SUCCESS,
@@ -64,7 +60,7 @@ export const selectMicrosera = code => (dispatch, getState) => {
 //   const body = JSON.stringify({ code });
 //   axios
 //     .post(
-//       "http://localhost:4000/api/microsere/find",
+//       "/api/microsere/find",
 //       body,
 //       tokenConfig(getState)
 //     )

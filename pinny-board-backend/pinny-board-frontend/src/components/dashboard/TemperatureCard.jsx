@@ -24,7 +24,7 @@ class TemperatureCard extends Component {
       }
     };
     axios
-      .post("http://localhost:4000/api/connect/gettemp", body, config)
+      .post("/api/connect/gettemp", body, config)
       .then(response => {
         this.setState({
           temperature: response.data.temperature
