@@ -60,11 +60,11 @@ class Main extends Component {
             <Column flexGrow={1} className={css(styles.mainBlock)}>
               <NavbarComponent />
               <div>
-                <Route path="/microsera" exact component={Dashboard} />
+                <Route path="/dashboard" exact component={Dashboard} />
 
                 {/* <Route path="/edit/:id" exact component={EditExercise} /> */}
 
-                <Route path="/microsera/reports" exact component={Reports} />
+                <Route path="/dashboard/reports" exact component={Reports} />
 
                 {/* <Route path="/user" exact component={CreateUser} /> */}
               </div>

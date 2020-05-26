@@ -114,11 +114,11 @@ class SidebarComponent extends React.Component {
             </a>
 
             <Column className={css(styles.menuItemList)}>
-              <a href="/microsera" style={{ textDecoration: "none" }}>
+              <a href="/dashboard" style={{ textDecoration: "none" }}>
                 <MenuItemComponent title="Dashboard" />
               </a>
               {user.role === "administrator" || user.role === "technical" ? (
-                <a href="/microsera/reports" style={{ textDecoration: "none" }}>
+                <a href="/dashboard/reports" style={{ textDecoration: "none" }}>
                   <MenuItemComponent title="Logging Reports" />
                 </a>
               ) : null}

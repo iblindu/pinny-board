@@ -71,7 +71,7 @@ class ListOfMicrosere extends Component {
 
                 {"   "}
                 <a
-                  href="/microsera"
+                  href="/dashboard"
                   name={currentMicro.code}
                   className="btn btn-outline-dark btn-sm"
                   onClick={e => this.select(e)}
@@ -99,7 +99,7 @@ class ListOfMicrosere extends Component {
                     </a>
                     {"   "}
                     <a
-                      href="/microsera"
+                      href="/dashboard"
                       name={currentMicro.code}
                       className="btn btn-outline-dark btn-sm"
                       onClick={e => this.select(e)}

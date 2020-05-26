@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
 
 function MenuItemComponent(props) {
   const { active, icon, title, ...otherProps } = props;
-  const Icon = icon;
+  //const Icon = icon;
   return (
     <Row
       className={css(styles.container, active && styles.activeContainer)}

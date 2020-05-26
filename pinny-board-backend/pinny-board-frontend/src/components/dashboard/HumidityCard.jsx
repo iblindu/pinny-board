@@ -45,6 +45,7 @@ class HumidityCard extends Component {
           src={require("../../assets/humidity.png")}
           className="card-img-top"
           style={{}}
+          alt=""
         ></img>
         <div className="card-body d-flex justify-content-center">
           <h1 className="display-3 ">{this.state.humidity}%</h1>

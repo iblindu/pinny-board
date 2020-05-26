@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { connect } from "react-redux";
-import { Card, Grid, Divider } from "semantic-ui-react";
 
 class TemperatureCard extends Component {
   constructor(props) {
@@ -44,6 +43,7 @@ class TemperatureCard extends Component {
           src={require("../../assets/temperature.png")}
           className="card-img-top"
           style={{}}
+          alt=""
         ></img>
         <div className="card-body d-flex justify-content-center">
           <h1 className="display-3 ">{this.state.temperature}°C</h1>
