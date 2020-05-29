@@ -22,7 +22,8 @@ class Dashboard extends Component {
   }
 
   static propTypes = {
-    micro: PropTypes.object.isRequired
+    micro: PropTypes.object.isRequired,
+    auth: PropTypes.object.isRequired
   };
 
   componentDidMount() {
@@ -34,7 +35,6 @@ class Dashboard extends Component {
         "Content-type": "application/json"
       }
     };
-    console.log(body);
     axios
       .post("/api/microsere/find", body, config)
       .then(response => {
@@ -54,6 +54,7 @@ class Dashboard extends Component {
 
   render() {
     const { selectedMicro } = this.props.micro;
+    const { user } = this.props.auth;
     if (!selectedMicro)
       return (
         <div>
@@ -84,19 +85,23 @@ class Dashboard extends Component {
           </div>
           <br />
           <br />
-          <div col-sm-6>
-            <SwitchComponent
-              type={this.state.type}
-              code={this.state.code}
-            ></SwitchComponent>
-          </div>
+          {user.role === "administrator" ||
+          user.role === "client" ||
+          user.role === "technical" ? (
+            <div col-sm-6>
+              <SwitchComponent
+                type={this.state.type}
+                code={this.state.code}
+              ></SwitchComponent>
+            </div>
+          ) : null}
         </div>
       );
   }
 }
 const mapStateToProps = state => ({
   micro: state.micro,
-  error: state.error
+  auth: state.auth
 });
 
 export default connect(mapStateToProps)(Dashboard);

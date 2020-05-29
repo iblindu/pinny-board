@@ -5,11 +5,37 @@ const MicroseraSchema = new Schema({
   code: {
     type: String,
     required: true,
-    unique: false
+    unique: true
+  },
+  client_id: {
+    type: String,
+    required: true,
+    unique: true
   },
   type: {
     type: String,
     required: true
+  },
+  levels: {
+    type: Number
+  },
+  modules: {
+    type: Number
+  },
+  electrovalves: {
+    type: Number
+  },
+  leds: {
+    type: Number,
+    default: 1
+  },
+  fans: {
+    type: Number,
+    default: 1
+  },
+  heating: {
+    type: Boolean,
+    default: false
   },
   address: {
     city: {
@@ -25,6 +51,14 @@ const MicroseraSchema = new Schema({
       required: true
     },
     facility: {
+      type: String,
+      required: true
+    },
+    longitude: {
+      type: String,
+      required: true
+    },
+    latitude: {
       type: String,
       required: true
     }

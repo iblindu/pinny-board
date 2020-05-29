@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import Switch from "react-switch";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import axios from "axios";
 
 class ControlM1 extends Component {
@@ -8,6 +10,11 @@ class ControlM1 extends Component {
     this.state = { code: "", type: "", checked: false };
     this.handleChange = this.handleChange.bind(this);
   }
+
+  static propTypes = {
+    micro: PropTypes.object.isRequired,
+    auth: PropTypes.object.isRequired
+  };
 
   handleChange(checked) {
     this.setState({ checked });
@@ -18,15 +25,16 @@ class ControlM1 extends Component {
       }
     };
     var value;
+    var value_meaning;
 
     if (checked) {
       value = "1";
+      value_meaning = "on";
     } else {
       value = "0";
+      value_meaning = "off";
     }
-
     const body = JSON.stringify({ broker, value });
-    console.log(body);
     axios
       .post("/api/connect/power", body, config)
       .then()
@@ -55,5 +63,9 @@ class ControlM1 extends Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  micro: state.micro,
+  auth: state.auth
+});
 
-export default ControlM1;
+export default connect(mapStateToProps)(ControlM1);

@@ -25,7 +25,6 @@ router.route("/all").get((req, res) => {
 router.route("/gettemp").post((req, res) => {
   const broker = req.body.broker;
   const topic_pub_temperature = "temperature";
-
   var client = mqtt.connect(broker, {
     clientId: clientID
   });
@@ -37,10 +36,10 @@ router.route("/gettemp").post((req, res) => {
   client.on("message", function(topic, message) {
     if (topic === topic_pub_temperature) {
       var temperature = message.toString();
-      console.log(temperature);
       res.json({
         temperature: temperature
       });
+      client.end();
     }
   });
 
@@ -65,10 +64,10 @@ router.route("/gethum").post((req, res) => {
   client.on("message", function(topic, message) {
     if (topic === topic_pub_humidity) {
       var humidity = message.toString();
-      console.log(humidity);
       res.json({
         humidity: humidity
       });
+      client.end();
     }
   });
 
@@ -88,6 +87,7 @@ router.route("/power").post((req, res) => {
   });
   client.on("connect", function() {
     client.publish(topic_sub_motor_command, value);
+    client.end();
   });
 });
 
