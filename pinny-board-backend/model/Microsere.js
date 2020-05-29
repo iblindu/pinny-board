@@ -38,10 +38,11 @@ const MicroseraSchema = new Schema({
     default: false
   },
   address: {
-    city: {
+    country: {
       type: String,
       required: true
     },
+    city: {},
     street: {
       type: String,
       required: true
@@ -55,11 +56,11 @@ const MicroseraSchema = new Schema({
       required: true
     },
     longitude: {
-      type: String,
+      type: Number,
       required: true
     },
     latitude: {
-      type: String,
+      type: Number,
       required: true
     }
   },
