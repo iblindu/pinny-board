@@ -2,15 +2,17 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { addMicrosera, clearAll } from "../../actions/microActions";
+import { clearAll, editMicrosera } from "../../actions/microActions";
 import { clearErrors } from "../../actions/errorActions";
 import { Alert } from "reactstrap";
 import { StyleSheet, css } from "aphrodite/no-important";
 import { Dropdown, Form, Divider } from "semantic-ui-react";
 import _ from "lodash";
+import axios from "axios";
 
-class AddMicrosera extends Component {
+class EditMicrosera extends Component {
   state = {
+    id: "",
     code: "",
     client_id: "",
     type: "",
@@ -31,13 +33,45 @@ class AddMicrosera extends Component {
   };
 
   static propTypes = {
-    isMicroAdded: PropTypes.bool,
+    isMicroEdited: PropTypes.bool,
+    micro: PropTypes.object.isRequired,
     error: PropTypes.object.isRequired,
-    addMicrosera: PropTypes.func.isRequired,
-    clearAll: PropTypes.func.isRequired,
+    editMicrosera: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired
   };
 
+  componentDidMount() {
+    const { selectedMicro } = this.props.micro;
+    const microId = selectedMicro;
+    this.setState({ id: microId });
+    console.log("ID");
+    console.log(microId);
+    axios
+      .get("/api/microsere/" + microId)
+      .then(response => {
+        this.setState({
+          code: response.data.code,
+          client_id: response.data.client_id,
+          type: response.data.type,
+          levels: response.data.levels,
+          modules: response.data.modules,
+          electrovalves: response.data.electrovalves,
+          leds: response.data.leds,
+          fans: response.data.fans,
+          heating: response.data.heating,
+          country: response.data.address.country,
+          city: response.data.address.city,
+          street: response.data.address.street,
+          number: response.data.address.number,
+          facility: response.data.address.facility,
+          longitude: response.data.address.longitude,
+          latitude: response.data.address.latitude
+        });
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  }
   componentDidUpdate(prevProps) {
     const { error } = this.props;
     if (error !== prevProps.error) {
@@ -54,6 +88,7 @@ class AddMicrosera extends Component {
 
   handleSubmit = () => {
     const {
+      id,
       code,
       client_id,
       type,
@@ -74,6 +109,7 @@ class AddMicrosera extends Component {
 
     //Create user object
     const newMicrosera = {
+      id,
       code,
       client_id,
       type,
@@ -92,38 +128,19 @@ class AddMicrosera extends Component {
       latitude
     };
 
-    //Atempt to add Micosera
-    this.props.addMicrosera(newMicrosera);
-
-    this.setState({
-      code: "",
-      client_id: "",
-      type: "",
-      levels: Number,
-      modules: Number,
-      electrovalves: Number,
-      leds: Number,
-      fans: Number,
-      heating: false,
-      country: "",
-      city: "",
-      street: "",
-      number: "",
-      facility: "",
-      longitude: Number,
-      latitude: Number,
-      msg: null
-    });
+    this.props.editMicrosera(newMicrosera);
   };
+
   toggle = () => this.setState(prevState => ({ heating: !prevState.heating }));
 
   renderRedirect = () => {
-    const { isMicroAdded } = this.props;
-    if (isMicroAdded === true) {
+    const { isMicroEdited } = this.props.micro;
+    if (isMicroEdited === true) {
       console.log("Succes!");
       return <Redirect to="/home" />;
     }
   };
+
   render() {
     //##########STYLE############//
     const styles = StyleSheet.create({
@@ -159,7 +176,7 @@ class AddMicrosera extends Component {
     //#########COMPONENT##########//
     return (
       <div className={css(styles.formDivStyle)}>
-        <h1 class="display-4">Add New Microsera</h1>
+        <h1 class="display-4">Edit Microsera</h1>
 
         <Divider />
         <Form onSubmit={this.handleSubmit}>
@@ -353,12 +370,12 @@ class AddMicrosera extends Component {
 }
 
 const mapStateToProps = state => ({
-  isMicroAdded: state.micro.isMicroAdded,
+  micro: state.micro,
   error: state.error
 });
 
 export default connect(mapStateToProps, {
-  addMicrosera,
+  editMicrosera,
   clearErrors,
   clearAll
-})(AddMicrosera);
+})(EditMicrosera);

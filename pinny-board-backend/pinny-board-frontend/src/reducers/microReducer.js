@@ -1,12 +1,14 @@
 import {
   MADDED_SUCCESS,
+  MEDITED_SUCCESS,
   MADDED_FAIL,
   MICRO_SELECTED,
   CLEAR_MICRO
 } from "../actions/types";
 
 const initialState = {
-  isMicroAdded: null,
+  isMicroAdded: false,
+  isMicroEdited: false,
   selectedMicro: null
 };
 
@@ -16,6 +18,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         isMicroAdded: true
+      };
+    case MEDITED_SUCCESS:
+      return {
+        ...state,
+        isMicroEdited: true
       };
     case MADDED_FAIL:
       return {
@@ -31,7 +38,8 @@ export default function(state = initialState, action) {
       return {
         ...state,
         selectedMicro: null,
-        isMicroAdded: null
+        isMicroAdded: null,
+        isMicroEdited: null
       };
     default:
       return state;
