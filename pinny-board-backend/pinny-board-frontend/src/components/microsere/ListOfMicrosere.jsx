@@ -30,7 +30,7 @@ class ListOfMicrosere extends Component {
 
     // this.deleteUsers = this.deleteUsers.bind(this);
 
-    this.state = { microsere: [], open: false };
+    this.state = { microsere: [] };
   }
 
   static propTypes = {
@@ -59,30 +59,23 @@ class ListOfMicrosere extends Component {
   }
 
   delete(e) {
-    this.close();
-    const id = e.target.name;
+    const { selectedMicro } = this.props.micro;
+    const id = selectedMicro;
     axios.delete("/api/microsere/" + id).then(response => {
       console.log(response.data);
     });
 
     this.setState({
-      microsere: this.state.microsere.filter(el => el._id !== id)
+      microsere: this.state.microsere.filter(el => el._id !== selectedMicro)
     });
   }
 
-  closeConfigShow = closeOnEscape => () => {
-    this.setState({ closeOnEscape, open: true });
-  };
-  close = () => this.setState({ open: false });
-
   microsereList() {
     const { user } = this.props.auth;
-    const { open, closeOnEscape } = this.state;
-
     return this.state.microsere.map(currentMicro => {
       if (user.role === "administrator" || user.role === "technical")
         return (
-          <div class="col-sm-6">
+          <div className="col-sm-6">
             <div className="card mb-4">
               <div className="card-body">
                 <Microsere microsere={currentMicro} key={currentMicro._id} />
@@ -107,42 +100,67 @@ class ListOfMicrosere extends Component {
                       Edit{"  "}
                     </a>{" "}
                     | {"  "}
-                    <a
+                    <button
+                      type="button"
                       className="btn btn-outline-danger btn-sm"
-                      onClick={this.closeConfigShow(false, true)}
+                      data-toggle="modal"
+                      data-target="#exampleModal"
+                      name={currentMicro._id}
+                      onClick={e => this.select(e)}
                     >
-                      Delete{"  "}
-                    </a>
+                      Delete
+                    </button>
+                    <div
+                      className="modal fade"
+                      id="exampleModal"
+                      tabindex="-1"
+                      role="dialog"
+                      aria-labelledby="exampleModalLabel"
+                      aria-hidden="true"
+                    >
+                      <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                          <div className="modal-header">
+                            <h5 className="modal-title" id="exampleModalLabel">
+                              Delete Microsera
+                            </h5>
+                            <button
+                              type="button"
+                              className="close"
+                              data-dismiss="modal"
+                              aria-label="Close"
+                            >
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div className="modal-body">
+                            <p>Are you sure you want to delete it?</p>
+                          </div>
+                          <div className="modal-footer">
+                            <button
+                              type="button"
+                              className="btn btn-danger"
+                              data-dismiss="modal"
+                            >
+                              No
+                            </button>
+
+                            <a
+                              className="btn btn-success"
+                              data-dismiss="modal"
+                              name={currentMicro._id}
+                              onClick={e => this.delete(e)}
+                            >
+                              Yes{"  "}
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 ) : null}
               </div>
             </div>
-            <Modal
-              open={open}
-              closeOnEscape={closeOnEscape}
-              onClose={this.close}
-            >
-              <Modal.Header>Delete Microsera</Modal.Header>
-              <Modal.Content>
-                <p>
-                  Are you sure you want to delete microsera {currentMicro.code},
-                  located in {currentMicro.address.facility} ?
-                </p>
-              </Modal.Content>
-              <Modal.Actions>
-                <Button onClick={this.close} negative>
-                  No
-                </Button>
-                <Button
-                  name={currentMicro._id}
-                  onClick={e => this.delete(e)}
-                  positive
-                  labelPosition="right"
-                  icon="checkmark"
-                  content="Yes"
-                />
-              </Modal.Actions>
-            </Modal>
           </div>
         );
       else {
@@ -150,7 +168,7 @@ class ListOfMicrosere extends Component {
           var item = user.microsere[i];
           if (currentMicro.code === item)
             return (
-              <div class="col-sm-6">
+              <div className="col-sm-6">
                 <div className="card mb-4">
                   <div className="card-body">
                     <Microsere
@@ -185,7 +203,7 @@ class ListOfMicrosere extends Component {
     const { user } = this.props.auth;
     return (
       <div className={css(styles.userDiv)}>
-        <h1 class="display-4">Microsere</h1>
+        <h1 className="display-4">Microsere</h1>
         <div className="row">{this.microsereList()}</div>
         {user.role === "administrator" ? (
           <a href="/home/new" className="btn btn-outline-success">
