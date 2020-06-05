@@ -10,7 +10,6 @@ export function Users(props) {
     <div>
       <h5 class="card-title">{props.users.name}</h5>
       <p class="card-text">{props.users.email}</p>
-      <p class="card-text">microsere {props.users.microsere[1]}</p>
       <br />
     </div>
   );

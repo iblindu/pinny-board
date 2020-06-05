@@ -5,6 +5,7 @@ import storage from "redux-persist/lib/storage";
 import errorReducer from "./errorReducer";
 import authReducer from "./authReducer";
 import microReducer from "./microReducer";
+import reportReducer from "./reportReducer";
 
 const persistConfig = {
   key: "root",
@@ -15,7 +16,8 @@ const persistConfig = {
 const rootReducer = combineReducers({
   error: errorReducer,
   auth: authReducer,
-  micro: microReducer
+  micro: microReducer,
+  report: reportReducer
 });
 
 export default persistReducer(persistConfig, rootReducer);

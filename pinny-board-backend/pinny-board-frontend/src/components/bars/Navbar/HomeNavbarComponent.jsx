@@ -78,6 +78,10 @@ class HomeNavbarComponent extends Component {
                 <a className="dropdown-item" href="/home">
                   Microsere
                 </a>
+                <div className="dropdown-divider"></div>
+                <a className="dropdown-item" href="/home/plants">
+                  Plants
+                </a>
               </div>
             </li>
           ) : null}

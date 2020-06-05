@@ -16,3 +16,7 @@ export const MEDITED_SUCCESS = "MEDITED_SUCCESS";
 export const MADDED_FAIL = "MADDED_FAIL";
 export const MICRO_SELECTED = "MICRO_SELECTED";
 export const CLEAR_MICRO = "CLEAR_MICRO";
+export const PADDED_SUCCESS = "PADDED_SUCCESS";
+export const PADDED_FAIL = "PADDED_FAIL";
+export const PLANT_SELECTED = "PLANT_SELECTED";
+export const CLEAR_PLANT = "CLEAR_PLANT";
