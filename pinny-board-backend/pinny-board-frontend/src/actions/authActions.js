@@ -4,12 +4,15 @@ import { returnErrors } from "./errorActions";
 import {
   USER_LOADED,
   USER_LOADING,
+  USER_SELECTED,
+  USER_CLEARED,
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT_SUCCESS,
   REGISTER_SUCCESS,
-  REGISTER_FAIL
+  REGISTER_FAIL,
+  UEDITED_SUCCESS
 } from "./types";
 
 //Check token & load user
@@ -111,7 +114,60 @@ export const login = ({ email, password }) => dispatch => {
       });
     });
 };
+//EditUser
+//destructure the object right here
+export const editUser = ({
+  id,
+  name,
+  email,
+  password,
+  chosenMicrosere,
+  role
+}) => (dispatch, getState) => {
+  var body = {
+    name: name,
+    email: email,
+    password: password,
+    microsere: [],
+    role: role
+  };
+  for (var i in chosenMicrosere) {
+    var item = chosenMicrosere[i];
+    body.microsere.push(item);
+  }
+  body = JSON.stringify(body);
 
+  axios
+    .post("/api/users/update/" + id, body, tokenConfig(getState))
+    .then(res =>
+      dispatch({
+        type: UEDITED_SUCCESS,
+        payload: res.data
+      })
+    )
+    .catch(err => {
+      dispatch(
+        returnErrors(err.response.data, err.response.status, "REGISTER_FAIL")
+      );
+      dispatch({
+        type: REGISTER_FAIL
+      });
+    });
+};
+//select User
+export const selectUser = _id => dispatch => {
+  dispatch({
+    type: USER_SELECTED,
+    payload: _id
+  });
+};
+
+//Clear state
+export const clearUser = () => {
+  return {
+    type: USER_CLEARED
+  };
+};
 //Setup config/headers and token. Now anyttime we want to sent the token to a certain endpoint we simply send tokenConfig(getState)
 export const tokenConfig = getState => {
   const token = getState().auth.token;

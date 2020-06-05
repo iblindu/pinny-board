@@ -68,7 +68,7 @@ export const addMicrosera = ({
     });
 };
 
-//AddMicrosera
+//EditMicrosera
 //destructure the object right here
 export const editMicrosera = ({
   id,
@@ -130,7 +130,7 @@ export const editMicrosera = ({
 };
 
 //select Microsera
-export const selectMicrosera = code => (dispatch, getState) => {
+export const selectMicrosera = code => dispatch => {
   dispatch({
     type: MICRO_SELECTED,
     payload: code

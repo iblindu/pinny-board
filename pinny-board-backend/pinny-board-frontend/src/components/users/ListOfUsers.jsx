@@ -1,32 +1,38 @@
 import React, { Component } from "react";
 import { StyleSheet, css } from "aphrodite/no-important";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import axios from "axios";
+import { selectUser, clearUser } from "../../actions/authActions";
 
-const Users = props => (
-  <div class="col-sm-6">
-    <div className="card mb-4">
-      <div class="card-body">
-        <h5 class="card-title">{props.users.name}</h5>
-        <p class="card-text">{props.users.email}</p>
-        <p class="card-text">microsere {props.users.microsere[1]}</p>
-        <a href="#" className="btn btn-outline-dark btn-sm">
-          Edit
-        </a>
-      </div>
+export function Users(props) {
+  return (
+    <div>
+      <h5 class="card-title">{props.users.name}</h5>
+      <p class="card-text">{props.users.email}</p>
+      <p class="card-text">microsere {props.users.microsere[1]}</p>
+      <br />
     </div>
-  </div>
-);
+  );
+}
 
 class ListOfUsers extends Component {
   constructor(props) {
     super(props);
 
-    // this.deleteUsers = this.deleteUsers.bind(this);
-
     this.state = { users: [] };
   }
 
+  static propTypes = {
+    auth: PropTypes.object.isRequired,
+    error: PropTypes.object.isRequired,
+    clearUser: PropTypes.func.isRequired,
+    selectUser: PropTypes.func.isRequired,
+    clearErrors: PropTypes.func.isRequired
+  };
+
   componentDidMount() {
+    this.props.clearUser();
     axios
       .get("/api/users/all")
       .then(response => {
@@ -37,9 +43,102 @@ class ListOfUsers extends Component {
       });
   }
 
+  select(e) {
+    this.props.selectUser(e.target.name);
+  }
+
+  delete(e) {
+    const { selectedUser } = this.props.auth;
+    const id = selectedUser;
+    axios.delete("/api/users/" + id).then(response => {
+      console.log(response.data);
+    });
+
+    this.setState({
+      users: this.state.users.filter(el => el._id !== selectedUser)
+    });
+  }
+
   usersList() {
     return this.state.users.map(currentUser => {
-      return <Users users={currentUser} key={currentUser._id} />;
+      return (
+        <div className="col-sm-6">
+          <div className="card mb-4">
+            <div className="card-body">
+              <Users users={currentUser} key={currentUser._id} />
+
+              <div>
+                <a
+                  href="/home/users/edit"
+                  name={currentUser._id}
+                  className="btn btn-outline-dark btn-sm"
+                  onClick={e => this.select(e)}
+                >
+                  Edit{"  "}
+                </a>{" "}
+                | {"  "}
+                <button
+                  type="button"
+                  className="btn btn-outline-danger btn-sm"
+                  data-toggle="modal"
+                  data-target="#exampleModal"
+                  name={currentUser._id}
+                  onClick={e => this.select(e)}
+                >
+                  Delete
+                </button>
+                <div
+                  className="modal fade"
+                  id="exampleModal"
+                  tabindex="-1"
+                  role="dialog"
+                  aria-labelledby="exampleModalLabel"
+                  aria-hidden="true"
+                >
+                  <div className="modal-dialog" role="document">
+                    <div className="modal-content">
+                      <div className="modal-header">
+                        <h5 className="modal-title" id="exampleModalLabel">
+                          Delete User
+                        </h5>
+                        <button
+                          type="button"
+                          className="close"
+                          data-dismiss="modal"
+                          aria-label="Close"
+                        >
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div className="modal-body">
+                        <p>Are you sure you want to delete it?</p>
+                      </div>
+                      <div className="modal-footer">
+                        <button
+                          type="button"
+                          className="btn btn-danger"
+                          data-dismiss="modal"
+                        >
+                          No
+                        </button>
+
+                        <a
+                          className="btn btn-success"
+                          data-dismiss="modal"
+                          name={currentUser._id}
+                          onClick={e => this.delete(e)}
+                        >
+                          Yes{"  "}
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
     });
   }
   render() {
@@ -48,20 +147,6 @@ class ListOfUsers extends Component {
         margin: "auto",
         padding: 30,
         maxWidth: "900px"
-      },
-      title: {
-        fontStyle: "normal",
-        fontWeight: "bold",
-        fontSize: 24,
-        color: "#7c7c7d",
-        lineHeight: "30px",
-        letterSpacing: 0.3,
-        "@media (max-width: 768px)": {
-          marginLeft: 36
-        },
-        "@media (max-width: 468px)": {
-          fontSize: 20
-        }
       }
     });
 
@@ -69,11 +154,16 @@ class ListOfUsers extends Component {
       <div className={css(styles.userDiv)}>
         <h1 class="display-4">Users</h1>
         <div className="row">{this.usersList()}</div>
-        <a href="/home/users/new" className="btn btn-outline-dark">
+        <a href="/home/users/new" className="btn btn-outline-success">
           Add New User
         </a>
       </div>
     );
   }
 }
-export default ListOfUsers;
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+  error: state.error
+});
+export default connect(mapStateToProps, { selectUser, clearUser })(ListOfUsers);

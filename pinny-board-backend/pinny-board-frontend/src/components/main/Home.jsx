@@ -12,6 +12,7 @@ import ListOfUsers from "../users/ListOfUsers";
 import ListOfMicrosere from "../microsere/ListOfMicrosere";
 import AddMicrosera from "../microsere/AddMicrosera";
 import EditMicrosera from "../microsere/EditMicrosera";
+import EditUser from "../users/EditUser";
 
 class Microsere extends Component {
   static propTypes = {
@@ -62,7 +63,7 @@ class Microsere extends Component {
 
                 <Route path="/home/users" exact component={ListOfUsers} />
                 <Route path="/home/users/new" exact component={Register} />
-                {/* <Route path="/user" exact component={CreateUser} /> */}
+                <Route path="/home/users/edit" exact component={EditUser} />
               </div>
             </Column>
           </Row>

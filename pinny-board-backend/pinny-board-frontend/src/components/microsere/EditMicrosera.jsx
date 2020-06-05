@@ -44,8 +44,6 @@ class EditMicrosera extends Component {
     const { selectedMicro } = this.props.micro;
     const microId = selectedMicro;
     this.setState({ id: microId });
-    console.log("ID");
-    console.log(microId);
     axios
       .get("/api/microsere/" + microId)
       .then(response => {

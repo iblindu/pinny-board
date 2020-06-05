@@ -1,14 +1,11 @@
 import React, { Component } from "react";
 import { StyleSheet, css } from "aphrodite/no-important";
 import axios from "axios";
-import { Link } from "react-router-dom";
-
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { selectMicrosera } from "../../actions/microActions";
-import { clearAll } from "../../actions/microActions";
+import { selectMicrosera, clearAll } from "../../actions/microActions";
 import IconArrow from "../../assets/icon-arrow";
-import { Header, Modal, Button, Icon } from "semantic-ui-react";
+
 export function Microsere(props) {
   return (
     <div>
@@ -27,8 +24,6 @@ export function Microsere(props) {
 class ListOfMicrosere extends Component {
   constructor(props) {
     super(props);
-
-    // this.deleteUsers = this.deleteUsers.bind(this);
 
     this.state = { microsere: [] };
   }

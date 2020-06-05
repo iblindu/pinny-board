@@ -1,5 +1,8 @@
 export const USER_LOADING = "USER_LOADING";
 export const USER_LOADED = "USER_LOADED";
+export const USER_SELECTED = "USER_SELECTED";
+export const USER_CLEARED = "USER_CLEARED";
+export const UEDITED_SUCCESS = "UEDITED_SUCCESS";
 export const AUTH_ERROR = "AUTH_ERROR";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAIL = "LOGIN_FAIL";

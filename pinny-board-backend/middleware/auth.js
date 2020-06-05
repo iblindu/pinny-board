@@ -7,15 +7,14 @@ function auth(req, res, next) {
   const token = req.header("x-auth-token");
 
   //Check for token, send unauthorised response if not there.
-  if (!token)
-    return res.status(401).json({ msg: "No token, authorisation denied" });
+  if (!token) return res.status(401).json("No token, authorisation denied");
 
   try {
     const decoded = jwt.verify(token, config.get("jwtSecret"));
     req.user = decoded; //Add user from payload
     next();
   } catch (e) {
-    res.status(400).json({ msg: "Token is not valid" });
+    res.status(400).json("Token is not valid");
   }
 }
 

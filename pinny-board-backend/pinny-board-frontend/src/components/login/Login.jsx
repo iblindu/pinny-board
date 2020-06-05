@@ -27,7 +27,7 @@ class LoginPage extends Component {
     if (error !== prevProps.error) {
       //Check for register error
       if (error.id === "LOGIN_FAIL") {
-        this.setState({ msg: error.msg.msg });
+        this.setState({ msg: error.msg });
       } else {
         this.setState({ msg: null });
       }

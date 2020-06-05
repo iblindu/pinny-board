@@ -11,10 +11,6 @@ import NavbarComponent from "../bars/Navbar/NavbarComponent";
 import SidebarComponent from "../bars/Sidebar/SidebarComponent";
 import Dashboard from "../dashboard/Dashboard";
 import Reports from "../reports/Reports";
-// import Register from "../users/Register";
-// import ListOfUsers from "../users/ListOfUsers";
-// import ListOfMicrosere from "../microsere/ListOfMicrosere";
-// import AddMicrosera from "../microsere/AddMicrosera";
 
 class Main extends Component {
   static propTypes = {

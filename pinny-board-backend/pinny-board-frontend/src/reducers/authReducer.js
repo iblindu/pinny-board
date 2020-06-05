@@ -1,19 +1,24 @@
 import {
   USER_LOADED,
   USER_LOADING,
+  USER_SELECTED,
   AUTH_ERROR,
   LOGIN_FAIL,
   LOGIN_SUCCESS,
   LOGOUT_SUCCESS,
   REGISTER_FAIL,
-  REGISTER_SUCCESS
+  REGISTER_SUCCESS,
+  USER_CLEARED,
+  UEDITED_SUCCESS
 } from "../actions/types";
 
 const initialState = {
   token: localStorage.getItem("token"),
   isAuthenticated: null,
-  isAdded: null,
+  isAdded: false,
   isLoading: false,
+  isUserEdited: false,
+  selectedUser: null,
   user: null
 };
 
@@ -60,6 +65,22 @@ export default function(state = initialState, action) {
       return {
         ...state,
         isAdded: false
+      };
+    case USER_SELECTED:
+      return {
+        ...state,
+        selectedUser: action.payload
+      };
+    case USER_CLEARED:
+      return {
+        ...state,
+        selectedUser: null,
+        isUserEdited: false
+      };
+    case UEDITED_SUCCESS:
+      return {
+        ...state,
+        isUserEdited: true
       };
     default:
       return state;
