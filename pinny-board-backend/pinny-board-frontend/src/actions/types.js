@@ -20,3 +20,5 @@ export const PADDED_SUCCESS = "PADDED_SUCCESS";
 export const PADDED_FAIL = "PADDED_FAIL";
 export const PLANT_SELECTED = "PLANT_SELECTED";
 export const CLEAR_PLANT = "CLEAR_PLANT";
+export const RADDED_SUCCESS = "CLEAR_PLANT";
+export const RADDED_FAIL = "CLEAR_PLANT";

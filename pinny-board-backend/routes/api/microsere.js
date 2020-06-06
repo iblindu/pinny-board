@@ -28,11 +28,6 @@ router.route("/add").post((req, res) => {
   const longitude = req.body.longitude;
   const latitude = req.body.latitude;
 
-  // //Validation
-  // if (!code || !type || !city || !street || !number || !facility) {
-  //   return res.status(400).json("Please enter all fields");
-  // }
-
   //Check for existing microsera
   Microsera.findOne({ code }).then(microsera => {
     if (microsera) {

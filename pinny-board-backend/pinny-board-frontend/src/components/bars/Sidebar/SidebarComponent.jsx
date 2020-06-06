@@ -131,7 +131,10 @@ class SidebarComponent extends React.Component {
               ) : null}
               {user.role === "administrator" ||
               user.role === "urban-gardner" ? (
-                <a href="#" style={{ textDecoration: "none" }}>
+                <a
+                  href="/dashboard/reporting"
+                  style={{ textDecoration: "none" }}
+                >
                   <MenuItemComponent title="Reporting Tool" />
                 </a>
               ) : null}

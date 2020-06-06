@@ -2,12 +2,15 @@ import {
   PADDED_SUCCESS,
   PLANT_SELECTED,
   CLEAR_PLANT,
-  PADDED_FAIL
+  PADDED_FAIL,
+  RADDED_SUCCESS,
+  RADDED_FAIL
 } from "../actions/types";
 
 const initialState = {
   isPlantAdded: false,
-  selectedPlant: null
+  selectedPlant: null,
+  isReportAdded: false
 };
 
 export default function(state = initialState, action) {
@@ -32,6 +35,16 @@ export default function(state = initialState, action) {
         ...state,
         selectedPlant: null,
         isPlantAdded: null
+      };
+    case RADDED_SUCCESS:
+      return {
+        ...state,
+        isReportAdded: true
+      };
+    case RADDED_FAIL:
+      return {
+        ...state,
+        isReportAdded: false
       };
     default:
       return state;

@@ -11,6 +11,7 @@ import NavbarComponent from "../bars/Navbar/NavbarComponent";
 import SidebarComponent from "../bars/Sidebar/SidebarComponent";
 import Dashboard from "../dashboard/Dashboard";
 import Reports from "../reports/Reports";
+import AddReport from "../reporting/AddReport";
 
 class Main extends Component {
   static propTypes = {
@@ -57,12 +58,13 @@ class Main extends Component {
               <NavbarComponent />
               <div>
                 <Route path="/dashboard" exact component={Dashboard} />
-
                 {/* <Route path="/edit/:id" exact component={EditExercise} /> */}
-
                 <Route path="/dashboard/reports" exact component={Reports} />
-
-                {/* <Route path="/user" exact component={CreateUser} /> */}
+                <Route
+                  path="/dashboard/reporting"
+                  exact
+                  component={AddReport}
+                />{" "}
               </div>
             </Column>
           </Row>

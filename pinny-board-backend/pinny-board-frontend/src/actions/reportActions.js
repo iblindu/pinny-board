@@ -5,7 +5,8 @@ import {
   PADDED_SUCCESS,
   PLANT_SELECTED,
   CLEAR_PLANT,
-  PADDED_FAIL
+  PADDED_FAIL,
+  RADDED_SUCCESS
 } from "./types";
 
 //AddPlant
@@ -41,6 +42,84 @@ export const selectPlant = id => dispatch => {
     type: PLANT_SELECTED,
     payload: id
   });
+};
+
+//AddSalesReport
+//destructure the object right here
+export const addSalesReport = ({
+  user_id,
+  micro_code,
+  species,
+  initial,
+  loses,
+  added
+}) => (dispatch, getState) => {
+  // Request body
+
+  const body = JSON.stringify({
+    user_id,
+    micro_code,
+    species,
+    initial,
+    loses,
+    added
+  });
+
+  axios
+    .post("/api/reporting/addSalesReport", body, tokenConfig(getState))
+    .then(res =>
+      dispatch({
+        type: RADDED_SUCCESS,
+        payload: res.data
+      })
+    )
+    .catch(err => {
+      dispatch(
+        returnErrors(err.response.data, err.response.status, "PADDED_FAIL")
+      );
+      dispatch({
+        type: PADDED_FAIL
+      });
+    });
+};
+
+//AddProductionReport
+//destructure the object right here
+export const addProductionReport = ({
+  user_id,
+  micro_code,
+  species,
+  initial,
+  loses,
+  added
+}) => (dispatch, getState) => {
+  // Request body
+
+  const body = JSON.stringify({
+    user_id,
+    micro_code,
+    species,
+    initial,
+    loses,
+    added
+  });
+
+  axios
+    .post("/api/reporting/addProductionReport", body, tokenConfig(getState))
+    .then(res =>
+      dispatch({
+        type: RADDED_SUCCESS,
+        payload: res.data
+      })
+    )
+    .catch(err => {
+      dispatch(
+        returnErrors(err.response.data, err.response.status, "PADDED_FAIL")
+      );
+      dispatch({
+        type: PADDED_FAIL
+      });
+    });
 };
 
 //Clear state
