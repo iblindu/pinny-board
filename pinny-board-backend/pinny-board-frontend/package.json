@@ -28,6 +28,7 @@
     "react-strap": "0.0.1",
     "react-switch": "^5.0.1",
     "react-transition-group": "^4.3.0",
+    "react-vis": "^1.11.7",
     "reactstrap": "^8.4.1",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",

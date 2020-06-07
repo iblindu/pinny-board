@@ -3,14 +3,12 @@ const Schema = mongoose.Schema;
 
 const SalesSchema = new Schema({
   user_id: {
-    type: String,
-    required: true,
-    unique: true
+    type: Object,
+    required: true
   },
   micro_code: {
-    type: String,
-    required: true,
-    unique: true
+    type: Object,
+    required: true
   },
   species: {
     type: String,

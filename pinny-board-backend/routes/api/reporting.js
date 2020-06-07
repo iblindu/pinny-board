@@ -104,4 +104,34 @@ router.route("/addProductionReport").post((req, res) => {
     .catch(err => res.status(400).json("Error:" + err));
 });
 
+// @route POST api/reporting/allPlantsSales
+// @desc See for what plants there are entries
+// @access Private
+router.route("/allPlantsSales").post((req, res) => {
+  micro_code = req.body.id;
+  const all = Sales.find({ micro_code });
+  all
+    .distinct("species")
+    .then(species => {
+      console.log(species);
+      res.json(species);
+    })
+    .catch(err => res.status(400).json("Error: " + err));
+});
+
+// @route POST api/reporting/allPlantsProduction
+// @desc See for what plants there are entries
+// @access Private
+router.route("/allPlantsProduction").post((req, res) => {
+  micro_code = req.body.id;
+  const all = Production.find({ micro_code });
+  all
+    .distinct("species")
+    .then(species => {
+      console.log(species);
+      res.json(species);
+    })
+    .catch(err => res.status(400).json("Error: " + err));
+});
+
 module.exports = router;

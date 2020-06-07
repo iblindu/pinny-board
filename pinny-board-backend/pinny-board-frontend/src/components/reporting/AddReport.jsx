@@ -9,21 +9,25 @@ import {
 import { clearErrors } from "../../actions/errorActions";
 import { Alert } from "reactstrap";
 import { StyleSheet, css } from "aphrodite/no-important";
-import { Dropdown, Form, Divider, Button } from "semantic-ui-react";
+import { Dropdown, Form, Divider } from "semantic-ui-react";
+import Switch from "react-switch";
 import _ from "lodash";
 
 class AddReport extends Component {
-  state = {
-    user_id: "",
-    micro_code: "",
-    plants: [],
-    species: "",
-    initial: Number,
-    loses: Number,
-    added: Number,
-    type: "sales",
-    msg: null
-  };
+  constructor() {
+    super();
+    this.state = {
+      plants: [],
+      species: String,
+      initial: Number,
+      loses: Number,
+      added: Number,
+      report: "sales",
+      checked: false,
+      msg: null
+    };
+    this.handleSwitch = this.handleSwitch.bind(this);
+  }
 
   static propTypes = {
     isReportAdded: PropTypes.bool,
@@ -46,7 +50,7 @@ class AddReport extends Component {
     const { error } = this.props;
     if (error !== prevProps.error) {
       //Check for register error
-      if (error.id === "RADDED_FAIL") {
+      if (error.id === "PADDED_FAIL") {
         this.setState({ msg: error.msg });
       } else {
         this.setState({ msg: null });
@@ -57,16 +61,13 @@ class AddReport extends Component {
   handleChange = (e, { name, value }) => this.setState({ [name]: value });
 
   handleSubmit = () => {
-    const {
-      user_id,
-      micro_code,
-      species,
-      initial,
-      loses,
-      added,
-      type
-    } = this.state;
+    const { species, initial, loses, added } = this.state;
 
+    const { selectedMicro } = this.props.micro;
+    const { user } = this.props.auth;
+
+    const micro_code = selectedMicro;
+    const user_id = user.id;
     //Create user object
     const newReport = {
       user_id,
@@ -78,7 +79,7 @@ class AddReport extends Component {
     };
 
     //Atempt to add Micosera
-    if (this.state.type === "sales") {
+    if (this.state.report === "sales") {
       this.props.addSalesReport(newReport);
     } else {
       this.props.addProductionReport(newReport);
@@ -95,30 +96,32 @@ class AddReport extends Component {
     });
   };
 
-  handleSales = () => {
-    this.setState({ type: "sales" });
-  };
-  handleProduction = () => {
-    this.setState({ type: "production" });
-  };
+  handleSwitch(checked) {
+    this.setState({ checked });
+    if (checked) {
+      this.setState({
+        report: "production"
+      });
+    } else {
+      this.setState({ report: "sales" });
+    }
+  }
 
   renderRedirect = () => {
     const { isReportAdded } = this.props;
     if (isReportAdded === true) {
       console.log("Succes!");
-      window.location.reload(false);
     }
   };
   render() {
     //##########STYLE############//
     const styles = StyleSheet.create({
       formDivStyle: {
-        margin: "auto",
         padding: 30,
         maxWidth: "800px"
       }
     });
-    const { species, initial, loses, added, type } = this.state;
+    const { species, initial, loses, added, report } = this.state;
     const speciesDefinitions = this.state.plants;
     const speciesOptions = _.map(speciesDefinitions, species => ({
       key: species,
@@ -129,12 +132,16 @@ class AddReport extends Component {
     return (
       <div className={css(styles.formDivStyle)}>
         <h1 class="display-4">Add New Report</h1>
-        <Button.Group>
-          <Button onClick={this.handleSales}>Sales</Button>
-          <Button.Or />
-          <Button onClick={this.handleProduction}>Production</Button>
-        </Button.Group>
+        <Switch
+          onChange={this.handleSwitch}
+          checked={this.state.checked}
+          uncheckedIcon=""
+          checkedIcon=""
+          onColor="#1f6023"
+          offColor="#1f6023"
+        />
         <Divider />
+        <h1 class="display-4 text-capitalize">{report}</h1>
         <Form onSubmit={this.handleSubmit}>
           <Dropdown
             required
@@ -142,13 +149,12 @@ class AddReport extends Component {
             search
             selection
             name="species"
-            label="species"
             options={speciesOptions}
             value={species}
             onChange={this.handleChange}
           />
           <br />
-          {type === "sales" ? (
+          {report === "sales" ? (
             <div>
               <br />
 
@@ -230,6 +236,8 @@ class AddReport extends Component {
 
 const mapStateToProps = state => ({
   report: state.report,
+  auth: state.auth,
+  micro: state.micro,
   error: state.error
 });
 

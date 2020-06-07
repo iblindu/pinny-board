@@ -28,22 +28,17 @@ class Dashboard extends Component {
 
   componentDidMount() {
     const { selectedMicro } = this.props.micro;
-    const code = selectedMicro;
-    const body = JSON.stringify({ code });
-    const config = {
-      headers: {
-        "Content-type": "application/json"
-      }
-    };
+    const microId = selectedMicro;
+
     axios
-      .post("/api/microsere/find", body, config)
+      .get("/api/microsere/" + microId)
       .then(response => {
         this.setState({
-          street: response.data.street,
-          number: response.data.number,
-          city: response.data.city,
-          facility: response.data.facility,
-          code: response.data.code,
+          street: response.data.address.street,
+          number: response.data.address.number,
+          city: response.data.address.city,
+          facility: response.data.address.facility,
+          code: response.data.address.code,
           type: response.data.type
         });
       })
@@ -65,10 +60,11 @@ class Dashboard extends Component {
       return (
         <div>
           <div>
-            <h1 className="display-4">{this.state.facility}</h1>
+            <h1 className="display-4">
+              {this.state.facility} - Microsera {this.state.type}
+            </h1>
             <p className="font-weight-lighter">
-              {this.state.city}, {this.state.street}, {this.state.number},{" "}
-              {this.state.type}
+              {this.state.city}, {this.state.street}, {this.state.number}
             </p>
           </div>
           <br />

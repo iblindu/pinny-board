@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Switch from "react-switch";
-import ControlM1 from "./ControlM1";
-import ControlM2 from "./ControlM2";
+import ControlOne from "./ControlOne";
+import ControlPlus from "./ControlPlus";
 
 class SwitchComponent extends Component {
   constructor() {
@@ -22,7 +22,7 @@ class SwitchComponent extends Component {
   }
 
   render() {
-    if (this.props.type === "M2" && this.state.checked)
+    if (this.props.type === "Plus" && this.state.checked)
       return (
         <div>
           <row>
@@ -40,10 +40,13 @@ class SwitchComponent extends Component {
               {this.state.value}
             </p>
           </row>
-          <ControlM2 type={this.props.type} code={this.props.code}></ControlM2>
+          <ControlPlus
+            type={this.props.type}
+            code={this.props.code}
+          ></ControlPlus>
         </div>
       );
-    else if (this.props.type === "M1" && this.state.checked)
+    else if (this.props.type === "One" && this.state.checked)
       return (
         <div>
           <row>
@@ -61,7 +64,10 @@ class SwitchComponent extends Component {
               {this.state.value}
             </p>
           </row>
-          <ControlM1 type={this.props.type} code={this.props.code}></ControlM1>
+          <ControlOne
+            type={this.props.type}
+            code={this.props.code}
+          ></ControlOne>
         </div>
       );
     else

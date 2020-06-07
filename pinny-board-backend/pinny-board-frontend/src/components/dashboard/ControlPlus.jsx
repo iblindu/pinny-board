@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Switch from "react-switch";
 import axios from "axios";
 
-class ControlM2 extends Component {
+class ControlPlus extends Component {
   constructor() {
     super();
     this.state = { code: "", type: "", checked: false };
@@ -55,4 +55,4 @@ class ControlM2 extends Component {
   }
 }
 
-export default ControlM2;
+export default ControlPlus;

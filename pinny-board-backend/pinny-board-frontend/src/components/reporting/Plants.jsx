@@ -8,7 +8,7 @@ import { Alert } from "reactstrap";
 import { Form, Divider } from "semantic-ui-react";
 
 export function Plant(props) {
-  return <p>{props.plants.name}</p>;
+  return props.plants.name;
 }
 
 class Plants extends Component {
@@ -103,21 +103,22 @@ class Plants extends Component {
   plantList() {
     return this.state.plants.map(currentPlant => {
       return (
-        <div className="col-sm-3">
-          <div className="card mb-4">
+        <div className="col-sm-12">
+          <div className="card mb-2">
             <div className="card-body">
               <Plant plants={currentPlant} key={currentPlant._id} />
-
-              <button
-                type="button"
-                className="btn btn-outline-danger btn-sm"
-                data-toggle="modal"
-                data-target="#exampleModal"
-                name={currentPlant._id}
-                onClick={e => this.select(e)}
-              >
-                Delete
-              </button>
+              <div className="float-right">
+                <button
+                  type="button"
+                  className="btn btn-outline-danger btn-sm"
+                  data-toggle="modal"
+                  data-target="#exampleModal"
+                  name={currentPlant._id}
+                  onClick={e => this.select(e)}
+                >
+                  Delete
+                </button>
+              </div>
               <div
                 className="modal fade"
                 id="exampleModal"

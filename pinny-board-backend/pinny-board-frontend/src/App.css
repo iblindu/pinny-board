@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  cursor: "pointer";
 }
 
 .App-logo {
@@ -42,3 +43,5 @@
 }
 
 @import url("https://fonts.googleapis.com/css?family=Muli");
+@import "~react-vis/dist/style";
+@import "~react-vis/dist/styles/legends";

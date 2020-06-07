@@ -70,7 +70,6 @@ router.route("/find").post((req, res) => {
   code = req.body.code;
   Microsera.findOne({ code })
     .then(microsera => {
-      console.log(microsera);
       res.json({
         code: microsera.code,
         type: microsera.type,

@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import axios from "axios";
 
-class ControlM1 extends Component {
+class ControlOne extends Component {
   constructor() {
     super();
     this.state = { code: "", type: "", checked: false };
@@ -68,4 +68,4 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps)(ControlM1);
+export default connect(mapStateToProps)(ControlOne);

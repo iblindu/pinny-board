@@ -4,13 +4,11 @@ const Schema = mongoose.Schema;
 const ProductionSchema = new Schema({
   user_id: {
     type: String,
-    required: true,
-    unique: true
+    required: true
   },
   micro_code: {
     type: String,
-    required: true,
-    unique: true
+    required: true
   },
   species: {
     type: String,
