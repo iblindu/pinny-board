@@ -45,3 +45,5 @@
 @import url("https://fonts.googleapis.com/css?family=Muli");
 @import "~react-vis/dist/style";
 @import "~react-vis/dist/styles/legends";
+@import "../node_modules/rfs/scss";
+@import "~rfs/scss";

@@ -22,6 +22,7 @@ class AddReport extends Component {
       initial: Number,
       loses: Number,
       added: Number,
+      date: Date,
       report: "sales",
       checked: false,
       msg: null
@@ -61,7 +62,7 @@ class AddReport extends Component {
   handleChange = (e, { name, value }) => this.setState({ [name]: value });
 
   handleSubmit = () => {
-    const { species, initial, loses, added } = this.state;
+    const { species, initial, loses, added, date } = this.state;
 
     const { selectedMicro } = this.props.micro;
     const { user } = this.props.auth;
@@ -75,7 +76,8 @@ class AddReport extends Component {
       species,
       initial,
       loses,
-      added
+      added,
+      date
     };
 
     //Atempt to add Micosera
@@ -121,7 +123,7 @@ class AddReport extends Component {
         maxWidth: "800px"
       }
     });
-    const { species, initial, loses, added, report } = this.state;
+    const { species, initial, loses, added, report, date } = this.state;
     const speciesDefinitions = this.state.plants;
     const speciesOptions = _.map(speciesDefinitions, species => ({
       key: species,
@@ -221,7 +223,15 @@ class AddReport extends Component {
               />
             </div>
           )}
-
+          <Form.Input
+            type="date"
+            required
+            placeholder="Date"
+            name="date"
+            label="Date "
+            value={date}
+            onChange={this.handleChange}
+          />
           <br />
           {this.state.msg ? (
             <Alert color="danger">{this.state.msg}</Alert>

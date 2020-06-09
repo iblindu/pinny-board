@@ -62,6 +62,7 @@ router.route("/addSalesReport").post((req, res) => {
   const initial = req.body.initial;
   const loses = req.body.loses;
   const added = req.body.added;
+  const register_date = req.body.date;
 
   const newSales = new Sales({
     user_id,
@@ -69,7 +70,8 @@ router.route("/addSalesReport").post((req, res) => {
     species,
     initial,
     loses,
-    added
+    added,
+    register_date
   });
 
   newSales
@@ -88,6 +90,7 @@ router.route("/addProductionReport").post((req, res) => {
   const initial = req.body.initial;
   const loses = req.body.loses;
   const added = req.body.added;
+  const register_date = req.body.date;
 
   const newProduction = new Production({
     user_id,
@@ -95,7 +98,8 @@ router.route("/addProductionReport").post((req, res) => {
     species,
     initial,
     loses,
-    added
+    added,
+    register_date
   });
 
   newProduction
@@ -113,7 +117,6 @@ router.route("/allPlantsSales").post((req, res) => {
   all
     .distinct("species")
     .then(species => {
-      console.log(species);
       res.json(species);
     })
     .catch(err => res.status(400).json("Error: " + err));
@@ -128,7 +131,38 @@ router.route("/allPlantsProduction").post((req, res) => {
   all
     .distinct("species")
     .then(species => {
-      console.log(species);
+      res.json(species);
+    })
+    .catch(err => res.status(400).json("Error: " + err));
+});
+
+// @route POST api/reporting/PlantSales
+// @desc See for what plants there are entries
+// @access Private
+router.route("/PlantSales").post((req, res) => {
+  micro_code = req.body.id;
+  species = req.body.species;
+  const all = Sales.find({ micro_code });
+  all
+    .find({ species })
+    .sort({ register_date: -1 })
+    .then(species => {
+      res.json(species);
+    })
+    .catch(err => res.status(400).json("Error: " + err));
+});
+
+// @route POST api/reporting/PlantProduction
+// @desc See for what plants there are entries
+// @access Private
+router.route("/PlantProduction").post((req, res) => {
+  micro_code = req.body.id;
+  species = req.body.species;
+  const all = Production.find({ micro_code });
+  all
+    .find({ species })
+    .sort({ register_date: -1 })
+    .then(species => {
       res.json(species);
     })
     .catch(err => res.status(400).json("Error: " + err));

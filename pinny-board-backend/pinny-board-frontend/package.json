@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.9.7",
     "@material-ui/icons": "^4.9.1",
+    "@nivo/line": "^0.62.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
@@ -14,6 +15,7 @@
     "google-maps": "^4.2.3",
     "jquery": "^3.5.1",
     "lodash": "^4.17.15",
+    "nivo": "^0.31.0",
     "popper.js": "^1.16.1",
     "react": "^16.13.0",
     "react-bootstrap": "^1.0.0-beta.17",
@@ -34,6 +36,7 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
+    "rfs": "^9.0.3",
     "semantic-ui-react": "^0.88.2",
     "simple-flexbox": "^2.3.0",
     "styled-components": "^5.0.1",

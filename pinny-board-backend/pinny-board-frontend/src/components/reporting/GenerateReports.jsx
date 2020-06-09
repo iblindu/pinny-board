@@ -3,12 +3,18 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import axios from "axios";
 import _ from "lodash";
-import { Dropdown } from "semantic-ui-react";
-
-class GenerateGraphs extends Component {
+import { Dropdown, Divider } from "semantic-ui-react";
+import Graphs from "./Graphs";
+import Records from "./Records";
+class GenerateReports extends Component {
   constructor() {
     super();
-    this.state = { plants: [], species: "" };
+    this.state = {
+      plants: [],
+      graphsSpecies: "",
+      recordsSpecies: "",
+      report: ""
+    };
   }
   static propTypes = {
     micro: PropTypes.object.isRequired,
@@ -23,6 +29,7 @@ class GenerateGraphs extends Component {
         "Content-type": "application/json"
       }
     };
+    this.setState({ report: this.props.report });
     if (this.props.report === "sales") {
       axios
         .post("/api/reporting/allPlantsSales", body, config)
@@ -53,7 +60,8 @@ class GenerateGraphs extends Component {
       }
     };
     const { report } = this.props;
-    if (report !== prevProps.report)
+    if (report !== prevProps.report) {
+      this.setState({ report: this.props.report });
       if (this.props.report === "sales") {
         axios
           .post("/api/reporting/allPlantsSales", body, config)
@@ -73,29 +81,60 @@ class GenerateGraphs extends Component {
             console.log(error);
           });
       }
+    }
   }
+  handleChange = (e, { name, value }) => this.setState({ [name]: value });
+
   render() {
-    const { species } = this.state.species;
+    const { graphsSpecies, recordsSpecies, report } = this.state;
     const speciesDefinitions = this.state.plants;
     const speciesOptions = _.map(speciesDefinitions, species => ({
       key: species,
       text: species,
       value: species
     }));
+
     return (
       <div>
-        <p>
-          <Dropdown
-            required
-            placeholder="Plant Species"
-            search
-            selection
-            name="species"
-            options={speciesOptions}
-            value={species}
-            onChange={this.handleChange}
-          />
+        <p style={{ fontFamily: "nunito", fontSize: 30, fontWeight: "light" }}>
+          Graphs
         </p>
+
+        <Dropdown
+          required
+          placeholder="Plant Species"
+          search
+          selection
+          name="graphsSpecies"
+          options={speciesOptions}
+          value={graphsSpecies}
+          onChange={this.handleChange}
+        />
+        <br />
+        <br />
+        {graphsSpecies ? (
+          <Graphs species={graphsSpecies} report={report} />
+        ) : null}
+        <Divider />
+
+        <p style={{ fontFamily: "nunito", fontSize: 30, fontWeight: "light" }}>
+          Records
+        </p>
+        <Dropdown
+          required
+          placeholder="Plant Species"
+          search
+          selection
+          name="recordsSpecies"
+          options={speciesOptions}
+          value={recordsSpecies}
+          onChange={this.handleChange}
+        />
+        <br />
+        <br />
+        {recordsSpecies ? (
+          <Records species={recordsSpecies} report={report} />
+        ) : null}
       </div>
     );
   }
@@ -105,4 +144,4 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps)(GenerateGraphs);
+export default connect(mapStateToProps)(GenerateReports);

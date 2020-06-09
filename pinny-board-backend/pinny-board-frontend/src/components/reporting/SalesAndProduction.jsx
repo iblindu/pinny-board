@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import Switch from "react-switch";
 
-import { Dropdown, Divider } from "semantic-ui-react";
+import { Divider } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import axios from "axios";
-import GenerateGraphs from "./GenerateGraphs";
+import GenerateReports from "./GenerateReports";
 
 class SalesAndProduction extends Component {
   constructor() {
@@ -65,7 +65,7 @@ class SalesAndProduction extends Component {
     const { selectedMicro } = this.props.micro;
     return (
       <div>
-        {" "}
+        <h1 class="display-4 text-capitalize">{report} reports</h1>
         <Switch
           onChange={this.handleChange}
           checked={this.state.checked}
@@ -75,8 +75,8 @@ class SalesAndProduction extends Component {
           offColor="#1f6023"
         />
         <Divider />
-        <h1 class="display-4 text-capitalize">{report}</h1>
-        <GenerateGraphs report={report}></GenerateGraphs>
+
+        <GenerateReports report={report}></GenerateReports>
       </div>
     );
   }

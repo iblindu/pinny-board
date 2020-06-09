@@ -52,7 +52,8 @@ export const addSalesReport = ({
   species,
   initial,
   loses,
-  added
+  added,
+  date
 }) => (dispatch, getState) => {
   // Request body
 
@@ -62,7 +63,8 @@ export const addSalesReport = ({
     species,
     initial,
     loses,
-    added
+    added,
+    date
   });
 
   axios
@@ -91,7 +93,8 @@ export const addProductionReport = ({
   species,
   initial,
   loses,
-  added
+  added,
+  date
 }) => (dispatch, getState) => {
   // Request body
 
@@ -101,7 +104,8 @@ export const addProductionReport = ({
     species,
     initial,
     loses,
-    added
+    added,
+    date
   });
 
   axios
