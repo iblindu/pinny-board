@@ -40,10 +40,7 @@ class SwitchComponent extends Component {
               {this.state.value}
             </p>
           </row>
-          <ControlPlus
-            type={this.props.type}
-            code={this.props.code}
-          ></ControlPlus>
+          <ControlPlus code={this.props.code}></ControlPlus>
         </div>
       );
     else if (this.props.type === "One" && this.state.checked)
@@ -64,10 +61,7 @@ class SwitchComponent extends Component {
               {this.state.value}
             </p>
           </row>
-          <ControlOne
-            type={this.props.type}
-            code={this.props.code}
-          ></ControlOne>
+          <ControlOne code={this.props.code}></ControlOne>
         </div>
       );
     else

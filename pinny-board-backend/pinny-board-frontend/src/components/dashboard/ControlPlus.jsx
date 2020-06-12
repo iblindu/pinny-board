@@ -9,9 +9,26 @@ class ControlPlus extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  componentDidMount() {
+    const { selectedMicro } = this.props;
+    const microId = selectedMicro;
+
+    axios.get("/api/microsere/" + microId).then(response => {
+      this.setState({
+        electrovalves: response.data.electrovalves,
+        heating: response.data.heating,
+        levels: response.data.levels
+      }).catch(error => {
+        console.log(error);
+      });
+    });
+  }
+
   handleChange(checked) {
+    const { selectedMicro } = this.props.micro;
+    const microId = selectedMicro;
     this.setState({ checked });
-    const broker = "mqtt://mqtt-ardu-micro:f4d2cd04d09866df@broker.shiftr.io";
+    // const broker = "mqtt://mqtt-ardu-micro:f4d2cd04d09866df@broker.shiftr.io";
     const config = {
       headers: {
         "Content-type": "application/json"
@@ -25,7 +42,7 @@ class ControlPlus extends Component {
       value = "0";
     }
 
-    const body = JSON.stringify({ broker, value });
+    const body = JSON.stringify({ microId, value });
     axios
       .post("/api/connect/power", body, config)
       .then()

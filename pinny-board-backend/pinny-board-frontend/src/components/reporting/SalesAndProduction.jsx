@@ -6,7 +6,6 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import axios from "axios";
 import GenerateReports from "./GenerateReports";
-
 class SalesAndProduction extends Component {
   constructor() {
     super();
