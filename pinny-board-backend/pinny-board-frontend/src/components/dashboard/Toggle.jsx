@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import "./Toggle.css";
 
 export const Toggle = ({ id, value, checked, handleCheckChildElement }) => (
-  <>
+  <div className="row">
     <input
       type="checkbox"
       value={value}
@@ -19,8 +19,8 @@ export const Toggle = ({ id, value, checked, handleCheckChildElement }) => (
     >
       <span className={`react-switch-button`} />
     </label>
-    <div>{value}</div>
-  </>
+    <span className="ml-2">{value}</span>
+  </div>
 );
 Toggle.propTypes = {
   value: PropTypes.string.isRequired,

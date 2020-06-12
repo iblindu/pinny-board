@@ -2,85 +2,64 @@ import React, { Component } from "react";
 import Switch from "react-switch";
 import ControlOne from "./ControlOne";
 import ControlPlus from "./ControlPlus";
-
+import Toggle from "./Toggle";
 class SwitchComponent extends Component {
   constructor() {
     super();
-    this.state = { checked: false, value: "automat", code: "", type: "" };
+    this.state = { checked: false, value: "AUTOMAT", code: "", type: "" };
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(checked) {
-    this.setState({ checked });
-    if (checked) {
+  handleChange = event => {
+    this.setState({ checked: event.target.checked });
+    if (this.state.checked) {
       this.setState({
-        value: "manual"
+        value: "AUTOMAT"
       });
     } else {
-      this.setState({ value: "automat" });
+      this.setState({ value: "MANUAL" });
     }
-  }
+  };
 
   render() {
     if (this.props.type === "Plus" && this.state.checked)
       return (
         <div>
-          <row>
-            <Switch
-              onChange={this.handleChange}
+          <div style={{ paddingLeft: 15 }}>
+            <Toggle
+              handleCheckChildElement={this.handleChange}
               checked={this.state.checked}
-              uncheckedIcon=""
-              checkedIcon=""
-              onColor="#1f6023"
+              value={this.state.value}
+              id={this.state.value}
             />
-            <p
-              class="mb-3 text-capitalize font-weight-lighter"
-              style={{ width: "40px" }}
-            >
-              {this.state.value}
-            </p>
-          </row>
-          <ControlPlus code={this.props.code}></ControlPlus>
+          </div>
+          <ControlPlus client_id={this.props.client_id}></ControlPlus>
         </div>
       );
     else if (this.props.type === "One" && this.state.checked)
       return (
         <div>
-          <row>
-            <Switch
-              onChange={this.handleChange}
+          <div style={{ paddingLeft: 15 }}>
+            <Toggle
+              handleCheckChildElement={this.handleChange}
               checked={this.state.checked}
-              uncheckedIcon=""
-              checkedIcon=""
-              onColor="#1f6023"
+              value={this.state.value}
+              id={this.state.value}
             />
-            <p
-              class="mb-3 text-capitalize font-weight-lighter"
-              style={{ width: "40px" }}
-            >
-              {this.state.value}
-            </p>
-          </row>
-          <ControlOne code={this.props.code}></ControlOne>
+          </div>
+          <ControlOne client_id={this.props.client_id}></ControlOne>
         </div>
       );
     else
       return (
-        <row>
-          <Switch
-            onChange={this.handleChange}
+        <div style={{ paddingLeft: 15 }}>
+          <Toggle
+            handleCheckChildElement={this.handleChange}
             checked={this.state.checked}
-            uncheckedIcon=""
-            checkedIcon=""
-            onColor="#1f6023"
+            value={this.state.value}
+            id={this.state.value}
           />
-          <p
-            class="mb-3 text-capitalize font-weight-lighter"
-            style={{ width: "40px" }}
-          >
-            {this.state.value}
-          </p>
-        </row>
+        </div>
       );
   }
 }

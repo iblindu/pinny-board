@@ -4,13 +4,11 @@ const Schema = mongoose.Schema;
 const EventSchema = new Schema({
   user_id: {
     type: String,
-    required: true,
-    unique: true
+    required: true
   },
   micro_code: {
     type: String,
-    required: true,
-    unique: true
+    required: true
   },
   event: {
     type: {

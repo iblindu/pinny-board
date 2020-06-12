@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 var mqtt = require("mqtt");
 
+//Event Model
+var Event = require("../../model/Event");
+
 //------ MQTT broker settings and topics
 // const broker = "mqtt://mqtt-ardu-micro:f4d2cd04d09866df@broker.shiftr.io";
 // const mqttUserName = "mqtt-ardu-micro";
@@ -74,14 +77,22 @@ router.route("/gethum").post((req, res) => {
   client.unsubscribe(topic_pub_humidity);
 });
 
-// @route POST api/connect/power
+// @route POST api/connect/control
 // @desc Power on/off
 // @access Public
-router.route("/power").post((req, res) => {
-  const broker = req.body.broker;
+router.route("/control").post((req, res) => {
+  const broker = "mqtt://mqtt-ardu-micro:f4d2cd04d09866df@broker.shiftr.io";
+  const micro_code = req.body.micro_id;
+  const client_id = req.body.client_id;
+  const user_id = req.body.user_id;
+  const type = "control";
+  const element = req.body.element;
   const value = req.body.value;
-  const topic_sub_motor_command = "motor_command";
 
+  const topic = client_id + "/" + element;
+  console.log(topic);
+  // This is here just for tests
+  const topic_sub_motor_command = "motor_command";
   var client = mqtt.connect(broker, {
     clientId: clientID
   });
@@ -89,6 +100,17 @@ router.route("/power").post((req, res) => {
     client.publish(topic_sub_motor_command, value);
     client.end();
   });
+
+  //Add event to database
+  const newEvent = new Event({
+    micro_code,
+    user_id,
+    event: { type, element, value }
+  });
+  newEvent
+    .save()
+    .then(() => res.json("New Event Entry Added! "))
+    .catch(err => res.status(400).json("Error:" + err));
 });
 
 module.exports = router;

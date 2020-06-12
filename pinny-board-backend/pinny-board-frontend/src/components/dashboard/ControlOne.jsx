@@ -3,16 +3,16 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import axios from "axios";
 import Toggle from "./Toggle";
-
+import { Divider } from "semantic-ui-react";
+import { controlMicrosera } from "../../actions/microActions";
 class ControlOne extends Component {
   _isMounted = false;
   constructor(props) {
     super(props);
 
     this.state = {
-      code: "",
+      client_id: "",
       type: "",
-
       activities: []
     };
 
@@ -21,11 +21,15 @@ class ControlOne extends Component {
 
   static propTypes = {
     micro: PropTypes.object.isRequired,
-    auth: PropTypes.object.isRequired
+    auth: PropTypes.object.isRequired,
+    controlMicrosera: PropTypes.func.isRequired
   };
 
   componentDidMount() {
     this._isMounted = true;
+    const client_id = this.props.client_id;
+    this.setState({ client_id });
+
     const { selectedMicro } = this.props.micro;
     const microId = selectedMicro;
 
@@ -79,38 +83,63 @@ class ControlOne extends Component {
         console.log(error);
       });
   }
+
   handleCheckChildElement = event => {
-    console.log(event.target.name);
-    console.log(event.target.checked);
-    console.log(event.target.value);
+    const { selectedMicro } = this.props.micro;
+    const { user } = this.props.auth;
+    const micro_id = selectedMicro;
+    const user_id = user.id;
+    const client_id = this.state.client_id;
+    const element = event.target.value;
+    var value;
+    if (event.target.checked) {
+      value = "1";
+    } else {
+      value = "0";
+    }
+
     let activities = this.state.activities;
     activities.forEach(activity => {
       if (activity.value === event.target.value) {
-        console.log("a ajuns aici");
         activity.isChecked = event.target.checked;
       }
     });
     this.setState({ activities: activities });
+
+    const newEvent = {
+      micro_id,
+      user_id,
+      client_id,
+      element,
+      value
+    };
+
+    this.props.controlMicrosera(newEvent);
   };
 
   render() {
     const { activities } = this.state;
+    console.log(activities);
     return (
-      <form>
-        {this.state.activities.map((activity, index) => {
-          const { isChecked, name, value } = activity;
-          console.log(activities);
-
+      <div style={{ maxWidth: 200 }}>
+        <Divider />
+        {this.state.activities.map(activity => {
           return (
-            <Toggle
-              handleCheckChildElement={this.handleCheckChildElement}
-              checked={activity.isChecked}
-              value={activity.value}
-              id={activity.id}
-            />
+            <div>
+              {activity.value === "Led1" ? <Divider /> : null}
+              {activity.value === "Fan1" ? <Divider /> : null}
+              <div style={{ paddingLeft: 15 }}>
+                <Toggle
+                  handleCheckChildElement={this.handleCheckChildElement}
+                  checked={activity.isChecked}
+                  value={activity.value}
+                  id={activity.id}
+                />
+              </div>
+            </div>
           );
         })}
-      </form>
+      </div>
     );
   }
 }
@@ -119,4 +148,4 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps)(ControlOne);
+export default connect(mapStateToProps, { controlMicrosera })(ControlOne);

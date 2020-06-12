@@ -6,6 +6,7 @@ import { Card } from "semantic-ui-react";
 import TemperatureCard from "./TemperatureCard";
 import HumidityCard from "./HumidityCard";
 import SwitchComponent from "./Switch";
+import { Divider } from "semantic-ui-react";
 
 class Dashboard extends Component {
   constructor() {
@@ -16,8 +17,8 @@ class Dashboard extends Component {
       number: "",
       city: "",
       facility: "",
-      code: "",
-      type: ""
+      type: "",
+      client_id: ""
     };
   }
 
@@ -34,12 +35,12 @@ class Dashboard extends Component {
       .get("/api/microsere/" + microId)
       .then(response => {
         this.setState({
+          client_id: response.data.client_id,
+          type: response.data.type,
           street: response.data.address.street,
           number: response.data.address.number,
           city: response.data.address.city,
-          facility: response.data.address.facility,
-          code: response.data.address.code,
-          type: response.data.type
+          facility: response.data.address.facility
         });
       })
       .catch(error => {
@@ -85,10 +86,30 @@ class Dashboard extends Component {
           user.role === "client" ||
           user.role === "technical" ? (
             <div col-sm-6>
+              <Divider />
+              <p
+                style={{
+                  fontFamily: "nunito",
+                  fontSize: 30,
+                  fontWeight: "light"
+                }}
+              >
+                Control
+              </p>
               <SwitchComponent
                 type={this.state.type}
-                code={this.state.code}
+                client_id={this.state.client_id}
               ></SwitchComponent>
+              <Divider />
+              <p
+                style={{
+                  fontFamily: "nunito",
+                  fontSize: 30,
+                  fontWeight: "light"
+                }}
+              >
+                Report
+              </p>
             </div>
           ) : null}
         </div>

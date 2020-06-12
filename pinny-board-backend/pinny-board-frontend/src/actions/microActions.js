@@ -6,7 +6,9 @@ import {
   MADDED_FAIL,
   MEDITED_SUCCESS,
   MICRO_SELECTED,
-  CLEAR_MICRO
+  CLEAR_MICRO,
+  EADDED_SUCCES,
+  EADDED_FAIL
 } from "./types";
 
 //AddMicrosera
@@ -125,6 +127,41 @@ export const editMicrosera = ({
       );
       dispatch({
         type: MADDED_FAIL
+      });
+    });
+};
+
+//control Microsera
+
+export const controlMicrosera = ({
+  micro_id,
+  user_id,
+  client_id,
+  element,
+  value
+}) => (dispatch, getState) => {
+  const body = JSON.stringify({
+    micro_id,
+    user_id,
+    client_id,
+    element,
+    value
+  });
+
+  axios
+    .post("/api/connect/control", body, tokenConfig(getState))
+    .then(res =>
+      dispatch({
+        type: EADDED_SUCCES,
+        payload: res.data
+      })
+    )
+    .catch(err => {
+      dispatch(
+        returnErrors(err.response.data, err.response.status, "EADDED_FAIL")
+      );
+      dispatch({
+        type: EADDED_FAIL
       });
     });
 };
