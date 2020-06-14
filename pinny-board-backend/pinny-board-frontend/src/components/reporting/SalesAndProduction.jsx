@@ -61,10 +61,9 @@ class SalesAndProduction extends Component {
 
   render() {
     const { report } = this.state;
-    const { selectedMicro } = this.props.micro;
     return (
       <div>
-        <h1 class="display-4 text-capitalize">{report} reports</h1>
+        <h1 className="display-4 text-capitalize">{report} reports</h1>
         <Switch
           onChange={this.handleChange}
           checked={this.state.checked}
@@ -72,9 +71,29 @@ class SalesAndProduction extends Component {
           checkedIcon=""
           onColor="#1f6023"
           offColor="#1f6023"
-        />
-        <Divider />
-
+        />{" "}
+        <Divider style={{ width: "70vw" }} />
+        <p
+          style={{
+            fontFamily: "nunito",
+            fontSize: 20,
+            margin: 0
+          }}
+        >
+          {this.state.facility} - Microsera {this.state.type}
+        </p>
+        <p
+          style={{
+            fontFamily: "nunito",
+            fontSize: 15,
+            fontWeight: "light",
+            color: "#8F8F91",
+            marginTop: 0
+          }}
+        >
+          {this.state.city}, {this.state.street}, {this.state.number}
+        </p>
+        <Divider style={{ width: "70vw" }} />{" "}
         <GenerateReports report={report}></GenerateReports>
       </div>
     );

@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 import NavbarComponent from "../bars/Navbar/NavbarComponent";
 import SidebarComponent from "../bars/Sidebar/SidebarComponent";
 import Dashboard from "../dashboard/Dashboard";
-import Reports from "../reports/Reports";
+import LoggingReports from "../logs/LoggingReports";
 import AddReport from "../reporting/AddReport";
 import SalesAndProduction from "../reporting/SalesAndProduction";
 
@@ -59,7 +59,11 @@ class Main extends Component {
               <NavbarComponent />
               <div>
                 <Route path="/dashboard" exact component={Dashboard} />
-                <Route path="/dashboard/reports" exact component={Reports} />
+                <Route
+                  path="/dashboard/logs"
+                  exact
+                  component={LoggingReports}
+                />
                 <Route
                   path="/dashboard/reporting"
                   exact

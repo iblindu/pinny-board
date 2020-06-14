@@ -6,6 +6,14 @@ const SalesSchema = new Schema({
     type: Object,
     required: true
   },
+  user_email: {
+    type: String,
+    required: true
+  },
+  user_name: {
+    type: String,
+    required: true
+  },
   micro_code: {
     type: Object,
     required: true

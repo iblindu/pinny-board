@@ -57,6 +57,8 @@ router.route("/:id").delete((req, res) => {
 // @access Private
 router.route("/addSalesReport").post((req, res) => {
   const user_id = req.body.user_id;
+  const user_name = req.body.user_name;
+  const user_email = req.body.user_email;
   const micro_code = req.body.micro_code;
   const species = req.body.species;
   const initial = req.body.initial;
@@ -66,6 +68,8 @@ router.route("/addSalesReport").post((req, res) => {
 
   const newSales = new Sales({
     user_id,
+    user_name,
+    user_email,
     micro_code,
     species,
     initial,
@@ -85,6 +89,8 @@ router.route("/addSalesReport").post((req, res) => {
 // @access Private
 router.route("/addProductionReport").post((req, res) => {
   const user_id = req.body.user_id;
+  const user_name = req.body.user_name;
+  const user_email = req.body.user_email;
   const micro_code = req.body.micro_code;
   const species = req.body.species;
   const initial = req.body.initial;
@@ -94,6 +100,8 @@ router.route("/addProductionReport").post((req, res) => {
 
   const newProduction = new Production({
     user_id,
+    user_name,
+    user_email,
     micro_code,
     species,
     initial,
@@ -137,7 +145,7 @@ router.route("/allPlantsProduction").post((req, res) => {
 });
 
 // @route POST api/reporting/PlantSales
-// @desc See for what plants there are entries
+// @desc See all entries for a specific plant
 // @access Private
 router.route("/PlantSales").post((req, res) => {
   micro_code = req.body.id;
@@ -153,7 +161,7 @@ router.route("/PlantSales").post((req, res) => {
 });
 
 // @route POST api/reporting/PlantProduction
-// @desc See for what plants there are entries
+// @desc See all entries for a specific plant
 // @access Private
 router.route("/PlantProduction").post((req, res) => {
   micro_code = req.body.id;

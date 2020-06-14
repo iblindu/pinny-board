@@ -24,49 +24,44 @@ class HomeNavbarComponent extends Component {
         </a>
         <ul className="nav ml-auto">
           <li className="nav-item dropdown">
-            <a
+            <span
               className="nav-link dropdown-toggle"
-              href="#"
               id="navbarDropdown"
               role="button"
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
-              style={{ color: "green" }}
+              style={{ color: "green", cursor: "pointer" }}
             >
               {user.name}
-            </a>
+            </span>
             <div
               className="dropdown-menu dropdown-menu-right"
               aria-labelledby="navbarDropdown"
             >
-              {/* <a className="dropdown-item" href="#">
-                Edit Profile
-              </a> 
-              <div className="dropdown-divider"></div>*/}
-              <a className="dropdown-item">
+              <span className="dropdown-item" style={{ cursor: "pointer" }}>
                 <Logout />
-              </a>
+              </span>
             </div>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#">
+            <span className="nav-link" style={{ cursor: "pointer" }}>
               <IconBell />
-            </a>
+            </span>
           </li>
           {user.role === "administrator" ? (
             <li className="nav-item dropdown">
-              <a
+              <span
                 className="nav-link"
-                href="#"
                 id="navbarDropdown"
                 role="button"
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
+                style={{ cursor: "pointer" }}
               >
                 <IconSettings />
-              </a>
+              </span>
               <div
                 className="dropdown-menu dropdown-menu-right"
                 aria-labelledby="navbarDropdown"

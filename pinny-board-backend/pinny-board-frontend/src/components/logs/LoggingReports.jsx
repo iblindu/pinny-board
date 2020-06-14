@@ -2,14 +2,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import axios from "axios";
-import { Card } from "semantic-ui-react";
-import TemperatureCard from "./TemperatureCard";
-import HumidityCard from "./HumidityCard";
-import SwitchComponent from "./Switch";
+import GenerateLogs from "./GenerateLogs";
 import { Divider } from "semantic-ui-react";
-import GenerateGraphs from "./GenerateGraphs";
 
-class Dashboard extends Component {
+class LoggingReports extends Component {
   constructor() {
     super();
 
@@ -24,8 +20,7 @@ class Dashboard extends Component {
   }
 
   static propTypes = {
-    micro: PropTypes.object.isRequired,
-    auth: PropTypes.object.isRequired
+    micro: PropTypes.object.isRequired
   };
 
   componentDidMount() {
@@ -48,10 +43,9 @@ class Dashboard extends Component {
         console.log(error);
       });
   }
-
   render() {
     const { selectedMicro } = this.props.micro;
-    const { user } = this.props.auth;
+
     if (!selectedMicro)
       return (
         <div>
@@ -61,7 +55,7 @@ class Dashboard extends Component {
     else
       return (
         <div>
-          <h1 className="display-4 text-capitalize">Dashboard</h1>
+          <h1 className="display-4 text-capitalize">Logging Reports</h1>
           <Divider style={{ width: "70vw" }} />
           <p
             style={{
@@ -83,58 +77,15 @@ class Dashboard extends Component {
           >
             {this.state.city}, {this.state.street}, {this.state.number}
           </p>
-          <Divider style={{ width: "70vw" }} /> <br />
-          <br />
-          <div>
-            <Card.Group>
-              <div className="col-sm-4">
-                <TemperatureCard />
-              </div>
-              <div className="col-sm-4">
-                <HumidityCard />
-              </div>
-            </Card.Group>
-          </div>
-          <br />
-          <br />
-          {user.role === "administrator" ||
-          user.role === "client" ||
-          user.role === "technical" ? (
-            <div>
-              <Divider style={{ width: "70vw" }} /> <br />
-              <p
-                style={{
-                  fontFamily: "nunito",
-                  fontSize: 30,
-                  fontWeight: "light"
-                }}
-              >
-                Control
-              </p>
-              <SwitchComponent
-                type={this.state.type}
-                client_id={this.state.client_id}
-              ></SwitchComponent>
-              <Divider style={{ width: "70vw" }} /> <br />
-              <p
-                style={{
-                  fontFamily: "nunito",
-                  fontSize: 30,
-                  fontWeight: "light"
-                }}
-              >
-                Graphs
-              </p>
-              <GenerateGraphs />
-            </div>
-          ) : null}
+          <Divider style={{ width: "70vw" }} />
+          <GenerateLogs />
         </div>
       );
   }
 }
 const mapStateToProps = state => ({
   micro: state.micro,
-  auth: state.auth
+  error: state.error
 });
 
-export default connect(mapStateToProps)(Dashboard);
+export default connect(mapStateToProps)(LoggingReports);

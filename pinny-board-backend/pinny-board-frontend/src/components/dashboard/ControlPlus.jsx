@@ -12,8 +12,10 @@ class ControlPlus extends Component {
     super(props);
 
     this.state = {
-      client_id: "",
-      type: "",
+      client_id: String,
+      user_id: String,
+      user_email: String,
+      type: String,
       activities: []
     };
 
@@ -30,6 +32,20 @@ class ControlPlus extends Component {
     this._isMounted = true;
     const client_id = this.props.client_id;
     this.setState({ client_id });
+
+    const { user } = this.props.auth;
+    const id = user.id;
+    axios
+      .get("/api/users/" + id)
+      .then(response => {
+        this.setState({
+          user_name: response.data.name,
+          user_email: response.data.email
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
 
     const { selectedMicro } = this.props.micro;
     const microId = selectedMicro;
@@ -76,7 +92,7 @@ class ControlPlus extends Component {
           const electrovalvesNumber = response.data.electrovalves;
 
           var i;
-          var id = 6;
+          var id = 7;
           var value;
 
           for (i = 1; i <= electrovalvesNumber; i++) {
@@ -111,7 +127,7 @@ class ControlPlus extends Component {
     const { user } = this.props.auth;
     const micro_id = selectedMicro;
     const user_id = user.id;
-    const client_id = this.state.client_id;
+    const { client_id, user_name, user_email } = this.state;
     const element = event.target.value;
     var value;
     if (event.target.checked) {
@@ -131,6 +147,8 @@ class ControlPlus extends Component {
     const newEvent = {
       micro_id,
       user_id,
+      user_name,
+      user_email,
       client_id,
       element,
       value
@@ -140,8 +158,6 @@ class ControlPlus extends Component {
   };
 
   render() {
-    const { activities } = this.state;
-    console.log(activities);
     return (
       <div style={{ maxWidth: 200 }}>
         <Divider />

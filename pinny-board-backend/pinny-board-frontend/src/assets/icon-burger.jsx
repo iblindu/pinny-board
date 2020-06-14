@@ -2,7 +2,7 @@ import React from "react";
 
 export default props => (
   <svg
-    class="bi bi-list"
+    className="bi bi-list"
     width="1.5em"
     height="1.5em"
     viewBox="0 0 16 16"

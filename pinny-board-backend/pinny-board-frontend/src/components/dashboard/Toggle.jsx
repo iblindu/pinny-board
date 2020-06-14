@@ -24,7 +24,7 @@ export const Toggle = ({ id, value, checked, handleCheckChildElement }) => (
 );
 Toggle.propTypes = {
   value: PropTypes.string.isRequired,
-  name: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   checked: PropTypes.bool,
   handleCheckChildElement: PropTypes.func.isRequired
 };

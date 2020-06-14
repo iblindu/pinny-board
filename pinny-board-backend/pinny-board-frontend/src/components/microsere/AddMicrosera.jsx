@@ -120,7 +120,6 @@ class AddMicrosera extends Component {
   renderRedirect = () => {
     const { isMicroAdded } = this.props;
     if (isMicroAdded === true) {
-      console.log("Succes!");
       return <Redirect to="/home" />;
     }
   };
@@ -159,7 +158,7 @@ class AddMicrosera extends Component {
     //#########COMPONENT##########//
     return (
       <div className={css(styles.formDivStyle)}>
-        <h1 class="display-4">Add New Microsera</h1>
+        <h1 className="display-4">Add New Microsera</h1>
 
         <Divider />
         <Form onSubmit={this.handleSubmit}>

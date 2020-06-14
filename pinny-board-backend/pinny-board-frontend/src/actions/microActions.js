@@ -112,7 +112,6 @@ export const editMicrosera = ({
     latitude
   });
 
-  console.log(id);
   axios
     .post("/api/microsere/update/" + id, body, tokenConfig(getState))
     .then(res =>
@@ -136,6 +135,8 @@ export const editMicrosera = ({
 export const controlMicrosera = ({
   micro_id,
   user_id,
+  user_name,
+  user_email,
   client_id,
   element,
   value
@@ -143,6 +144,8 @@ export const controlMicrosera = ({
   const body = JSON.stringify({
     micro_id,
     user_id,
+    user_name,
+    user_email,
     client_id,
     element,
     value

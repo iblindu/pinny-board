@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { selectMicrosera, clearAll } from "../../actions/microActions";
 import IconArrow from "../../assets/icon-arrow";
-import Switch from "react-switch";
 
 export function Microsere(props) {
   return (
@@ -141,14 +140,14 @@ class ListOfMicrosere extends Component {
                               No
                             </button>
 
-                            <a
+                            <button
                               className="btn btn-success"
                               data-dismiss="modal"
                               name={currentMicro._id}
                               onClick={e => this.delete(e)}
                             >
                               Yes{"  "}
-                            </a>
+                            </button>
                           </div>
                         </div>
                       </div>

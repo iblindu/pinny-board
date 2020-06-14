@@ -71,7 +71,6 @@ class RegisterPage extends Component {
   renderRedirect = () => {
     const { isAdded } = this.props.auth;
     if (isAdded === true) {
-      console.log("Succes!");
       return <Redirect to="/home/users" />;
     }
   };
@@ -106,7 +105,7 @@ class RegisterPage extends Component {
     //#########COMPONENT##########//
     return (
       <div className={css(styles.formDivStyle)}>
-        <h1 class="display-4">Add New User</h1>
+        <h1 className="display-4">Add New User</h1>
         <Form onSubmit={this.handleSubmit}>
           <Form.Input
             placeholder="Name"

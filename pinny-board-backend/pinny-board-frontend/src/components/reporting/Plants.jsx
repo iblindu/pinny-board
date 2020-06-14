@@ -154,14 +154,14 @@ class Plants extends Component {
                         No
                       </button>
 
-                      <a
+                      <button
                         className="btn btn-success"
                         data-dismiss="modal"
                         name={currentPlant._id}
                         onClick={e => this.delete(e)}
                       >
                         Yes{"  "}
-                      </a>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -183,7 +183,7 @@ class Plants extends Component {
     const { addPlant, name } = this.state;
     return (
       <div className={css(styles.plantDiv)}>
-        <h1 class="display-4">Plants</h1>
+        <h1 className="display-4">Plants</h1>
         <div className="row">{this.plantList()}</div>
         <button className="btn btn-outline-success" onClick={this.handleClick}>
           Add Plant

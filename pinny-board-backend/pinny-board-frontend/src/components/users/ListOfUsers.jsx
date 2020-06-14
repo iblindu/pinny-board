@@ -8,8 +8,8 @@ import { selectUser, clearUser } from "../../actions/authActions";
 export function Users(props) {
   return (
     <div>
-      <h5 class="card-title">{props.users.name}</h5>
-      <p class="card-text">{props.users.email}</p>
+      <h5 className="card-title">{props.users.name}</h5>
+      <p className="card-text">{props.users.email}</p>
       <br />
     </div>
   );
@@ -121,14 +121,14 @@ class ListOfUsers extends Component {
                           No
                         </button>
 
-                        <a
+                        <button
                           className="btn btn-success"
                           data-dismiss="modal"
                           name={currentUser._id}
                           onClick={e => this.delete(e)}
                         >
                           Yes{"  "}
-                        </a>
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -151,7 +151,7 @@ class ListOfUsers extends Component {
 
     return (
       <div className={css(styles.userDiv)}>
-        <h1 class="display-4">Users</h1>
+        <h1 className="display-4">Users</h1>
         <div className="row">{this.usersList()}</div>
         <a href="/home/users/new" className="btn btn-outline-success">
           Add New User

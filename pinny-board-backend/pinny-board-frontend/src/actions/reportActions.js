@@ -48,6 +48,8 @@ export const selectPlant = id => dispatch => {
 //destructure the object right here
 export const addSalesReport = ({
   user_id,
+  user_name,
+  user_email,
   micro_code,
   species,
   initial,
@@ -59,6 +61,8 @@ export const addSalesReport = ({
 
   const body = JSON.stringify({
     user_id,
+    user_name,
+    user_email,
     micro_code,
     species,
     initial,
@@ -89,6 +93,8 @@ export const addSalesReport = ({
 //destructure the object right here
 export const addProductionReport = ({
   user_id,
+  user_name,
+  user_email,
   micro_code,
   species,
   initial,
@@ -100,6 +106,8 @@ export const addProductionReport = ({
 
   const body = JSON.stringify({
     user_id,
+    user_name,
+    user_email,
     micro_code,
     species,
     initial,

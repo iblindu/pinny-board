@@ -88,7 +88,6 @@ class EditUser extends Component {
   renderRedirect = () => {
     const { isUserEdited } = this.props.auth;
     if (isUserEdited === true) {
-      console.log("Succes!");
       return <Redirect to="/home/users" />;
     }
   };
@@ -124,7 +123,7 @@ class EditUser extends Component {
     //#########COMPONENT##########//
     return (
       <div className={css(styles.formDivStyle)}>
-        <h1 class="display-4">Edit User</h1>
+        <h1 className="display-4">Edit User</h1>
         <Form onSubmit={this.handleSubmit}>
           <Form.Input
             placeholder="Name"

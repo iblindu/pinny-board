@@ -115,7 +115,7 @@ class GenerateReports extends Component {
         {graphsSpecies ? (
           <Graphs species={graphsSpecies} report={report} />
         ) : null}
-        <Divider />
+        <Divider style={{ width: "70vw" }} />
 
         <p style={{ fontFamily: "nunito", fontSize: 30, fontWeight: "light" }}>
           Records

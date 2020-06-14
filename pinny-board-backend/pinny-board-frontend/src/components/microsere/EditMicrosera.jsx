@@ -134,7 +134,6 @@ class EditMicrosera extends Component {
   renderRedirect = () => {
     const { isMicroEdited } = this.props.micro;
     if (isMicroEdited === true) {
-      console.log("Succes!");
       return <Redirect to="/home" />;
     }
   };
@@ -174,7 +173,7 @@ class EditMicrosera extends Component {
     //#########COMPONENT##########//
     return (
       <div className={css(styles.formDivStyle)}>
-        <h1 class="display-4">Edit Microsera</h1>
+        <h1 className="display-4">Edit Microsera</h1>
 
         <Divider />
         <Form onSubmit={this.handleSubmit}>

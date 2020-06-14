@@ -85,6 +85,8 @@ router.route("/control").post((req, res) => {
   const micro_code = req.body.micro_id;
   const client_id = req.body.client_id;
   const user_id = req.body.user_id;
+  const user_name = req.body.user_name;
+  const user_email = req.body.user_email;
   const type = "control";
   const element = req.body.element;
   const value = req.body.value;
@@ -105,12 +107,46 @@ router.route("/control").post((req, res) => {
   const newEvent = new Event({
     micro_code,
     user_id,
+    user_name,
+    user_email,
     event: { type, element, value }
   });
   newEvent
     .save()
     .then(() => res.json("New Event Entry Added! "))
     .catch(err => res.status(400).json("Error:" + err));
+});
+
+// @route POST api/connect/allElements
+// @desc See what elements have been controlled
+// @access Private
+router.route("/allElements").post((req, res) => {
+  micro_code = req.body.id;
+  const all = Event.find({ micro_code });
+  const all_control = all.find({ "event.type": "control" });
+  all_control
+    .distinct("event.element")
+    .then(element => {
+      res.json(element);
+    })
+    .catch(err => res.status(400).json("Error: " + err));
+});
+
+// @route POST api/connect/ElementEvents
+// @desc See all events for a specific element
+// @access Private
+router.route("/ElementEvents").post((req, res) => {
+  micro_code = req.body.id;
+  element = req.body.element;
+
+  const all = Event.find({ micro_code });
+  all
+    .find({ "event.element": element })
+    .sort({ register_date: -1 })
+    .then(element => {
+      res.json(element);
+    })
+    .catch(err => res.status(400).json("Error: " + err));
 });
 
 module.exports = router;

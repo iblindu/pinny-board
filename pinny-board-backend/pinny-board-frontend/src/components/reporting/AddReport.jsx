@@ -25,6 +25,12 @@ class AddReport extends Component {
       date: Date,
       report: "sales",
       checked: false,
+      user_name: String,
+      user_email: String,
+      street: String,
+      number: String,
+      city: String,
+      facility: String,
       msg: null
     };
     this.handleSwitch = this.handleSwitch.bind(this);
@@ -39,6 +45,19 @@ class AddReport extends Component {
   };
 
   componentDidMount() {
+    const { user } = this.props.auth;
+    const id = user.id;
+    axios
+      .get("/api/users/" + id)
+      .then(response => {
+        this.setState({
+          user_name: response.data.name,
+          user_email: response.data.email
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
     axios.get("/api/reporting/allPlants").then(response => {
       if (response.data.length > 0) {
         this.setState({
@@ -46,6 +65,23 @@ class AddReport extends Component {
         });
       }
     });
+
+    const { selectedMicro } = this.props.micro;
+    const microId = selectedMicro;
+
+    axios
+      .get("/api/microsere/" + microId)
+      .then(response => {
+        this.setState({
+          street: response.data.address.street,
+          number: response.data.address.number,
+          city: response.data.address.city,
+          facility: response.data.address.facility
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
   componentDidUpdate(prevProps) {
     const { error } = this.props;
@@ -62,7 +98,15 @@ class AddReport extends Component {
   handleChange = (e, { name, value }) => this.setState({ [name]: value });
 
   handleSubmit = () => {
-    const { species, initial, loses, added, date } = this.state;
+    const {
+      species,
+      initial,
+      loses,
+      added,
+      date,
+      user_name,
+      user_email
+    } = this.state;
 
     const { selectedMicro } = this.props.micro;
     const { user } = this.props.auth;
@@ -77,7 +121,9 @@ class AddReport extends Component {
       initial,
       loses,
       added,
-      date
+      date,
+      user_name,
+      user_email
     };
 
     //Atempt to add Micosera
@@ -112,14 +158,12 @@ class AddReport extends Component {
   renderRedirect = () => {
     const { isReportAdded } = this.props;
     if (isReportAdded === true) {
-      console.log("Succes!");
     }
   };
   render() {
     //##########STYLE############//
     const styles = StyleSheet.create({
       formDivStyle: {
-        padding: 30,
         maxWidth: "800px"
       }
     });
@@ -133,7 +177,9 @@ class AddReport extends Component {
     //#########COMPONENT##########//
     return (
       <div className={css(styles.formDivStyle)}>
-        <h1 class="display-4">Add New Report</h1>
+        <h1 className="display-4">
+          Add New <span className="text-capitalize">{report}</span> Report
+        </h1>
         <Switch
           onChange={this.handleSwitch}
           checked={this.state.checked}
@@ -142,8 +188,28 @@ class AddReport extends Component {
           onColor="#1f6023"
           offColor="#1f6023"
         />
-        <Divider />
-        <h1 class="display-4 text-capitalize">{report}</h1>
+        <Divider style={{ width: "70vw" }} />
+        <p
+          style={{
+            fontFamily: "nunito",
+            fontSize: 20,
+            margin: 0
+          }}
+        >
+          {this.state.facility} - Microsera {this.state.type}
+        </p>
+        <p
+          style={{
+            fontFamily: "nunito",
+            fontSize: 15,
+            fontWeight: "light",
+            color: "#8F8F91",
+            marginTop: 0
+          }}
+        >
+          {this.state.city}, {this.state.street}, {this.state.number}
+        </p>
+        <Divider style={{ width: "70vw" }} />{" "}
         <Form onSubmit={this.handleSubmit}>
           <Dropdown
             required

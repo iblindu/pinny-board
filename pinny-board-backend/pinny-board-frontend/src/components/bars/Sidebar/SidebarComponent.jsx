@@ -118,7 +118,7 @@ class SidebarComponent extends React.Component {
                 <MenuItemComponent title="Dashboard" />
               </a>
               {user.role === "administrator" || user.role === "technical" ? (
-                <a href="/dashboard/reports" style={{ textDecoration: "none" }}>
+                <a href="/dashboard/logs" style={{ textDecoration: "none" }}>
                   <MenuItemComponent title="Logging Reports" />
                 </a>
               ) : null}

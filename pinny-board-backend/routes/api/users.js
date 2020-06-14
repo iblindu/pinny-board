@@ -61,7 +61,6 @@ router.route("/all").get((req, res) => {
 router.route("/:id").get((req, res) => {
   User.findById(req.params.id)
     .then(user => {
-      console.log(bcrypt.decodeBase64(user.password));
       res.json(user);
     })
     .catch(err => res.status(400).json("Error: " + err));

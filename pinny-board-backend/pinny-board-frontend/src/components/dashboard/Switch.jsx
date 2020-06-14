@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import Switch from "react-switch";
 import ControlOne from "./ControlOne";
 import ControlPlus from "./ControlPlus";
 import Toggle from "./Toggle";
+
 class SwitchComponent extends Component {
   constructor() {
     super();

@@ -82,9 +82,13 @@ class Records extends Component {
 
   recordsList() {
     return this.state.data.map(currentRecord => {
-      var date = currentRecord.register_date.split("T");
-      date = date[0];
-      return (
+      const register_date = currentRecord.register_date.split("T");
+      const date = register_date[0];
+      var hour = register_date[1];
+      hour = hour.substring(0, 5);
+      const dateAndHour = date + " " + hour;
+
+      return this.state.report === "sales" ? (
         <div className="col-sm-12">
           <div className="card mb-2">
             <div className="card-body">
@@ -97,8 +101,9 @@ class Records extends Component {
                 }}
               >
                 {" "}
-                {date}{" "}
+                {dateAndHour}{" "}
               </p>
+
               <ul>
                 <li>
                   <span
@@ -160,6 +165,114 @@ class Records extends Component {
                   </span>
                 </li>
               </ul>
+              <p>
+                <span
+                  style={{
+                    fontFamily: "nunito",
+                    fontWeight: "bold",
+                    color: "#8F8F91"
+                  }}
+                >
+                  Added by:
+                </span>{" "}
+                <span style={{ fontFamily: "nunito", color: "#8F8F91" }}>
+                  {currentRecord.user_name + " - " + currentRecord.user_email}
+                </span>{" "}
+              </p>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="col-sm-12">
+          <div className="card mb-2">
+            <div className="card-body">
+              <p
+                style={{
+                  fontFamily: "nunito",
+                  fontSize: 15,
+                  fontWeight: "bold",
+                  color: "#8F8F91"
+                }}
+              >
+                {" "}
+                {date}{" "}
+              </p>
+
+              <ul>
+                <li>
+                  <span
+                    style={{
+                      fontFamily: "nunito",
+                      fontWeight: "bold",
+                      color: "#5FB75F"
+                    }}
+                  >
+                    Stock:
+                  </span>{" "}
+                  <span style={{ fontFamily: "nunito" }}>
+                    {currentRecord.initial +
+                      currentRecord.added -
+                      currentRecord.loses}
+                  </span>{" "}
+                </li>
+                <li>
+                  <span
+                    style={{
+                      fontFamily: "nunito",
+                      fontWeight: "bold",
+                      color: "#FD9E48"
+                    }}
+                  >
+                    Initial Number In Microsera:
+                  </span>{" "}
+                  <span style={{ fontFamily: "nunito" }}>
+                    {currentRecord.initial}
+                  </span>{" "}
+                </li>
+                <li>
+                  {" "}
+                  <span
+                    style={{
+                      fontFamily: "nunito",
+                      fontWeight: "bold",
+                      color: "#DF5C5C"
+                    }}
+                  >
+                    Losese in Microsera:
+                  </span>{" "}
+                  <span style={{ fontFamily: "nunito" }}>
+                    {currentRecord.loses}
+                  </span>
+                </li>
+                <li>
+                  <span
+                    style={{
+                      fontFamily: "nunito",
+                      fontWeight: "bold",
+                      color: "#5598C5"
+                    }}
+                  >
+                    Number of Plants Added in Microsera:
+                  </span>{" "}
+                  <span style={{ fontFamily: "nunito" }}>
+                    {currentRecord.added}
+                  </span>
+                </li>
+              </ul>
+              <p>
+                <span
+                  style={{
+                    fontFamily: "nunito",
+                    fontWeight: "bold",
+                    color: "#8F8F91"
+                  }}
+                >
+                  Added by:
+                </span>{" "}
+                <span style={{ fontFamily: "nunito", color: "#8F8F91" }}>
+                  {currentRecord.user_name + " - " + currentRecord.user_email}
+                </span>{" "}
+              </p>
             </div>
           </div>
         </div>
@@ -195,8 +308,7 @@ class Records extends Component {
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  micro: state.micro,
-  auth: state.auth
+  micro: state.micro
 });
 
 export default connect(mapStateToProps)(Records);
