@@ -30,7 +30,7 @@ class Graphs extends Component {
 
     if (this.props.report === "sales") {
       axios
-        .post("/api/reporting/PlantSales", body, config)
+        .post("/api/reporting/PlantSalesGraphs", body, config)
         .then(response => {
           this.setState({ data: response.data, report: "sales" });
         })
@@ -39,7 +39,7 @@ class Graphs extends Component {
         });
     } else if (this.props.report === "production") {
       axios
-        .post("/api/reporting/PlantProduction", body, config)
+        .post("/api/reporting/PlantProductionGraphs", body, config)
         .then(response => {
           this.setState({ data: response.data, report: "production" });
         })
@@ -61,7 +61,7 @@ class Graphs extends Component {
     const report = nextProps.report;
     if (report === "sales") {
       axios
-        .post("/api/reporting/PlantSales", body, config)
+        .post("/api/reporting/PlantSalesGraphs", body, config)
         .then(response => {
           this.setState({ data: response.data, report: "sales" });
         })
@@ -70,7 +70,7 @@ class Graphs extends Component {
         });
     } else if (report === "production") {
       axios
-        .post("/api/reporting/PlantProduction", body, config)
+        .post("/api/reporting/PlantProductionGraphs", body, config)
         .then(response => {
           this.setState({ data: response.data, report: "production" });
         })
@@ -119,9 +119,9 @@ class Graphs extends Component {
           xScale={{ type: "point" }}
           yScale={{
             type: "linear",
-            min: -24,
+            min: "auto",
             max: "auto",
-            stacked: true,
+            stacked: false,
             reverse: false
           }}
           curve="natural"
@@ -131,7 +131,7 @@ class Graphs extends Component {
             orient: "bottom",
             tickSize: 4,
             tickPadding: 7,
-            tickRotation: -90,
+            tickRotation: -70,
             legendOffset: 80,
             legendPosition: "middle"
           }}

@@ -176,4 +176,93 @@ router.route("/PlantProduction").post((req, res) => {
     .catch(err => res.status(400).json("Error: " + err));
 });
 
+// @route POST api/reporting/PlantSalesGraphs
+// @desc See all entries for a specific plant and make sum if in the same date
+// there are two entries
+// @access Private
+router.route("/PlantSalesGraphs").post((req, res) => {
+  micro_code = req.body.id;
+  species = req.body.species;
+  const all = Sales.find({ micro_code });
+  all
+    .find({ species })
+    .sort({ register_date: -1 })
+    .then(data => {
+      let k = -1;
+      let graph = [];
+
+      let date = "";
+      let prevDate = "";
+
+      let newItem = {};
+
+      data.forEach(item => {
+        date = item.register_date.toString();
+
+        if (k >= 0) newItem = graph[k];
+
+        if (date === prevDate) {
+          let newAdded = newItem.added + item.added;
+          let newInitial = newItem.initial + item.initial;
+          let newLoses = newItem.loses + item.loses;
+          newItem.added = newAdded;
+          newItem.initial = newInitial;
+          newItem.loses = newLoses;
+          graph[k] = newItem;
+        } else {
+          k = k + 1;
+          graph[k] = item;
+        }
+        prevDate = date;
+      });
+
+      res.json(graph);
+    })
+    .catch(err => res.status(400).json("Error: " + err));
+});
+
+// @route POST api/reporting/PlantProductionGraphs
+// @desc See all entries for a specific plant and make sum if in the same date
+// there are two entries
+// @access Private
+router.route("/PlantProductionGraphs").post((req, res) => {
+  micro_code = req.body.id;
+  species = req.body.species;
+  const all = Sales.find({ micro_code });
+  all
+    .find({ species })
+    .sort({ register_date: -1 })
+    .then(data => {
+      let k = -1;
+      let graph = [];
+
+      let date = "";
+      let prevDate = "";
+
+      let newItem = {};
+
+      data.forEach(item => {
+        date = item.register_date.toString();
+
+        if (k >= 0) newItem = graph[k];
+
+        if (date === prevDate) {
+          let newAdded = newItem.added + item.added;
+          let newInitial = newItem.initial + item.initial;
+          let newLoses = newItem.loses + item.loses;
+          newItem.added = newAdded;
+          newItem.initial = newInitial;
+          newItem.loses = newLoses;
+          graph[k] = newItem;
+        } else {
+          k = k + 1;
+          graph[k] = item;
+        }
+        prevDate = date;
+      });
+
+      res.json(graph);
+    })
+    .catch(err => res.status(400).json("Error: " + err));
+});
 module.exports = router;

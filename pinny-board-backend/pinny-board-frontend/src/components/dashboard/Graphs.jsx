@@ -63,8 +63,9 @@ class Graphs extends Component {
     const event = data.map(d => {
       var register_date = d.register_date.split("T");
       var date = register_date[0];
+      date = date.substring(8, 10) + "/" + date.substring(5, 7);
       var hour = register_date[1];
-      hour = hour.substring(0, 5);
+      hour = hour.substring(0, 8);
 
       return { x: hour + " " + date, y: d.event.value };
     });
@@ -95,7 +96,7 @@ class Graphs extends Component {
             orient: "bottom",
             tickSize: 5,
             tickPadding: 12,
-            tickRotation: -90,
+            tickRotation: -70,
             legendOffset: 40,
             legendPosition: "middle"
           }}

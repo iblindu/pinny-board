@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "server": "nodemon server.js",
-    "dev": "concurrently \"nodemon start\" \"cd pinny-board-frontend && npm start\""
+    "dev": "concurrently \"nodemon start\" \"cd pinny-board-frontend && serve -s build\""
   },
   "keywords": [],
   "author": "Iulia Blindu",
