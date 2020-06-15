@@ -37,7 +37,6 @@ class NavbarComponent extends Component {
               aria-labelledby="navbarDropdown"
             >
               <span className="dropdown-item" style={{ cursor: "pointer" }}>
-                >
                 <Logout />
               </span>
             </div>
