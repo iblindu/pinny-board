@@ -17,6 +17,7 @@ class Graphs extends Component {
     auth: PropTypes.object.isRequired
   };
   componentDidMount() {
+    console.log("Component did mount:" + this.props.element);
     const { selectedMicro } = this.props.micro;
     const id = selectedMicro;
     const element = this.props.element;
@@ -36,10 +37,11 @@ class Graphs extends Component {
         console.log(error);
       });
   }
-  componentWillReceiveProps() {
+  componentWillReceiveProps(nextProps) {
     const { selectedMicro } = this.props.micro;
     const id = selectedMicro;
-    const element = this.props.element;
+    const element = nextProps.element;
+    console.log("Component will receive props:" + element);
     const body = JSON.stringify({ id, element });
     const config = {
       headers: {
@@ -61,13 +63,16 @@ class Graphs extends Component {
     var { data } = this.state;
     data = data.reverse();
     const event = data.map(d => {
-      var register_date = d.register_date.split("T");
-      var date = register_date[0];
-      date = date.substring(8, 10) + "/" + date.substring(5, 7);
-      var hour = register_date[1];
-      hour = hour.substring(0, 8);
+      // var registerDate = d.register_date.split("T");
+      // var date = registerDate[0];
+      // date = date.substring(8, 10) + "/" + date.substring(5, 7);
+      // var hour = registerDate[1];
+      // hour = hour.substring(0, 8);
+      // var fullDate = d.register_date;
 
-      return { x: hour + " " + date, y: d.event.value };
+      var registerDate = d.register_date.split(".");
+
+      return { x: registerDate, y: d.event.value };
     });
 
     return (
@@ -79,7 +84,7 @@ class Graphs extends Component {
               data: event
             }
           ]}
-          margin={{ top: 50, right: 10, bottom: 110, left: 30 }}
+          margin={{ top: 50, right: 10, bottom: 150, left: 30 }}
           xScale={{ type: "point" }}
           yScale={{
             type: "linear",
@@ -115,8 +120,6 @@ class Graphs extends Component {
           pointBorderColor={{ from: "serieColor" }}
           pointLabel="y"
           pointLabelYOffset={-12}
-          enableArea={true}
-          areaOpacity={0.05}
           useMesh={true}
           legends={[]}
         />

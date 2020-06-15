@@ -46,10 +46,10 @@ class Logs extends Component {
         console.log(error);
       });
   }
-  componentWillReceiveProps() {
+  componentWillReceiveProps(nextProps) {
     const { selectedMicro } = this.props.micro;
     const id = selectedMicro;
-    const element = this.props.element;
+    const element = nextProps.element;
     const body = JSON.stringify({ id, element });
     const config = {
       headers: {

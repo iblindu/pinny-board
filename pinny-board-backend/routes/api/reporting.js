@@ -228,7 +228,7 @@ router.route("/PlantSalesGraphs").post((req, res) => {
 router.route("/PlantProductionGraphs").post((req, res) => {
   micro_code = req.body.id;
   species = req.body.species;
-  const all = Sales.find({ micro_code });
+  const all = Production.find({ micro_code });
   all
     .find({ species })
     .sort({ register_date: -1 })

@@ -49,7 +49,7 @@ class GenerateLogs extends Component {
       text: elements,
       value: elements
     }));
-
+    console.log("render" + graphElement);
     return (
       <div>
         <Dropdown
