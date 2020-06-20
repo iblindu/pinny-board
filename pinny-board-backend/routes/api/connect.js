@@ -92,14 +92,15 @@ router.route("/control").post((req, res) => {
   const value = req.body.value;
 
   const topic = client_id + "/" + element;
-  console.log(topic);
+
   // This is here just for tests
-  const topic_sub_motor_command = "motor_command";
+  console.log(topic);
+
   var client = mqtt.connect(broker, {
     clientId: clientID
   });
   client.on("connect", function() {
-    client.publish(topic_sub_motor_command, value);
+    client.publish(topic, value);
     client.end();
   });
 

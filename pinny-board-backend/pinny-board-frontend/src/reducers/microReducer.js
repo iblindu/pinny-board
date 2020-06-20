@@ -42,7 +42,8 @@ export default function(state = initialState, action) {
         ...state,
         selectedMicro: null,
         isMicroAdded: null,
-        isMicroEdited: null
+        isMicroEdited: null,
+        isEventAdded: null
       };
     case EADDED_SUCCES:
       return {

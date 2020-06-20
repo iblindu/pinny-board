@@ -84,9 +84,6 @@ class Records extends Component {
     return this.state.data.map(currentRecord => {
       const register_date = currentRecord.register_date.split("T");
       const date = register_date[0];
-      var hour = register_date[1];
-      hour = hour.substring(0, 5);
-      const dateAndHour = date + " " + hour;
 
       return this.state.report === "sales" ? (
         <div className="col-sm-12">
@@ -101,7 +98,7 @@ class Records extends Component {
                 }}
               >
                 {" "}
-                {dateAndHour}{" "}
+                {date}{" "}
               </p>
 
               <ul>

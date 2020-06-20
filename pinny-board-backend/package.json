@@ -1,16 +1,16 @@
 {
   "name": "pinny-board-backend",
   "version": "1.0.0",
+  "keywords": [],
+  "author": "Iulia Blindu",
+  "license": "Microsera",
   "description": "",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "server": "nodemon server.js",
-    "dev": "concurrently \"nodemon start\" \"cd pinny-board-frontend && serve -s build\""
+    "dev": "concurrently \"nodemon start\" \"cd pinny-board-frontend && npm start\""
   },
-  "keywords": [],
-  "author": "Iulia Blindu",
-  "license": "Microsera",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",

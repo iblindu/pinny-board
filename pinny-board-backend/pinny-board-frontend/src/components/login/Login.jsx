@@ -100,11 +100,11 @@ class LoginPage extends Component {
                   value={password}
                   onChange={this.handleChange}
                 />
+                {this.state.msg ? (
+                  <Alert color="danger">{this.state.msg}</Alert>
+                ) : null}
                 <Form.Button content="Login" />
               </Form>
-              {this.state.msg ? (
-                <Alert color="danger">{this.state.msg}</Alert>
-              ) : null}
             </div>
           </div>
         </div>

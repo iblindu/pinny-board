@@ -172,7 +172,7 @@ class ListOfMicrosere extends Component {
                     />
                     <a
                       href="/dashboard"
-                      name={currentMicro.code}
+                      name={currentMicro._id}
                       className="btn btn-outline-success btn-sm"
                       onClick={e => this.select(e)}
                     >

@@ -147,6 +147,7 @@ class RegisterPage extends Component {
                 placeholder="Microsera"
                 fluid
                 multiple
+                search
                 selection
                 name="chosenMicrosere"
                 options={microOptions}
